@@ -1,0 +1,189 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+            to top,
+            rgba(44, 83, 100, 0.95),
+            rgba(32, 58, 67, 0.95),
+            rgba(15, 32, 39, 0.95)
+        ),
+        url(../images/pexels-oziel-gómez-2846814.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    /* overflow: hidden; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cont_form {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    position: relative;
+    box-shadow: 10px 55px 10px -40px rgba(0, 0, 0, 0.25);
+}
+
+#cont_form > div:not(#cont_botones) {
+    width: 45vw;
+    max-width: 500px;
+    min-width: 300px;
+    padding: 50px 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#cont_form > div:first-child {
+    background: #26a69a;
+}
+
+#cont_form > div:first-child h6 {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#form_login,
+#form_registro {
+    width: 95%;
+    max-width: 375px;
+    margin: auto;
+}
+
+/* botones de registro y login */
+#cont_botones {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    perspective: 10px;
+    border: 2px solid #1e8177;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+#linea_btn {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: -11;
+    background: #26a69a;
+    transition: all ease 0.3s;
+}
+
+#cont_botones button {
+    background: none;
+    width: 70px;
+    padding: 7px 0px;
+    font-size: 12px;
+    font-weight: bold;
+    color: grey;
+    border: 0;
+    float: left;
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+#cont_botones button.active {
+    color: white;
+}
+
+/* footer_form */
+
+#btn_home {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+/* ///////////////////////////// */
+/* Otras funciones */
+
+/* centrar el preloader */
+#preloader_centrado {
+    height: 100vh;
+    width: 100%;
+    background: #0f2027; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+        to top,
+        #2c5364,
+        #203a43,
+        #0f2027
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to top,
+        #2c5364,
+        #203a43,
+        #0f2027
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    z-index: 10;
+}
+
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(24px, 0);
+    }
+}
+
+/* ocultar la barra de desplazamiento */
+::-webkit-scrollbar {
+    display: none;
+}

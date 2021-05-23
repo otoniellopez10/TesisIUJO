@@ -1,0 +1,65 @@
+.cont .row {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    /* background: rgb(173, 169, 169); */
+}
+
+.cont .row > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.cont .row .izquierda {
+    background: #26a69a;
+    text-align: center;
+}
+
+.cont .row .izquierda .contenido {
+    color: #eee;
+}
+
+.cont .row .izquierda .contenido h1 {
+    font-size: 7.5rem;
+    font-weight: bold;
+}
+
+.cont .row .izquierda .contenido p {
+    width: 400px;
+    font-weight: 300;
+}
+
+.cont .row .izquierda .contenido .buttons a {
+    color: white;
+    display: inline-block;
+    width: 130px;
+    border: 2px solid white;
+    padding: 10px 20px;
+    margin: 30px 10px;
+    border-radius: 100px;
+    font-weight: bold;
+    transition: all ease 0.3s;
+}
+
+.cont .row .izquierda .contenido .buttons a:hover {
+    background: white;
+    color: #26a69a;
+}
+
+/* DERECHA */
+
+#wave {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+}
+
+.cont .row .derecha img {
+    width: 95%;
+    max-width: 450px;
+}

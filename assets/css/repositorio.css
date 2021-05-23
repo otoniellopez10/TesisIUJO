@@ -1,0 +1,7 @@
+header ul li:not(.primero) a {
+    color: #ddd;
+}
+
+header .sidenav .collapsible-header {
+    padding: 0 32px;
+}

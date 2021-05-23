@@ -1,0 +1,320 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+html {
+    font-size: 16px;
+}
+@media screen and (max-width: 600px) {
+    html {
+        font-size: 12px;
+    }
+}
+body {
+    overflow-x: hidden;
+}
+/* header */
+#header {
+    width: 100vw;
+    overflow: hidden;
+}
+
+/* fondo con parallax del inicio */
+#s_inicio {
+    width: 100vw;
+    height: 80vh;
+    margin: auto;
+    position: relative;
+    background-image: url(../images/luces.jpg);
+    background-attachment: fixed;
+    background-position: center -50px;
+    background-size: cover;
+    transition: all ease 1s;
+}
+
+#inicio_menu {
+    width: 90%;
+    margin: auto;
+}
+
+#inicio_titulo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    color: white;
+    font-family: "Courier New", Courier, monospace;
+    text-shadow: 2px 2px 5px #222;
+    transition: all ease 1s;
+    font-size: 4rem;
+}
+
+#s_inicio:hover #inicio_titulo {
+    transform: translate(-50%, -60%) scale(0.85);
+}
+
+#s_inicio #inicio_ola {
+    position: absolute;
+    bottom: -1px;
+    width: 100%;
+}
+
+/* SECCION DEL BUSCADOR!!! */
+#s_buscador p:first-child {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+/* /////////////////////////// */
+/* SECCION DE CARACTERISTICAS */
+/* /////////////////////////// */
+
+#s_caracteristicas {
+    padding: 10px 20px;
+}
+#s_caracteristicas .carta {
+    padding: 30px 20px;
+    transition: all ease 1s;
+}
+
+#s_caracteristicas .carta p:first-child img {
+    height: 4.8rem;
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+    transition: all ease 0.3s;
+}
+
+#s_caracteristicas .row .col p:nth-child(2) {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
+    color: #111;
+}
+#s_caracteristicas .contenido {
+    color: #777;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    text-align: justify;
+    padding: 0 20px;
+    font-size: 1rem;
+}
+/* ////////////////////// */
+/*  SECCION DE BENEFICIOS */
+/* ////////////////////// */
+
+section#s_beneficios {
+    margin-top: 100px;
+    background: linear-gradient(
+        -28deg,
+        #18181e 50%,
+        hsla(240, 11%, 11%, 0.99) 50%
+    );
+    padding: 3rem 1.5rem;
+}
+
+/* lado derecho del black_card (contenido) */
+.black_card .col:nth-child(2) {
+    padding: 0 1.5rem;
+}
+
+/* BLACK_CARD TITULO */
+.black_card .col:nth-child(2) h5 {
+    color: white;
+    font-weight: bold;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+}
+
+/* black card contenido (p) */
+.black_card .col:nth-child(2) > div {
+    margin: 15px 0;
+    color: #ddd;
+    width: 100%;
+    max-width: 500px;
+    text-align: justify;
+}
+.black_card .col:nth-child(2) > div i {
+    font-size: 2.5rem;
+    color: white;
+}
+.black_card .col:nth-child(2) > div p {
+    font-size: 0.95rem;
+}
+.black_card .col:nth-child(2) > div p b {
+    color: white;
+}
+/* boton "ir al repositorio" */
+.black_card .col:nth-child(2) a {
+    border: 2px solid white;
+    border-radius: 100px;
+    height: auto;
+    padding: 4px 30px;
+    margin-top: 30px;
+    position: relative;
+    overflow: hidden;
+}
+.black_card .col:nth-child(2) a::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0px;
+    height: 0px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 100%;
+    z-index: -1;
+    transition: all ease 0.5s;
+}
+
+.black_card .col:nth-child(2) a:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* ///////////////////////////////// */
+/* Seccion de invitacion al sistema */
+/* /////////////////////////////// */
+
+#s_invitacion {
+    padding: 20px 5px;
+}
+#s_invitacion,
+#s_invitacion button {
+    color: white;
+}
+#s_invitacion .row {
+    margin: 0;
+}
+
+#s_invitacion .row .col:first-child p {
+    font-size: 1.3rem;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+/* parallax con mensaje */
+.parallax-container::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.parallax-container .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 20px;
+    text-shadow: 1px 1px 5px #222;
+}
+.parallax-container .center i {
+    font-size: 26px;
+    font-family: "Times New Roman", Times, serif;
+}
+
+/* ////////////////////////////////////////////// */
+/* keyframes de animaciones */
+
+/* vuelta del icono al pasar el hover en caracteristicas */
+
+/* Otras funciones */
+
+/* centrar el preloader */
+#preloader_centrado {
+    position: fixed;
+    z-index: 1000;
+    height: 100vh;
+    width: 100vw;
+    background: #0f2027; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+        to top,
+        #2c5364,
+        #203a43,
+        #0f2027
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to top,
+        #2c5364,
+        #203a43,
+        #0f2027
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+#preloader_centrado img {
+    width: 10rem;
+}
+
+.hidden {
+    overflow: hidden;
+}
+
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(24px, 0);
+    }
+}
