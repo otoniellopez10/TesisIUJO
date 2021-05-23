@@ -79,7 +79,7 @@ session_start();
                 </li>
 
                 <li>
-                    <a href="repositorio.php"
+                    <a href="mc-views/repositorio.php"
                         ><i class="material-icons">book</i> Repositorio</a
                     >
                 </li>

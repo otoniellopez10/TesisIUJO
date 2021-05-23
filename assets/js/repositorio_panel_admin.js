@@ -72,8 +72,7 @@ $("#form_AgregarLibro").submit(function(e){
                     let resp = result.value;
                     Swal("Listo!", resp.message, 'success')
                     .then((e) => {
-                        $("#form_AgregarLibro")[0].reset(); //resetear formulario
-                        $("#chips").children(".chip").remove(); // eliminar los chips 
+                        limpiarCampos(); 
                     });
                 }
         
@@ -112,3 +111,8 @@ $("#i_titulo, #i_editorial, #i_edicion, #i_fecha, #i_categoria, #i_materia, #i_d
     }
                         
 }); 
+
+function limpiarCampos(){
+    $("#form_AgregarLibro")[0].reset(); //resetear formulario
+    $("#chips").children(".chip").remove(); // eliminar los chips 
+}

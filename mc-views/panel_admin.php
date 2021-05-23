@@ -216,6 +216,10 @@ if (!in_array($user_id, $acceso)) {
                             </div>
 
                             <div class="col s12">
+                                <button type="button" class="btn waves-effect waves-light grey" id="btnLimpiarCampos" onclick="limpiarCampos()">
+                                    Limpiar campos
+                                </button>
+                                
                                 <button type="submit" class="btn waves-effect waves-light disabled" id="btnAgregarLibro">
                                     Confirmar
                                 </button>
