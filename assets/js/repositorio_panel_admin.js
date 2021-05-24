@@ -1,5 +1,8 @@
 const HOST = "../mc-controllers/panelAdminController.php";
 
+var elemModal; //elemento
+var modalGestinarLibro; // instancia
+
 $(document).ready( function () {
 
     $('.chips-placeholder').chips({
@@ -7,6 +10,10 @@ $(document).ready( function () {
         secondaryPlaceholder: 'Otro autor',
     });
 
+    $("textarea#i_descripcion").characterCounter();
+
+    modal = $("#modalgestionarLibro");
+    modalGestinarLibro = M.Modal.getInstance( modal ); 
 });
 
 
@@ -85,6 +92,43 @@ $("#form_AgregarLibro").submit(function(e){
 
 
 });
+
+
+function gestionarLibro(id){ //funcion para mostrar los datos del libro
+
+    var fd = new FormData()
+    fd.append("mode", "getOneById")
+    fd.append("id", id)
+
+    fetch(HOST, {
+        method:"POST",
+        body: fd
+    })
+    .then( (resp) => resp.json())
+    .then( (json) => {
+        let autores = "";
+        // imprimir datos en el modal
+        $("#modal_i_titulo").val(json.libro.titulo);
+        $("#modal_i_editorial").val(json.libro.editorial);
+        $("#modal_i_edicion").val(json.libro.edicion);
+        $("#modal_i_fecha").val(json.libro.fecha);
+        $("#modal_i_categoria").val(json.libro.categoria);
+        $("#modal_i_materia").val(json.libro.materia);
+        $("#modal_i_descripcion").val(json.libro.descripcion);
+        $("#modal_i_titulo").val(json.libro.titulo);
+
+        
+        for (let index = 0; index < json.autores.length; index++) { // poner en una cadeja los autores
+            autores += json.autores[index].nombre;
+            let faltantes = json.autores.length - index;
+            if(faltantes > 1) autores += ", ";
+        }
+        $("#modal_i_autores").val(autores);
+        modalGestinarLibro.open();
+
+    } );
+
+}
 
 
 // validar los campos del formulario para verificar si no estan 

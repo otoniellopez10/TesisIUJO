@@ -22,6 +22,18 @@ class Autor {
         return $db->get_results($sql);
     }
 
+    public function getByLibroId($id){
+        global $db;
+
+        $sql = "SELECT 
+                    a.* 
+                FROM $this->tableRelacion r
+                JOIN $this->table as a on a.id =  r.autor_id
+                WHERE a.estatus = 1 AND r.libro_id = $id
+                ";
+        return $db->get_results($sql);
+    }
+
     public function save($autores, $libro_id) {
         global $db;
         $array_autores = explode(",",$autores);

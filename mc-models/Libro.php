@@ -10,11 +10,49 @@ class Libro {
 
     public function __construct() {
         $this->table = "libro";
+        $this->tableEditorial = "libro_editorial";
+        $this->tableCategoria = "libro_categoria";
+        $this->tableMateria = "libro_materia";
     }
 
     public function getAll() {
         global $db;
-        return $db->get_results("SELECT * FROM $this->table WHERE estatus = 1 ORDER BY nombre");
+        $sql = "SELECT 
+                    l.id,
+                    l.titulo,
+                    l.edicion,
+                    l.fecha,
+                    l.descripcion,
+                    l.pdf,
+                    e.nombre AS editorial,
+                    c.nombre AS categoria,
+                    m.nombre AS materia
+                FROM $this->table l
+                JOIN $this->tableEditorial e on e.id = l.editorial
+                JOIN $this->tableCategoria c on c.id = l.categoria
+                JOIN $this->tableMateria m on m.id = l.materia
+                WHERE l.estatus = 1";
+        return $db->get_results($sql);
+    }
+
+    public function getOneById($id) {
+        global $db;
+        $sql = "SELECT 
+                    l.id,
+                    l.titulo,
+                    l.edicion,
+                    l.fecha,
+                    l.descripcion,
+                    l.pdf,
+                    e.nombre AS editorial,
+                    c.nombre AS categoria,
+                    m.nombre AS materia
+                FROM $this->table l
+                JOIN $this->tableEditorial e on e.id = l.editorial
+                JOIN $this->tableCategoria c on c.id = l.categoria
+                JOIN $this->tableMateria m on m.id = l.materia
+                WHERE l.estatus = 1 AND l.id = $id";
+        return $db->get_row($sql);
     }
 
     public function save($titulo, $editorial_id, $edicion, $fecha, $categoria_id, $materia_id, $descripcion, $pdf){

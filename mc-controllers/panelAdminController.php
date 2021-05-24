@@ -58,6 +58,16 @@ if( $mode == "insert"){
     }
 
     echo json_encode($response);
+
+
+}else if($mode == "getOneById"){
+    if( !isset( $_POST['id'] ))
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    else{
+        $id = $_POST['id'];
+        $response = ["libro" => $ObjLibro->getOneById($id),"autores" => $ObjAutor->getByLibroId($id)];
+    }
+    echo json_encode($response);
 }
 
 
