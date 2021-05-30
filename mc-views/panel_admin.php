@@ -66,6 +66,13 @@ if (!in_array($user_id, $acceso)) {
                 background: #26a69a;
                 color: white;
                 padding: 10px 30px 1px 30px;
+                position: relative;
+            }
+            .modal-header .modal-close{
+                position: absolute;
+                top: 50%;
+                right: 20px;
+                transform: translateY(-25%);
             }
         </style>
     </head>
@@ -137,7 +144,7 @@ if (!in_array($user_id, $acceso)) {
                                         <td class="td-actions  text-right">
                                             
                         
-                                            <button type="button" class="btn-flat btn-accion" title="Ver detalles" onclick="gestionarLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
+                                            <button type="button" class="btn-flat btn-accion" title="Ver detalles" onclick="verDatosLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
                                             <i class="material-icons cyan-text">visibility</i>
                                             </button>
                         
@@ -145,7 +152,7 @@ if (!in_array($user_id, $acceso)) {
                                             <i class="material-icons blue-grey-text">edit</i>
                                             </button>
                         
-                                            <button type="button" class="btn-flat btn-accion" title="Eliminar" onclick="eliminarLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
+                                            <button type="button" class="btn-flat btn-accion" title="Desactivar" onclick="desactivarLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
                                             <i class="material-icons red-text">delete</i>
                                             </button>
                                         </td>
@@ -273,7 +280,8 @@ if (!in_array($user_id, $acceso)) {
             </div>
         </main>
         
-        <?php include_once "modals/admin/modalGestionarLibro.php" ?>
+        <?php include_once "modals/admin/modalVerDatosLibro.php" ?>
+        <?php include_once "modals/admin/modalEditarDatosLibro.php" ?>
 
         <?php include_once "footer.php" ?>
 

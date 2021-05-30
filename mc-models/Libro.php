@@ -75,6 +75,25 @@ class Libro {
         
     }
 
+
+    public function update($id, $titulo, $editorial_id, $edicion, $fecha, $categoria_id, $materia_id, $descripcion){
+        global $db;
+        
+        $data = array(
+            'titulo' => $titulo,
+            'editorial' => $editorial_id,
+            'edicion' => $edicion,
+            'fecha' => $fecha,
+            'categoria' => $categoria_id,
+            'materia' => $materia_id,
+            'descripcion' => $descripcion
+        );
+        $where = array("id" => $id);
+
+        return  $db->update($this->table, $data, $where);
+    }
+
+
     private function guardarPDF($pdf){
         global $db; 
 
@@ -100,6 +119,17 @@ class Libro {
         }
 
         
+    }
+
+    public function desactivarLibro($id){
+        global $db;
+
+        $data = array(
+            'estatus' => 0
+        );
+
+        $where = array("id" => $id);
+        return  $db->update($this->table, $data, $where);
     }
 
 }

@@ -60,12 +60,66 @@ if( $mode == "insert"){
     echo json_encode($response);
 
 
+}else if($mode == "update"){
+
+    if (
+        !isset($_POST['id']) ||
+        !isset($_POST['modal_e_titulo']) ||
+        !isset($_POST['modal_e_editorial']) ||
+        !isset($_POST['modal_e_edicion']) ||
+        !isset($_POST['modal_e_fecha']) ||
+        !isset($_POST['modal_e_categoria']) ||
+        !isset($_POST['modal_e_materia']) ||
+        !isset($_POST['modal_e_descripcion'])
+    ) {
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    }else{
+        $id = $_POST['id'];
+        $titulo = $_POST['modal_e_titulo'];
+        $editorial = format($_POST['modal_e_editorial']);
+        $edicion = format($_POST['modal_e_edicion']);
+        $fecha = $_POST['modal_e_fecha'];
+        $categoria = format($_POST['modal_e_categoria']);
+        $materia = format($_POST['modal_e_materia']);
+        $descripcion = $_POST['modal_e_descripcion'];
+
+        $editorial_id = $ObjEditorial->save($editorial); //Insertar la editorial
+        $categoria_id = $ObjCategoria->save($categoria); // insertar la categoria
+        $materia_id = $ObjMateria->save($materia); // insertar la materia
+        
+        $libro_id = $ObjLibro->update($id, $titulo, $editorial_id, $edicion, $fecha, $categoria_id, $materia_id, $descripcion); //insertar el libro y sus datos
+        
+    
+        if($editorial_id && $categoria_id && $materia_id && $libro_id){
+            $response = ['error' => false, 'message' => 'El libro fue actualizado con éxito'];
+        }else{
+            $response = ['error' => true, 'message' => 'Ocurrió un error al actualizar el libro'];
+        }
+    }
+
+    echo json_encode($response);
+
+
+
 }else if($mode == "getOneById"){
     if( !isset( $_POST['id'] ))
         $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
     else{
         $id = $_POST['id'];
         $response = ["libro" => $ObjLibro->getOneById($id),"autores" => $ObjAutor->getByLibroId($id)];
+    }
+    echo json_encode($response);
+
+
+}else if ($mode = "desactivarLibro"){
+    if( !isset( $_POST['id'] ))
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    else{
+        $id = $_POST['id'];
+        $request = $ObjLibro->desactivarLibro($id);
+        if($request){
+            $response = ['error' => false, 'message' => 'El libro se desactivó con éxito'];
+        }
     }
     echo json_encode($response);
 }

@@ -53,7 +53,7 @@ if (!in_array($user_id, $acceso)) {
 
                 <li>
                     <a
-                        href="panel_admin.php"
+                        href="panel_usuarios.php"
                         class="waves-effect a_menu"
                         ><i class="material-icons white-text">person_pin</i>Usuarios</a
                     >
@@ -61,7 +61,7 @@ if (!in_array($user_id, $acceso)) {
 
                 <li>
                     <a
-                        href="panel_admin.php"
+                        href="panel_reportes.php"
                         class="waves-effect a_menu"
                         ><i class="material-icons white-text">settings</i>Reportes</a
                     >

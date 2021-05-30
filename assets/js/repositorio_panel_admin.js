@@ -1,19 +1,35 @@
 const HOST = "../mc-controllers/panelAdminController.php";
 
 var elemModal; //elemento
-var modalGestinarLibro; // instancia
+var modalVerDatosLibro; // instancia
+var modalEditarDatosLibro; // instancia
+var idLibro;
 
 $(document).ready( function () {
 
+    // iniciar los chips para agregar autores en "agregar libro"
     $('.chips-placeholder').chips({
         placeholder: 'Nombre autor',
         secondaryPlaceholder: 'Otro autor',
     });
 
+    // serear un maximo de fecha para ls input date.
+    let fechaDate = new Date();
+    $("#i_fecha").attr("max", fechaDate.toISOString().split('T')[0]);
+
+    // iniciar el contador de caracteres a la descripcion
     $("textarea#i_descripcion").characterCounter();
 
-    modal = $("#modalgestionarLibro");
-    modalGestinarLibro = M.Modal.getInstance( modal ); 
+    // instancias de modals
+    modal = $("#modalVerDatosLibro");
+    modal.modal({
+        
+    })
+    modalVerDatosLibro = M.Modal.getInstance( modal );
+
+    modal2 = $("#modalEditarDatosLibro");
+    modalEditarDatosLibro = M.Modal.getInstance( modal2 );
+
 });
 
 
@@ -94,8 +110,8 @@ $("#form_AgregarLibro").submit(function(e){
 });
 
 
-function gestionarLibro(id){ //funcion para mostrar los datos del libro
-
+function verDatosLibro(id){ //funcion para mostrar los datos del libro
+    idLibro = "";
     var fd = new FormData()
     fd.append("mode", "getOneById")
     fd.append("id", id)
@@ -124,10 +140,186 @@ function gestionarLibro(id){ //funcion para mostrar los datos del libro
             if(faltantes > 1) autores += ", ";
         }
         $("#modal_i_autores").val(autores);
-        modalGestinarLibro.open();
-
+        modalVerDatosLibro.open();
+        idLibro = json.libro.id;
     } );
 
+}
+
+
+function editarLibro(id){
+    idLibro = "";
+    var fd = new FormData()
+    fd.append("mode", "getOneById")
+    fd.append("id", id)
+
+    fetch(HOST, {
+        method:"POST",
+        body: fd
+    })
+    .then( (resp) => resp.json())
+    .then( (json) => {
+        let autores = "";
+        // imprimir datos en el modal
+        $("#editar_titulo").val(json.libro.titulo);
+        $("#editar_editorial").val(json.libro.editorial);
+        $("#editar_edicion").val(json.libro.edicion);
+        $("#editar_categoria").val(json.libro.categoria);
+        $("#editar_materia").val(json.libro.materia);
+        $("#editar_descripcion").val(json.libro.descripcion);
+        $("#editar_titulo").val(json.libro.titulo);
+        let fechaDate = new Date();
+        let fecha = new Date(json.libro.fecha);
+        $("#editar_fecha").attr("max", fechaDate.toISOString().split('T')[0]);
+        $("#editar_fecha").val(fecha.toISOString().split('T')[0]);
+
+        
+        // for (let index = 0; index < json.autores.length; index++) { // poner en una cadeja los autores
+        //     autores += json.autores[index].nombre;
+        //     let faltantes = json.autores.length - index;
+        //     if(faltantes > 1) autores += ", ";
+        // }
+        // $("#editar_autores").val(autores);
+        modalEditarDatosLibro.open();
+        idLibro = json.libro.id;
+
+    } );
+}
+
+// enviarel formulario de editar libro
+$("#formEditarDatosLibro").submit(function(e){
+    e.preventDefault();
+
+    let fd = new FormData(this);
+    fd.append("mode","update");
+    fd.append("id",idLibro);
+
+    Swal.fire({
+        title:"Confirmación",
+        text: "¿Esta seguro que desea actualizar este libro?",
+        type: "question",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Sí, actualizar"
+    }).then((result) => {
+        if(result.value == true ){
+            Swal({
+                title: 'Espere un momento',
+                text: 'Desactivando libro...',
+                confirmButtonColor: $(".btn-primary").css('background-color'),
+                confirmButtonText: 'Reintentar',
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    return new Promise((resolve, reject) => {
+
+                        $.ajax({
+                            method: "POST",
+                            url: HOST,
+                            contentType: false,
+                            processData: false,
+                            data: fd,
+                            dataType: "json",
+                            success: function (res) {
+                                if (res.error) {
+                                    reject(res.message);
+                                } else {
+                                    resolve(res);
+                                }
+                            },
+                            error: function (error) {
+                                console.error(error);
+                                return false;
+                            }
+                        });
+                    }).catch(function (reason) {
+                        Swal.showValidationMessage(reason);
+                        Swal.hideLoading();
+                    });
+                },
+                allowOutsideClick: () => !Swal.isLoading(),
+                onOpen: () => Swal.clickConfirm() // Hace clic en el botón de confirmación automáticamente al abrir el modal
+            }).then((result) => {
+                if (result.value) {
+                    let resp = result.value;
+                    Swal("Listo!", resp.message, 'success')
+                    .then((e) => {
+                        window.location.reload();
+                    });
+                }
+        
+            });
+            
+        }else if( result.dismiss === Swal.DismissReason.cancel ){
+            // Swal("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
+        }
+    });
+});
+
+
+function desactivarLibro(id){
+    Swal.fire({
+        title:"Confirmación",
+        text: "¿Esta seguro que desea desactivar este libro?",
+        type: "question",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Sí, desactivar"
+    }).then((result) => {
+        if(result.value == true ){
+            Swal({
+                title: 'Espere un momento',
+                text: 'Desactivando libro...',
+                confirmButtonColor: $(".btn-primary").css('background-color'),
+                confirmButtonText: 'Reintentar',
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    return new Promise((resolve, reject) => {
+
+                        let fd = new FormData();
+                        fd.append("mode","desactivarLibro");
+                        fd.append("id", id);
+
+                        $.ajax({
+                            method: "POST",
+                            url: HOST,
+                            contentType: false,
+                            processData: false,
+                            data: fd,
+                            dataType: "json",
+                            success: function (res) {
+                                if (res.error) {
+                                    reject(res.message);
+                                } else {
+                                    resolve(res);
+                                }
+                            },
+                            error: function (error) {
+                                console.error(error);
+                                return false;
+                            }
+                        });
+                    }).catch(function (reason) {
+                        Swal.showValidationMessage(reason);
+                        Swal.hideLoading();
+                    });
+                },
+                allowOutsideClick: () => !Swal.isLoading(),
+                onOpen: () => Swal.clickConfirm() // Hace clic en el botón de confirmación automáticamente al abrir el modal
+            }).then((result) => {
+                if (result.value) {
+                    let resp = result.value;
+                    Swal("Listo!", resp.message, 'success')
+                    .then((e) => {
+                        window.location.reload();
+                    });
+                }
+        
+            });
+            
+        }else if( result.dismiss === Swal.DismissReason.cancel ){
+            // Swal("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
+        }
+    });
 }
 
 
@@ -159,4 +351,14 @@ $("#i_titulo, #i_editorial, #i_edicion, #i_fecha, #i_categoria, #i_materia, #i_d
 function limpiarCampos(){
     $("#form_AgregarLibro")[0].reset(); //resetear formulario
     $("#chips").children(".chip").remove(); // eliminar los chips 
+}
+
+function formatoFecha(fecha){
+    fecha = new Date(fecha);
+    let dia = fecha.getDate();
+    let mes = ("0" + ( fecha.getMonth() + 1 ) )
+    let year = fecha.getFullYear();
+    fecha = `${dia}/${mes}/${year}`;
+    console.log(fecha);
+    return fecha;
 }

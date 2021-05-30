@@ -1,10 +1,11 @@
-<div id="modalgestionarLibro" class="modal">
+<div id="modalVerDatosLibro" class="modal">
     <div class="modal-header">
-        <h5 class="valign-wrapper"><i class="material-icons left">book</i> Datos del libro</h5>
+        <h5 class="valign-wrapper"> <i class="material-icons left">book</i> Datos del libro</h5>
+        <i class="material-icons modal-close">close</i>
     </div>
     <div class="modal-content">
 
-        <form action="" id="formGestionarLibro">
+        <form action="" id="formVerDatosLibro">
             <div class="row">
                 <div class="col s12 input-field">
                     <input type="text" id="modal_i_titulo" name="modal_titulo" disabled  required placeholder="null"/>
@@ -51,7 +52,9 @@
 
     </div>
 
-    <div class="modal-footer">
-
+    <div class="modal-footer row">
+        <div class="col s12">
+            <button class="btn-flat waves-effect waves-light modal-close">Cerrar</button>
+        </div>
     </div>
 </div>
