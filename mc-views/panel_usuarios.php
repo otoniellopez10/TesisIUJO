@@ -9,6 +9,10 @@ if (!in_array($user_id, $acceso)) {
     header('Location: mc-views/error.php');
     die();
 }
+
+include_once '../mc-models/Persona.php';
+$objPersona = new Persona();
+$personas = $objPersona->getAll();
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +67,7 @@ if (!in_array($user_id, $acceso)) {
             }
             .btn-accion{ padding: 0 5px; }
             .modal-header{
-                background: #26a69a;
+                background: #1872c5;
                 color: white;
                 padding: 10px 30px 1px 30px;
                 position: relative;
@@ -89,7 +93,7 @@ if (!in_array($user_id, $acceso)) {
         <main>
             <div id="modulo">
                 <h5>
-                    <i class="material-icons left teal-text">dashboard</i>Panel administrativo
+                    <i class="material-icons left teal-text">person_pin</i>Usuarios registrados
                 </h5>
                 
                 <!-- contenido panel administradr -->
@@ -97,68 +101,63 @@ if (!in_array($user_id, $acceso)) {
                 <nav class="nav-extended teal" id="nav">
                     <div class="nav-content">
                         <ul class="tabs tabs-transparent">
-                            <li class="tab"><a class="active" href="#test1">Lista de libros</a></li>
-                            <li class="tab"><a class="" href="#test2">Agregar</a></li>
+                            <li class="tab"><a class="active" href="#tap1">Todos</a></li>
+                            <li class="tab"><a class="" href="#tap2">Colaboradores</a></li>
+                            <li class="tab"><a class="" href="#tap3">usuarios</a></li>
+                            <li class="tab"><a class="" href="#tap4">Desactivados</a></li>
                         </ul>
                     </div>
                 </nav>
                 
-                <!-- tabla donde se listan todos los libros -->
-                <div id="test1" class="col s12 ">
+                <!-- tabla donde se listan todos los usuarios -->
+                <div id="tap1" class="col s12 ">
                     <div class="modulo_contenido">
-                        <table id="tableLibros" class="striped responsive-table">
+                        <table id="tableTodos" class="striped responsive-table">
                             <thead class="teal-text">
                             <tr>
-                                <th>Título</th>
-                                <th>Editorial</th>
-                                <th>Edición</th>
-                                <th>Fecha</th>
-                                <th>Categoría</th>
-                                <th>Materia</th>
+                                <th>Cédula</th>
+                                <th>Nombre y apellido</th>
+                                <th>Email</th>
+                                <th>Tipo</th>
+                                <th>rol</th>
                                 <th>Acciones</th>
                             </tr>
                             </thead>
                         
                             <tbody>
                                 <?php
-                                    include_once '../mc-models/Libro.php';
-                                    $objLibro = new Libro();
-                                    $libros = $objLibro->getAll();
-                        
-                                    foreach ($libros as $libro) {
+                                    foreach ($personas as $persona) {
+                                        if($persona->estatus == 1){
                                 ?>
                         
                                     <tr>
-                                        <td><?= $libro->titulo ?></td>
-                                        <td><?= $libro->editorial ?></td>
-                                        <td><?= $libro->edicion ?></td>
-                                        <td><?php 
-                                                $fecha = $libro->fecha;
-                                                $fecha_format = date("d/m/Y", strtotime($fecha));
-                                                echo $fecha_format;
-                                            ?></td>
-                                        <td><?= $libro->categoria ?></td>
-                                        <td><?= $libro->materia ?></td>
+                                        <td><?= $persona->cedula ?></td>
+                                        <td><?= $persona->nombre . " " . $persona->apellido ?></td>
+                                        <td><?= $persona->email ?></td>
+                                        <td><?= $persona->tipo ?></td>
+                                        <td><?= $persona->rol ?></td>
+                                        
                         
                         
                                         <td class="td-actions  text-right">
                                             
                         
-                                            <button type="button" class="btn-flat btn-accion" title="Ver detalles" onclick="verDatosLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
+                                            <button type="button" class="btn-flat btn-accion tooltipped" data-position="top" data-tooltip="Ver detalles" onclick="verPersona( <?= $persona->id ?> )">
                                             <i class="material-icons cyan-text">visibility</i>
                                             </button>
-                        
-                                            <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
-                                            <i class="material-icons blue-grey-text">edit</i>
+
+                                            <button type="button" class="btn-flat btn-accion tooltipped" data-position="bttom" data-tooltip="Editar" onclick="editarPersona( <?= $persona->usuario_id ?> )">
+                                            <i class="material-icons grey-text">edit</i>
                                             </button>
                         
-                                            <button type="button" class="btn-flat btn-accion" title="Desactivar" onclick="desactivarLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
+                                            <button type="button" class="btn-flat btn-accion tooltipped" data-position="top" data-tooltip="Desactivar" onclick="desactivarPersona( <?= $persona->usuario_id ?> )">
                                             <i class="material-icons red-text">delete</i>
                                             </button>
                                         </td>
                                     </tr>
                         
                                 <?php
+                                        }
                                 }
                                 ?>
                             </tbody>
@@ -166,122 +165,175 @@ if (!in_array($user_id, $acceso)) {
                     </div>
                 </div>
 
-                <!-- form para agregar un libro -->
-                <div id="test2" class="col s12 ">
+                <!--  table donde se listan los usuarios de tipo "Colaborador" -->
+                <div id="tap2" class="col s12 ">
                     <div class="modulo_contenido">
-                        <form action="" id="form_AgregarLibro">
-                            <div class="row">
-                                <!-- titulo -->
-                                <div class="col s12 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_titulo"
-                                        name="titulo"
-                                        required
-                                    />
-                                    <label for="i_titulo">titulo:</label>
-                                </div>
+                    <table id="tableColaboradores" class="striped responsive-table">
+                            <thead class="teal-text">
+                            <tr>
+                                <th>Cédula</th>
+                                <th>Nombre y apellido</th>
+                                <th>Email</th>
+                                <th>Tipo</th>
+                                <th>rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
                         
-                                <!-- autor -->
-                                <div class="col s12 input-field">
-                                    <div class="chips chips-placeholder" id="chips"></div>
-                                </div>
+                            <tbody>
+                                <?php
+                                    foreach ($personas as $persona) {
+                                        if($persona->rol === "Colaborador" && $persona->estatus == 1){
+                                ?>
                         
-                                <!-- editorial -->
-                                <div class="col s12 m6 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_editorial"
-                                        name="editorial"
-                                        required
-                                    />
-                                    <label for="i_editorial">Editorial:</label>
-                                </div>
+                                    <tr>
+                                        <td><?= $persona->cedula ?></td>
+                                        <td><?= $persona->nombre . " " . $persona->apellido ?></td>
+                                        <td><?= $persona->email ?></td>
+                                        <td><?= $persona->tipo ?></td>
+                                        <td><?= $persona->rol ?></td>
+                                        
                         
-                                <!-- edicion -->
-                                <div class="col s12 m6 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_edicion"
-                                        name="edicion"
-                                        required
-                                    />
-                                    <label for="i_edicion">Edición:</label>
-                                </div>
                         
-                                <!-- fecha -->
-                                <div class="col s12 m6 l4 input-field">
-                                    <input
-                                        type="date"
-                                        id="i_fecha"
-                                        name="fecha"
-                                        required
-                                    />
-                                    <label for="i_fecha">Fecha:</label>
-                                </div>
+                                        <td class="td-actions  text-right">
+                                            
                         
-                                <!-- categoria -->
-                                <div class="col s12 m6 l4 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_categoria"
-                                        name="categoria"
-                                        required
-                                    />
-                                    <label for="i_categoria">Categoría:</label>
-                                </div>
+                                            <button type="button" class="btn-flat btn-accion tooltipped" data-position="top" data-tooltip="Ver detalles" onclick="verPersona( <?= $persona->id ?> )">
+                                            <i class="material-icons cyan-text">visibility</i>
+                                            </button>
+
+                                            <button type="button" class="btn-flat btn-accion tooltipped" data-position="bttom" data-tooltip="Editar" onclick="editarPersona( <?= $persona->usuario_id ?> )">
+                                            <i class="material-icons grey-text">edit</i>
+                                            </button>
                         
-                                <!-- materia -->
-                                <div class="col s12 m6 l4 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_materia"
-                                        name="materia"
-                                        required
-                                    />
-                                    <label for="i_materia">Materia:</label>
-                                </div>
+                                            <button type="button" class="btn-flat btn-accion tooltipped" data-position="top" data-tooltip="Desactivar" onclick="desactivarPersona( <?= $persona->usuario_id ?> )">
+                                            <i class="material-icons red-text">delete</i>
+                                        </td>
+                                    </tr>
                         
-                                <!-- descripcion -->
-                                <div class="col s12 input-field">
-                                    <textarea class="materialize-textarea" name="descripcion" id="i_descripcion" cols="30" rows="10" data-length="255" required></textarea>
-                                    <label for="i_descripcion">Descripción:</label>
-                                </div>
+                                <?php
+                                        }
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                            
+                    </div>
+                </div>
+                
+                <!-- tabla donde se listan los usuarios comunes -->
+                <div id="tap3" class="col s12 ">
+                    <div class="modulo_contenido">
+                    <table id="tableUsuarios" class="striped responsive-table">
+                            <thead class="teal-text">
+                            <tr>
+                                <th>Cédula</th>
+                                <th>Nombre y apellido</th>
+                                <th>Email</th>
+                                <th>Tipo</th>
+                                <th>rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
                         
-                            </div>
-                            <div class="row">
-                                <div class="col s12">
-                                    <label for="i_pdf">Selecciona el archivo PDF</label>
-                                    <div class="file-field input-field">
-                                        <div class="btn">
-                                            <span>Browse</span>
-                                            <input type="file" id="i_pdf" name="pdf" required>
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            <input type="text" class="file-path validate" placeholder="Upload file">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <tbody>
+                                <?php
+                                    foreach ($personas as $persona) {
+                                        if($persona->rol === "Usuario" && $persona->estatus == 1){
+                                ?>
                         
-                            <div class="col s12">
-                                <button type="button" class="btn waves-effect waves-light grey" id="btnLimpiarCampos" onclick="limpiarCampos()">
-                                    Limpiar campos
-                                </button>
-                                
-                                <button type="submit" class="btn waves-effect waves-light disabled" id="btnAgregarLibro">
-                                    Confirmar
-                                </button>
-                            </div>
-                        </form>
+                                    <tr>
+                                        <td><?= $persona->cedula ?></td>
+                                        <td><?= $persona->nombre . " " . $persona->apellido ?></td>
+                                        <td><?= $persona->email ?></td>
+                                        <td><?= $persona->tipo ?></td>
+                                        <td><?= $persona->rol ?></td>
+                                        
+                        
+                        
+                                        <td class="td-actions  text-right">
+                                            
+                        
+                                            <button type="button" class="btn-flat btn-accion tooltipped" data-position="top" data-tooltip="Ver detalles" onclick="verPersona( <?= $persona->id ?> )">
+                                            <i class="material-icons cyan-text">visibility</i>
+                                            </button>
+
+                                            <button type="button" class="btn-flat btn-accion tooltipped" data-position="bttom" data-tooltip="Editar" onclick="editarPersona( <?= $persona->usuario_id ?> )">
+                                            <i class="material-icons grey-text">edit</i>
+                                            </button>
+                        
+                                            <button type="button" class="btn-flat btn-accion tooltipped" data-position="top" data-tooltip="Desactivar" onclick="desactivarPersona( <?= $persona->usuario_id ?> )">
+                                            <i class="material-icons red-text">delete</i>
+                                        </td>
+                                    </tr>
+                        
+                                <?php
+                                        }
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                            
+                    </div>
+                </div>
+
+                <!-- tabla donde se listan los usuarios desactivados -->
+                <div id="tap4" class="col s12 ">
+                    <div class="modulo_contenido">
+                    <table id="tableDesactivados" class="striped responsive-table">
+                            <thead class="teal-text">
+                            <tr>
+                                <th>Cédula</th>
+                                <th>Nombre y apellido</th>
+                                <th>Email</th>
+                                <th>Tipo</th>
+                                <th>rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                        
+                            <tbody>
+                                <?php
+                                    foreach ($personas as $persona) {
+                                        if($persona->estatus == 0){
+                                ?>
+                        
+                                    <tr>
+                                        <td><?= $persona->cedula ?></td>
+                                        <td><?= $persona->nombre . " " . $persona->apellido ?></td>
+                                        <td><?= $persona->email ?></td>
+                                        <td><?= $persona->tipo ?></td>
+                                        <td><?= $persona->rol ?></td>
+                                        
+                        
+                        
+                                        <td class="td-actions  text-right">
+                                            
+                        
+                                            <button type="button" class="btn-flat btn-accion tooltipped" data-position="top" data-tooltip="Ver detalles" onclick="verPersona( <?= $persona->id ?> )">
+                                            <i class="material-icons cyan-text">visibility</i>
+                                            </button>
+                        
+                                            <button type="button" class="btn-flat btn-accion tooltipped" data-position="top" data-tooltip="Activar" onclick="activarPersona( <?= $persona->usuario_id ?> )">
+                                            <i class="material-icons green-text">done</i>
+                                        </td>
+                                    </tr>
+                        
+                                <?php
+                                        }
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                            
                     </div>
                 </div>
                 
             </div>
         </main>
         
-        <?php include_once "modals/admin/modalVerDatosLibro.php" ?>
-        <?php include_once "modals/admin/modalEditarDatosLibro.php" ?>
+        <?php include_once "modals/admin/modalVerDatosPersona.php" ?>
+        <?php include_once "modals/admin/modalEditarUsuario.php" ?>
 
         <?php include_once "footer.php" ?>
 
@@ -292,7 +344,7 @@ if (!in_array($user_id, $acceso)) {
         <!-- alertas -->
         <script type="text/javascript" src="../assets/librerias/js/sweetalert2.all.min.js"></script>
         <script type="text/javascript" src="../assets/librerias/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="../assets/js/repositorio_panel_admin.js"></script>
+        <script type="text/javascript" src="../assets/js/repositorio_panel_usuarios.js"></script>
         <script>
             M.AutoInit();
         </script>

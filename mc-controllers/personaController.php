@@ -36,6 +36,89 @@ if($mode == "insert"){
             $response = ['message' => "El Usuario $nombre $apellido fue registrado exitosamente", 'id' => $id];
         }
     }
+    echo json_encode($response);
+
+
+}else if($mode == "getOne"){
+    if ( !isset($_POST['id']) ){
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    }else{
+        $id = $_POST['id'];
+
+        $consulta = $objPersona->getOne($id);
+        if ($consulta === false) {
+            $response = ['error' => true, 'message' => 'Ocurrió un error al tratar de ver los detalles del usuario'];
+        } else {
+            $response = $consulta;
+        }
+    }
+    echo json_encode($response);
+
+
+}else if($mode == "getOneByUsuarioId"){
+    if ( !isset($_POST['usuario_id']) ){
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    }else{
+        $usuario_id = $_POST['usuario_id'];
+
+        $consulta = $objPersona->getOneByUsuarioId($usuario_id);
+        if ($consulta === false) {
+            $response = ['error' => true, 'message' => 'Ocurrió un error al tratar de ver los detalles del usuario'];
+        } else {
+            $response = $consulta;
+        }
+    }
+    echo json_encode($response);
+
+
+}else if($mode == "desactivar"){
+    if ( !isset($_POST['usuario_id']) ){
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    }else{
+        $usuario_id = $_POST['usuario_id'];
+
+        $consulta = $objPersona->desactivar($usuario_id);
+        if ($consulta === false) {
+            $response = ['error' => true, 'message' => 'Ocurrió un error al tratar de desactivar al usuario'];
+        } else {
+            $response = ['error' => false, 'message' => 'El usuario ha sido desactivado con éxito'];
+        }
+    }
+    echo json_encode($response);
+
+
+}else if($mode == "activar"){
+
+    if ( !isset($_POST['usuario_id']) ){
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    }else{
+        $usuario_id = $_POST['usuario_id'];
+
+        $consulta = $objPersona->activar($usuario_id);
+        if ($consulta === false) {
+            $response = ['error' => true, 'message' => 'Ocurrió un error al tratar de activar al usuario'];
+        } else {
+            $response = ['error' => false, 'message' => 'El usuario ha sido activado con éxito'];
+        }
+    }
+
+    echo json_encode($response);
+
+
+}else if($mode = "cambiarRol"){
+    if ( !isset($_POST['usuario_id']) || !isset($_POST['editarRolSelect'])){
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    }else{
+        $usuario_id = $_POST['usuario_id'];
+        $rol_id = $_POST['editarRolSelect'];
+
+        $consulta = $objPersona->cambiarRol($usuario_id, $rol_id);
+        if ($consulta === false) {
+            $response = ['error' => true, 'message' => 'Ocurrió un error al tratar de actualizar el usuario'];
+        } else {
+            $response = ['error' => false, 'message' => 'El usuario ha sido actualizado con éxito'];
+        }
+    }
 
     echo json_encode($response);
 }

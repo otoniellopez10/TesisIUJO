@@ -47,7 +47,7 @@
                     <label for="editar_descripcion">Descripción:</label>
                 </div>
                 <div class="col s12 right-align">
-                    <button class="btn-flat waves-effect waves-light modal-close">Cerrar</button>
+                    <a class="btn-flat waves-effect waves-light modal-close">Cerrar</a>
                     <button type="submit" class="btn waves-effect waves-light">Guardar Cambios</button>
                 </div>
 
