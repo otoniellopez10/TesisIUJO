@@ -17,7 +17,7 @@ class Categoria {
         $sql = "SELECT
                 *
                 FROM $this->table 
-                WHERE estatus = 1";
+                WHERE estatus = 1 ORDER BY nombre ASC";
         return $db->get_results($sql);
     }
 

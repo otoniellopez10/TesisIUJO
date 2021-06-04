@@ -11,8 +11,8 @@ class Libro {
     public function __construct() {
         $this->table = "libro";
         $this->tableEditorial = "libro_editorial";
+        $this->tableCarrera = "libro_carrera";
         $this->tableCategoria = "libro_categoria";
-        $this->tableMateria = "libro_materia";
     }
 
     public function getAll() {
@@ -22,15 +22,15 @@ class Libro {
                     l.titulo,
                     l.edicion,
                     l.fecha,
-                    l.descripcion,
+                    l.resumen,
                     l.pdf,
                     e.nombre AS editorial,
-                    c.nombre AS categoria,
-                    m.nombre AS materia
+                    c.nombre AS carrera,
+                    t.nombre AS categoria
                 FROM $this->table l
                 JOIN $this->tableEditorial e on e.id = l.editorial
-                JOIN $this->tableCategoria c on c.id = l.categoria
-                JOIN $this->tableMateria m on m.id = l.materia
+                JOIN $this->tableCarrera c on c.id = l.carrera
+                JOIN $this->tableCategoria t on t.id = l.categoria
                 WHERE l.estatus = 1";
         return $db->get_results($sql);
     }
@@ -42,20 +42,20 @@ class Libro {
                     l.titulo,
                     l.edicion,
                     l.fecha,
-                    l.descripcion,
+                    l.resumen,
                     l.pdf,
                     e.nombre AS editorial,
-                    c.nombre AS categoria,
-                    m.nombre AS materia
+                    c.nombre AS carrera,
+                    t.nombre AS categoria
                 FROM $this->table l
                 JOIN $this->tableEditorial e on e.id = l.editorial
-                JOIN $this->tableCategoria c on c.id = l.categoria
-                JOIN $this->tableMateria m on m.id = l.materia
+                JOIN $this->tableCarrera c on c.id = l.carrera
+                JOIN $this->tableCategoria t on t.id = l.categoria
                 WHERE l.estatus = 1 AND l.id = $id";
         return $db->get_row($sql);
     }
 
-    public function save($titulo, $editorial_id, $edicion, $fecha, $categoria_id, $materia_id, $descripcion, $pdf){
+    public function save($titulo, $editorial_id, $edicion, $fecha, $carrera_id, $categoria_id, $resumen, $pdf){
         global $db;
 
         $codPDF = $this->guardarPDF($pdf);
@@ -65,9 +65,9 @@ class Libro {
             'editorial' => $editorial_id,
             'edicion' => $edicion,
             'fecha' => $fecha,
+            'carrera' => $carrera_id,
             'categoria' => $categoria_id,
-            'materia' => $materia_id,
-            'descripcion' => $descripcion,
+            'resumen' => $resumen,
             'pdf' => $codPDF
         );
 
@@ -76,7 +76,7 @@ class Libro {
     }
 
 
-    public function update($id, $titulo, $editorial_id, $edicion, $fecha, $categoria_id, $materia_id, $descripcion){
+    public function update($id, $titulo, $editorial_id, $edicion, $fecha, $carrera_id, $categoria_id, $resumen){
         global $db;
         
         $data = array(
@@ -84,9 +84,9 @@ class Libro {
             'editorial' => $editorial_id,
             'edicion' => $edicion,
             'fecha' => $fecha,
+            'carrera' => $carrera_id,
             'categoria' => $categoria_id,
-            'materia' => $materia_id,
-            'descripcion' => $descripcion
+            'resumen' => $resumen
         );
         $where = array("id" => $id);
 

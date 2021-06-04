@@ -28,13 +28,13 @@
                 </div>
 
                 <div class="col s12 m6 input-field">
-                    <input type="text" id="modal_i_categoria" name="modal_categoria" disabled  required placeholder="null"/>
-                    <label for="modal_i_categoria">Categoría:</label>
+                    <input type="text" id="modal_i_carrera" name="modal_carrera" disabled  required placeholder="null"/>
+                    <label for="modal_i_carrera">Carrera:</label>
                 </div>
 
                 <div class="col s12 input-field">
-                    <input type="text" id="modal_i_materia" name="modal_materia" disabled  required placeholder="null"/>
-                    <label for="modal_i_materia">Materia:</label>
+                    <input type="text" id="modal_i_categoria" name="modal_categoria" disabled  required placeholder="null"/>
+                    <label for="modal_i_categoria">Categoría:</label>
                 </div>
                 
                 <div class="col s12 input-field">
@@ -43,8 +43,8 @@
                 </div>
 
                 <div class="col s12 input-field">
-                    <textarea name="modal_descripcion" id="modal_i_descripcion" class="disabled materialize-textarea" disabled required placeholder="null"></textarea>
-                    <label for="modal_i_descripcion">Descripción:</label>
+                    <textarea name="modal_resumen" id="modal_i_resumen" class="disabled materialize-textarea" disabled required placeholder="null"></textarea>
+                    <label for="modal_i_resumen">Resumen:</label>
                 </div>
 
             </div>

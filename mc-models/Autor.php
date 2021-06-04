@@ -63,7 +63,7 @@ class Autor {
             }
         }
 
-        
+        return true;
 
     }
 

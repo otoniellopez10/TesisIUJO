@@ -28,13 +28,13 @@
                 </div>
 
                 <div class="col s12 m6 input-field">
-                    <input type="text" id="editar_categoria" name="modal_e_categoria" required placeholder="null"/>
-                    <label for="editar_categoria">Categoría:</label>
+                    <input type="text" id="editar_carrera" name="modal_e_carrera" required placeholder="null"/>
+                    <label for="editar_carrera">Carrera:</label>
                 </div>
 
                 <div class="col s12 input-field">
-                    <input type="text" id="editar_materia" name="modal_e_materia" required placeholder="null"/>
-                    <label for="editar_materia">Materia:</label>
+                    <input type="text" id="editar_categoria" name="modal_e_categoria" required placeholder="null"/>
+                    <label for="editar_categoria">Categoría:</label>
                 </div>
                 
                 <!-- <div class="col s12 input-field hide">
@@ -43,8 +43,8 @@
                 </div> -->
 
                 <div class="col s12 input-field">
-                    <textarea name="modal_e_descripcion" id="editar_descripcion" class="materialize-textarea" required placeholder="null"></textarea>
-                    <label for="editar_descripcion">Descripción:</label>
+                    <textarea name="modal_e_resumen" id="editar_resumen" class="materialize-textarea" required placeholder="null"></textarea>
+                    <label for="editar_resumen">Resumen:</label>
                 </div>
                 <div class="col s12 right-align">
                     <a class="btn-flat waves-effect waves-light modal-close">Cerrar</a>

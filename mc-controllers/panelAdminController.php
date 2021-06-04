@@ -3,16 +3,16 @@ session_start();
 
 include "../mc-models/Libro.php";
 include "../mc-models/Editorial.php";
+include "../mc-models/Carrera.php";
 include "../mc-models/Categoria.php";
-include "../mc-models/Materia.php";
 include "../mc-models/Autor.php";
 
 $mode = $_REQUEST["mode"];
 
 $ObjLibro = new Libro();
 $ObjEditorial = new Editorial();
+$ObjCarrera = new Carrera();
 $ObjCategoria = new Categoria();
-$ObjMateria = new Materia();
 $ObjAutor = new Autor();
 
 
@@ -24,9 +24,9 @@ if( $mode == "insert"){
         !isset($_POST['editorial']) ||
         !isset($_POST['edicion']) ||
         !isset($_POST['fecha']) ||
+        !isset($_POST['carrera']) ||
         !isset($_POST['categoria']) ||
-        !isset($_POST['materia']) ||
-        !isset($_POST['descripcion']) ||
+        !isset($_POST['resumen']) ||
         !isset($_FILES['pdf'])
     ) {
         $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
@@ -36,20 +36,17 @@ if( $mode == "insert"){
         $editorial = format($_POST['editorial']);
         $edicion = format($_POST['edicion']);
         $fecha = $_POST['fecha'];
+        $carrera = format($_POST['carrera']);
         $categoria = format($_POST['categoria']);
-        $materia = format($_POST['materia']);
-        $descripcion = $_POST['descripcion'];
+        $resumen = $_POST['resumen'];
         $pdf = $_FILES['pdf'];
 
-        $editorial_id = $ObjEditorial->save($editorial); //Insertar la editorial
-        $categoria_id = $ObjCategoria->save($categoria); // insertar la categoria
-        $materia_id = $ObjMateria->save($materia); // insertar la materia
         
-        $libro_id = $ObjLibro->save($titulo, $editorial_id, $edicion, $fecha, $categoria_id, $materia_id, $descripcion, $pdf); //insertar el libro y sus datos
+        $libro_id = $ObjLibro->save($titulo, $editorial, $edicion, $fecha, $carrera, $categoria, $resumen, $pdf); //insertar el libro y sus datos
         
         $id_autor = $ObjAutor->save($autores, $libro_id); //agregar los autores
     
-        if($editorial_id && $categoria_id && $materia_id && $libro_id){
+        if($id_autor && $libro_id){
             $response = ['error' => false, 'message' => 'El libro fue registrado con éxito'];
         }else{
             $response = ['error' => true, 'message' => 'Ocurrió un error al guardar el libro'];
@@ -68,9 +65,9 @@ if( $mode == "insert"){
         !isset($_POST['modal_e_editorial']) ||
         !isset($_POST['modal_e_edicion']) ||
         !isset($_POST['modal_e_fecha']) ||
+        !isset($_POST['modal_e_carrera']) ||
         !isset($_POST['modal_e_categoria']) ||
-        !isset($_POST['modal_e_materia']) ||
-        !isset($_POST['modal_e_descripcion'])
+        !isset($_POST['modal_e_resumen'])
     ) {
         $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
     }else{
@@ -79,18 +76,14 @@ if( $mode == "insert"){
         $editorial = format($_POST['modal_e_editorial']);
         $edicion = format($_POST['modal_e_edicion']);
         $fecha = $_POST['modal_e_fecha'];
+        $carrera = format($_POST['modal_e_carrera']);
         $categoria = format($_POST['modal_e_categoria']);
-        $materia = format($_POST['modal_e_materia']);
-        $descripcion = $_POST['modal_e_descripcion'];
-
-        $editorial_id = $ObjEditorial->save($editorial); //Insertar la editorial
-        $categoria_id = $ObjCategoria->save($categoria); // insertar la categoria
-        $materia_id = $ObjMateria->save($materia); // insertar la materia
+        $resumen = $_POST['modal_e_resumen'];
         
-        $libro_id = $ObjLibro->update($id, $titulo, $editorial_id, $edicion, $fecha, $categoria_id, $materia_id, $descripcion); //insertar el libro y sus datos
+        $libro_id = $ObjLibro->update($id, $titulo, $editorial, $edicion, $fecha, $carrera, $categoria, $resumen); //insertar el libro y sus datos
         
     
-        if($editorial_id && $categoria_id && $materia_id && $libro_id){
+        if($libro_id){
             $response = ['error' => false, 'message' => 'El libro fue actualizado con éxito'];
         }else{
             $response = ['error' => true, 'message' => 'Ocurrió un error al actualizar el libro'];

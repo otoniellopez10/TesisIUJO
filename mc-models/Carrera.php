@@ -3,13 +3,13 @@
 include_once 'Config.php';
 $db = Db::getInstance();
 
-class Materia {
+class Carrera {
 
     private $table;
 
     public function __construct() {
         //asignar nombre de la tabla aqui para no cambiar en cada metodo
-        $this->table = "libro_materia";
+        $this->table = "libro_carrera";
     }
 
     public function getAll() {
@@ -21,9 +21,9 @@ class Materia {
         return $db->get_results($sql);
     }
 
-    public function save($materia) {
+    public function save($carrera) {
         global $db;
-        $data = array('nombre' => $materia);
+        $data = array('nombre' => $carrera);
 
         return  $db->insert($this->table, $data);
     }

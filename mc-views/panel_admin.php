@@ -9,6 +9,24 @@ if (!in_array($user_id, $acceso)) {
     header('Location: mc-views/error.php');
     die();
 }
+
+include_once '../mc-models/Libro.php';
+include_once '../mc-models/Carrera.php';
+include_once '../mc-models/Categoria.php';
+include_once '../mc-models/Editorial.php';
+
+$objLibro = new Libro();
+$objCarrera = new Carrera();
+$objCategoria = new Categoria();
+$objEditorial = new Editorial();
+
+$libros = $objLibro->getAll();
+$carreras = $objCarrera->getAll();
+$categorias = $objCategoria->getAll();
+$editoriales = $objEditorial->getAll();
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -113,18 +131,14 @@ if (!in_array($user_id, $acceso)) {
                                 <th>Editorial</th>
                                 <th>Edición</th>
                                 <th>Fecha</th>
+                                <th>Carrera</th>
                                 <th>Categoría</th>
-                                <th>Materia</th>
                                 <th>Acciones</th>
                             </tr>
                             </thead>
                         
                             <tbody>
                                 <?php
-                                    include_once '../mc-models/Libro.php';
-                                    $objLibro = new Libro();
-                                    $libros = $objLibro->getAll();
-                        
                                     foreach ($libros as $libro) {
                                 ?>
                         
@@ -137,8 +151,8 @@ if (!in_array($user_id, $acceso)) {
                                                 $fecha_format = date("d/m/Y", strtotime($fecha));
                                                 echo $fecha_format;
                                             ?></td>
+                                        <td><?= $libro->carrera ?></td>
                                         <td><?= $libro->categoria ?></td>
-                                        <td><?= $libro->materia ?></td>
                         
                         
                                         <td class="td-actions  text-right">
@@ -188,24 +202,60 @@ if (!in_array($user_id, $acceso)) {
                                 </div>
                         
                                 <!-- editorial -->
-                                <div class="col s12 m6 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_editorial"
-                                        name="editorial"
-                                        required
-                                    />
+                                <div class="col s10 m5 input-field">
+                                    <select id="i_editorial" name="editorial" required>
+                                        <option value="" disabled selected></option>
+                                        <?php
+                                            foreach ($editoriales as $e) {
+                                        ?>
+                                            <option value="<?= $e->id; ?>"> <?= $e->nombre; ?> </option>
+                                        <?php
+                                            }
+                                        ?>
+                                    </select>
                                     <label for="i_editorial">Editorial:</label>
+                                </div>
+
+                                <!-- agregar editorial -->
+                                <div class="col s2 m1 input-field">
+                                    <button type="button" class="btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar una editorial"><i class="material-icons">add</i></button>
+                                </div>
+
+                                <!-- agregar categoria -->
+                                <div class="col s2 m1 input-field">
+                                    <button type="button" class="btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar un categoría"><i class="material-icons">add</i></button>
+                                </div>
+
+                                <!-- categoria -->
+                                <div class="col s10 m5 input-field">
+                                    <select id="i_categoria" name="categoria" required>
+                                        <option value="" disabled selected></option>
+                                        <?php
+                                            foreach ($categorias as $c) {
+                                        ?>
+                                            <option value="<?= $c->id; ?>"> <?= $c->nombre; ?> </option>
+                                        <?php
+                                            }
+                                        ?>
+                                    </select>
+                                    <label for="i_categoria">categoría:</label>
                                 </div>
                         
                                 <!-- edicion -->
-                                <div class="col s12 m6 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_edicion"
-                                        name="edicion"
-                                        required
-                                    />
+                                <div class="col s12 m6 l4 input-field">
+                                    <select id="i_edicion" name="edicion" required>
+                                        <option value="" disabled selected></option>
+                                        <option value="Primera edición">Primera edición</option>
+                                        <option value="Segunda edición">Segunda edición</option>
+                                        <option value="Tercera edición">Tercera edición</option>
+                                        <option value="Cuarta edición">Cuarta edición</option>
+                                        <option value="Quinta edición">Quinta edición</option>
+                                        <option value="Sexta edición">Sexta edición</option>
+                                        <option value="Séptima edición">Séptima edición</option>
+                                        <option value="Octava edición">Octava edición</option>
+                                        <option value="Novena edición">Novena edición</option>
+                                        <option value="Décima edición">Décima edición</option>
+                                    </select>
                                     <label for="i_edicion">Edición:</label>
                                 </div>
                         
@@ -220,32 +270,25 @@ if (!in_array($user_id, $acceso)) {
                                     <label for="i_fecha">Fecha:</label>
                                 </div>
                         
-                                <!-- categoria -->
+                                <!-- carrera -->
                                 <div class="col s12 m6 l4 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_categoria"
-                                        name="categoria"
-                                        required
-                                    />
-                                    <label for="i_categoria">Categoría:</label>
+                                    <select id="i_carrera" name="carrera" required>
+                                        <option value="" disabled selected></option>
+                                        <?php
+                                            foreach ($carreras as $c) {
+                                        ?>
+                                            <option value="<?= $c->id; ?>"> <?= $c->nombre; ?> </option>
+                                        <?php
+                                            }
+                                        ?>
+                                    </select>
+                                    <label for="i_carrera">Carrera:</label>
                                 </div>
                         
-                                <!-- materia -->
-                                <div class="col s12 m6 l4 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_materia"
-                                        name="materia"
-                                        required
-                                    />
-                                    <label for="i_materia">Materia:</label>
-                                </div>
-                        
-                                <!-- descripcion -->
+                                <!-- resumen -->
                                 <div class="col s12 input-field">
-                                    <textarea class="materialize-textarea" name="descripcion" id="i_descripcion" cols="30" rows="10" data-length="255" required></textarea>
-                                    <label for="i_descripcion">Descripción:</label>
+                                    <textarea class="materialize-textarea" name="resumen" id="i_resumen" cols="30" rows="10" data-length="255" required></textarea>
+                                    <label for="i_resumen">Resumen:</label>
                                 </div>
                         
                             </div>
@@ -255,7 +298,7 @@ if (!in_array($user_id, $acceso)) {
                                     <div class="file-field input-field">
                                         <div class="btn">
                                             <span>Browse</span>
-                                            <input type="file" id="i_pdf" name="pdf" required>
+                                            <input type="file" id="i_pdf" name="pdf" required accept=".pdf">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input type="text" class="file-path validate" placeholder="Upload file">
