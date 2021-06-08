@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['user_name'])) {
     header('Location: login.php');
+    die();
 }
 $acceso = array(1); //1 para administrador, 2 para colaborador y 3 para persona comun
 $user_id = $_SESSION["user"]->rol_id;

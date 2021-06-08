@@ -35,6 +35,25 @@ class Libro {
         return $db->get_results($sql);
     }
 
+    public function getAll2() {
+        global $db;
+        $sql = "SELECT 
+                    l.id,
+                    l.titulo,
+                    l.edicion,
+                    l.fecha,
+                    l.resumen,
+                    l.pdf,
+                    e.nombre AS editorial,
+                    c.nombre AS carrera,
+                    t.nombre AS categoria
+                FROM $this->table l
+                JOIN $this->tableEditorial e on e.id = l.editorial
+                JOIN $this->tableCarrera c on c.id = l.carrera
+                JOIN $this->tableCategoria t on t.id = l.categoria";
+        return $db->get_results($sql);
+    }
+
     public function getOneById($id) {
         global $db;
         $sql = "SELECT 
@@ -126,6 +145,17 @@ class Libro {
 
         $data = array(
             'estatus' => 0
+        );
+
+        $where = array("id" => $id);
+        return  $db->update($this->table, $data, $where);
+    }
+
+    public function activarLibro($id){
+        global $db;
+
+        $data = array(
+            'estatus' => 1
         );
 
         $where = array("id" => $id);

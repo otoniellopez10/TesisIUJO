@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['user_name'])) {
     header('Location: login.php');
+    die();
 }
 $acceso = array(1); //1 para administrador, 2 para colaborador y 3 para persona comun
 $user_id = $_SESSION["user"]->rol_id;
@@ -21,6 +22,7 @@ $objCategoria = new Categoria();
 $objEditorial = new Editorial();
 
 $libros = $objLibro->getAll();
+$librosDesactivados = $objLibro->getAll2();
 $carreras = $objCarrera->getAll();
 $categorias = $objCategoria->getAll();
 $editoriales = $objEditorial->getAll();
@@ -116,7 +118,8 @@ $editoriales = $objEditorial->getAll();
                     <div class="nav-content">
                         <ul class="tabs tabs-transparent">
                             <li class="tab"><a class="active" href="#test1">Lista de libros</a></li>
-                            <li class="tab"><a class="" href="#test2">Agregar</a></li>
+                            <li class="tab"><a class="active" href="#test2">Libros desactivados</a></li>
+                            <li class="tab"><a class="" href="#test3">Agregar</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -180,8 +183,67 @@ $editoriales = $objEditorial->getAll();
                     </div>
                 </div>
 
+                <!-- libros desactivados -->
+                <div id="test2" class="col s12">
+                <div class="modulo_contenido">
+                        <table id="tableLibros" class="striped responsive-table">
+                            <thead class="teal-text">
+                            <tr>
+                                <th>Título</th>
+                                <th>Editorial</th>
+                                <th>Edición</th>
+                                <th>Fecha</th>
+                                <th>Carrera</th>
+                                <th>Categoría</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                        
+                            <tbody>
+                                <?php
+                                    foreach ($librosDesactivados as $libro) {
+                                ?>
+                        
+                                    <tr>
+                                        <td><?= $libro->titulo ?></td>
+                                        <td><?= $libro->editorial ?></td>
+                                        <td><?= $libro->edicion ?></td>
+                                        <td><?php 
+                                                $fecha = $libro->fecha;
+                                                $fecha_format = date("d/m/Y", strtotime($fecha));
+                                                echo $fecha_format;
+                                            ?></td>
+                                        <td><?= $libro->carrera ?></td>
+                                        <td><?= $libro->categoria ?></td>
+                        
+                        
+                                        <td class="td-actions  text-right">
+                                            
+                        
+                                            <button type="button" class="btn-flat btn-accion" title="Ver detalles" onclick="verDatosLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
+                                            <i class="material-icons cyan-text">visibility</i>
+                                            </button>
+                        
+                                            <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
+                                            <i class="material-icons blue-grey-text">edit</i>
+                                            </button>
+                        
+                                            <button type="button" class="btn-flat btn-accion" title="Activar" onclick="activarLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
+                                            <i class="material-icons green-text">done</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                        
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>      
+                </div>
+
                 <!-- form para agregar un libro -->
-                <div id="test2" class="col s12 ">
+                <div id="test3" class="col s12 ">
                     <div class="modulo_contenido">
                         <form action="" id="form_AgregarLibro">
                             <div class="row">

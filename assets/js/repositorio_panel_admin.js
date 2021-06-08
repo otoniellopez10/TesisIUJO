@@ -315,6 +315,68 @@ function desactivarLibro(id) {
     });
 }
 
+function activarLibro(id) {
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Esta seguro que desea activar este libro?",
+        type: "question",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Sí, activar",
+    }).then((result) => {
+        if (result.value == true) {
+            Swal({
+                title: "Activando libro",
+                text: "Espere un momento...",
+                confirmButtonColor: $(".btn-primary").css("background-color"),
+                confirmButtonText: "Reintentar",
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    return new Promise((resolve, reject) => {
+                        let fd = new FormData();
+                        fd.append("mode", "activarLibro");
+                        fd.append("id", id);
+
+                        $.ajax({
+                            method: "POST",
+                            url: HOST,
+                            contentType: false,
+                            processData: false,
+                            data: fd,
+                            dataType: "json",
+                            success: function (res) {
+                                if (res.error) {
+                                    reject(res.message);
+                                } else {
+                                    resolve(res);
+                                }
+                            },
+                            error: function (error) {
+                                console.error(error);
+                                return false;
+                            },
+                        });
+                    }).catch(function (reason) {
+                        Swal.showValidationMessage(reason);
+                        Swal.hideLoading();
+                    });
+                },
+                allowOutsideClick: () => !Swal.isLoading(),
+                onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+            }).then((result) => {
+                if (result.value) {
+                    let resp = result.value;
+                    Swal("Listo!", resp.message, "success").then((e) => {
+                        window.location.reload();
+                    });
+                }
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // Swal("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
+        }
+    });
+}
+
 // validar los campos del formulario para verificar si no estan
 // vacios y desbloquear el boton de confirmar
 var btnAgregarLibro = $("#btnAgregarLibro");

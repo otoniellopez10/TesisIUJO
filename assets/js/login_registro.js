@@ -169,23 +169,44 @@ $(document).ready(function () {
         let fd = new FormData(this);
         fd.append("mode", "loadOne");
 
-        $.post({
-            url: host3,
-            contentType: false,
-            processData: false,
-            data: fd,
-            dataType: "json",
-            success: function (res) {
-                if (res.error) {
-                    swal("Error", res.message, "error");
-                } else {
-                    window.location = "../mc-views/repositorio.php";
-                }
+        Swal({
+            title: "Iniciando Sesión",
+            text: "Espere un momento...",
+            confirmButtonColor: $(".btn-primary").css("background-color"),
+            confirmButtonText: "Reintentar",
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                return new Promise((resolve, reject) => {
+                    $.post({
+                        url: host3,
+                        contentType: false,
+                        processData: false,
+                        data: fd,
+                        dataType: "json",
+                        success: function (res) {
+                            console.log(res);
+                            if (res.usuario == false || res.usuario == null) {
+                                reject(res.mensaje);
+                            } else {
+                                resolve(res);
+                            }
+                        },
+                        error: function (error) {
+                            Swal("Error!", error.mensaje, "error");
+                            return false;
+                        },
+                    });
+                }).catch(function (reason) {
+                    Swal.showValidationMessage(reason);
+                    Swal.hideLoading();
+                });
             },
-            error: function (error) {
-                console.error(error);
-                return false;
-            },
+            allowOutsideClick: () => !Swal.isLoading(),
+            onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+        }).then((result) => {
+            if (result.value) {
+                window.location = "../mc-views/repositorio.php";
+            }
         });
     });
 });

@@ -247,7 +247,7 @@ if (isset($_SESSION['user_name'])) {
             type="text/javascript"
             src="../assets/librerias/js/materialize.min.js"
         ></script>
-        <script src="../assets/librerias/js/sweetalert.min.js"></script>
+        <script src="../assets/librerias/js/sweetalert2.all.min.js"></script>
         <script
             type="text/javascript"
             src="../assets/js/login_registro.js"

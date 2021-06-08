@@ -321,16 +321,21 @@ session_start();
                         href="#mc-views/repositorio.php"
                         class="btn-flat waves-effect waves-light white-text"
                     >
-                        
+                        ir al repositorio
                     </a>
                 </div>
             </div>
         </section>
 
-        <section id="s_portafolio" class="">
+        <section id="s_portafolio" class="section">
             <div class="row black_card valign-wrapper">
-                <div class="col s12 m6">b</div>
-                <div class="col s12 l6 hide-on-med-and-down">
+                <div class="col s12 m6 center-align">
+                    <div class="container">
+                        <h4>Lorem ipsum dolor sit </h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis dignissimos ipsam rerum ut ab laboriosam, quidem ad ratione eius quia quaerat ex vitae dolores consequatur, dolor sapiente officia quibusdam earum!</p>
+                    </div>
+                </div>
+                <div class="col s12 l6 center-align hide-on-med-and-down">
                     <img src="assets/images/SVG/portafolio.svg" alt="" width="80%" />
                 </div>
             </div>

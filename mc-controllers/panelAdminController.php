@@ -104,7 +104,7 @@ if( $mode == "insert"){
     echo json_encode($response);
 
 
-}else if ($mode = "desactivarLibro"){
+}else if ($mode == "desactivarLibro"){
     if( !isset( $_POST['id'] ))
         $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
     else{
@@ -112,6 +112,19 @@ if( $mode == "insert"){
         $request = $ObjLibro->desactivarLibro($id);
         if($request){
             $response = ['error' => false, 'message' => 'El libro se desactivó con éxito'];
+        }
+    }
+    echo json_encode($response);
+
+
+}else if ($mode == "activarLibro"){
+    if( !isset( $_POST['id'] ))
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    else{
+        $id = $_POST['id'];
+        $request = $ObjLibro->activarLibro($id);
+        if($request){
+            $response = ['error' => false, 'message' => 'El libro se activó con éxito'];
         }
     }
     echo json_encode($response);

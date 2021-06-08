@@ -15,12 +15,12 @@ if ($mode == "loadOne") {
     $password = $_POST['password'];
 
     $result = $objLogin->getOneEmail($email);
-    $dataJson = ["usuario" => "falso", "mensaje" => "error"];
+    $dataJson = ["usuario" => false, "mensaje" => "Error"];
     if ($result === false) {
-        $dataJson = ["usuario" => "null", "mensaje" => "Email no registrado"];
+        $dataJson = ["usuario" => null, "mensaje" => "Email no registrado"];
     } else {
         if (password_verify($password, $result->password)) {
-            $dataJson = ["usuario" => "verdadero", "mensaje" => "Iniciando sesión"];
+            $dataJson = ["usuario" => true, "mensaje" => "Iniciando sesión"];
             unset($result->password);
             $_SESSION['user'] = $result;
             if (intval($result->rol_id) == 1) {
@@ -37,7 +37,7 @@ if ($mode == "loadOne") {
             $_SESSION['user_name'] = $email;
 
         } else {
-            $dataJson = ["usuario" => "falso", "mensaje" => "Usuario o contraseña incorrectos"];
+            $dataJson = ["usuario" => false, "mensaje" => "Usuario o contraseña incorrectos"];
         }
     }
     echo json_encode($dataJson);

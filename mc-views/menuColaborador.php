@@ -39,7 +39,7 @@ if (!in_array($user_id, $acceso)) {
                 </li>
                 <li>
                     <a href="../index.php" class="waves-effect"
-                        ><i class="material-icons white-text">home</i>inicio</a
+                        ><i class="material-icons white-text">home</i>Página principal</a
                     >
                 </li>
                 <li>
