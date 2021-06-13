@@ -1,5 +1,5 @@
 <div id="modalVerDatosPersona" class="modal">
-    <div class="modal-header">
+    <div class="modal-header teal">
         <h5 class="valign-wrapper"> <i class="material-icons left">person_pin</i>Datos de la persona</h5>
         <i class="material-icons modal-close">close</i>
     </div>

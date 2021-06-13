@@ -30,10 +30,11 @@ body {
     height: 80vh;
     margin: auto;
     position: relative;
-    background-image: url(../images/luces.jpg);
+    background: linear-gradient(rgba(55, 59, 68, 0.7), rgba(0, 150, 136, 0.7)),
+        url(../images/fondos/fondo-principal.jpg);
     background-attachment: fixed;
     background-position: center -50px;
-    background-size: cover;
+    background-size: 100%;
     transition: all ease 1s;
 }
 
@@ -48,14 +49,14 @@ body {
     left: 50%;
     transform: translate(-50%, -100%);
     color: white;
-    font-family: "Courier New", Courier, monospace;
     text-shadow: 2px 2px 5px #222;
     transition: all ease 1s;
-    font-size: 4rem;
+    font-size: 5rem;
+    font-weight: bold;
 }
 
 #s_inicio:hover #inicio_titulo {
-    transform: translate(-50%, -60%) scale(0.85);
+    transform: translate(-50%, -60%) scale(0.9);
 }
 
 #s_inicio #inicio_ola {
@@ -84,11 +85,16 @@ body {
 }
 
 #s_caracteristicas .carta p:first-child img {
-    height: 4.8rem;
+    /* height: 4.8rem; */
+    /* position: relativa; */
     display: block;
     margin: auto;
     margin-bottom: 10px;
-    transition: all ease 0.3s;
+    transition: all ease 0.6s;
+}
+
+#s_caracteristicas .carta:hover p:first-child img {
+    transform: scale(1.2);
 }
 
 #s_caracteristicas .row .col p:nth-child(2) {
@@ -111,12 +117,16 @@ body {
 
 section#s_beneficios {
     margin-top: 100px;
-    background: linear-gradient(
-        -28deg,
-        #18181e 50%,
-        hsla(240, 11%, 11%, 0.99) 50%
-    );
+    background: linear-gradient(#373b44, #009688);
     padding: 3rem 1.5rem;
+}
+
+section#s_beneficios div div img {
+    transition: all ease 0.6s;
+}
+
+section#s_beneficios:hover div div img {
+    transform: scale(1.1);
 }
 
 /* lado derecho del black_card (contenido) */
@@ -177,6 +187,38 @@ section#s_beneficios {
 .black_card .col:nth-child(2) a:hover::before {
     width: 300px;
     height: 300px;
+}
+
+/* ///////////////////////////////// */
+/* Seccion como ser colaborador */
+/* /////////////////////////////// */
+
+#s_colaborador {
+    padding: 9rem 0;
+    background: linear-gradient(120deg, #fff 50%, #f7f7f7 50%);
+}
+#s_colaborador img {
+    transition: all ease 0.6s;
+}
+
+#s_colaborador:hover img {
+    transform: scale(1.15);
+}
+
+.btn-fantasma {
+    background: none;
+    border: 3px solid teal;
+    border-radius: 20px;
+    margin-top: 30px;
+    color: teal;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+.btn-fantasma:hover {
+    background: teal;
+    color: white;
 }
 
 /* ///////////////////////////////// */

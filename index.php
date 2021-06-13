@@ -130,34 +130,30 @@ session_start();
                 </a>
 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li>
-                        <a href="#!"
-                            ><i class="material-icons left">home</i> Inicio</a
-                        >
-                    </li>
-                    <li>
-                        <a href="mc-views/repositorio.php"
-                            ><i class="material-icons left">book</i>
-                            Repositorio</a
-                        >
-                    </li>
                     <?php
                         if (!isset($_SESSION['user_name'])) {
                     ?>
                         <li>
                             <a href="mc-views/login.php">
-                                <i class="material-icons">login</i> Ingresar
+                                <i class="material-icons left">login</i>Iniciar Sesión
                             </a>
                         </li>
 
                         <li>
                             <a href="mc-views/login.php">
-                                <i class="material-icons">person_add</i> Registrarse
+                                <i class="material-icons left">person_add</i>Regístrate
                             </a>
                         </li>
                     <?php
                         }else{ 
                     ?>   
+                        <li>
+                            <a href="mc-views/repositorio.php"
+                                ><i class="material-icons left">book</i>
+                                Repositorio</a
+                            >
+                        </li>
+
                         <li>
                             <a href="mc-views/logout.php"
                             ><i class="material-icons left">exit_to_app</i>
@@ -169,7 +165,7 @@ session_start();
                 </ul>
             </nav>
 
-            <h1 id="inicio_titulo">Bienvenidos!</h1>
+            <h1 id="inicio_titulo">¡Bienvenido!</h1>
 
             <div id="inicio_ola" style="height: 150px; overflow: hidden">
                 <svg
@@ -215,7 +211,7 @@ session_start();
                 <div class="col s12 m6 l3 carta">
                     <!-- <p class="center"><i class="material-icons">book</i></p> -->
                     <p>
-                        <img src="assets/images/SVG/libros.svg" alt="" width="50%" />
+                        <img src="assets/images/SVG/librosTeal.svg" alt="" width="50%" />
                     </p>
                     <p class="center">Los libros que necesitas</p>
                     <p class="contenido">
@@ -227,7 +223,7 @@ session_start();
                 </div>
                 <div class="col s12 m6 l3 carta">
                     <p>
-                        <img src="assets/images/SVG/search.svg" alt="" width="50%" />
+                        <img src="assets/images/SVG/searchTeal.svg" alt="" width="50%" />
                     </p>
                     <p class="center">Gran variedad de temas</p>
                     <p class="contenido">
@@ -238,7 +234,7 @@ session_start();
                 </div>
                 <div class="col s12 m6 l3 carta">
                     <p>
-                        <img src="assets/images/SVG/team.svg" alt="" width="85%" />
+                        <img src="assets/images/SVG/teamTeal.svg" alt="" width="87%" />
                     </p>
                     <p class="center">Colaboración con el sistema</p>
                     <p class="contenido">
@@ -249,7 +245,7 @@ session_start();
                 </div>
                 <div class="col s12 m6 l3 carta">
                     <p>
-                        <img src="assets/images/SVG/download.svg" alt="" width="43%" />
+                        <img src="assets/images/SVG/downloadTeal.svg" alt="" width="44%" />
                     </p>
                     <p class="center">Descargar tu contenido</p>
                     <p class="contenido">
@@ -265,11 +261,12 @@ session_start();
 
         <section id="s_beneficios" class="section">
             <div class="row black_card valign-wrapper">
-                <div class="col l6 hide-on-med-and-down">
+                <div class="col l6 hide-on-med-and-down center-align">
                     <img
-                        src="assets/images/fondos/clint-mckoy-App9lCSl2uA-unsplash.jpg"
+                        src="assets/images/SVG/beneficios.svg"
                         alt=""
                         class="responsive-img"
+                        width="75%"
                     />
                 </div>
                 <div class="col s12 l6">
@@ -327,43 +324,66 @@ session_start();
             </div>
         </section>
 
-        <section id="s_portafolio" class="section">
+        <section id="s_colaborador" class="section">
             <div class="row black_card valign-wrapper">
                 <div class="col s12 m6 center-align">
                     <div class="container">
-                        <h4>Lorem ipsum dolor sit </h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis dignissimos ipsam rerum ut ab laboriosam, quidem ad ratione eius quia quaerat ex vitae dolores consequatur, dolor sapiente officia quibusdam earum!</p>
+                        <h4 class="teal-text"><b>¿Cómo ser colaborador?</b></h4>
+                        <p>Para convertirte en colaborador del sistema debes enviar una solicitud, justificando tu peticion, así como también, indicando que tipo de contenido deseas cargar al sistema.</p>
+                        <button class="btn-fantasma">Solicitar permisos</button>
                     </div>
                 </div>
                 <div class="col s12 l6 center-align hide-on-med-and-down">
-                    <img src="assets/images/SVG/portafolio.svg" alt="" width="80%" />
+                    <img src="assets/images/SVG/colaboradorTeal.svg" alt="" width="80%" />
                 </div>
             </div>
         </section>
 
         <!-- seccion de registrate -->
-        <section id="s_invitacion" class="section blue-grey darken-3">
+        <section id="s_invitacion" class="section" style="background: #004a4d;">
             <div class="row center">
-                <div class="col s12 m12 l8">
-                    <p>¡Mejora tu experiencia en el sistema uniendote!</p>
-                </div>
-                <div class="col s6 m6 l2">
-                    <a
-                        href="mc-views/login.php"
-                        class="btn-flat waves waves-effect waves-light white-text"
-                        id="btn_login"
-                        ><i class="material-icons left">login</i>Ingresar</a
-                    >
-                </div>
-                <div class="col s6 m6 l2">
-                    <a
-                        href="mc-views/login.php"
-                        class="btn-flat waves waves-effect waves-light white-text"
-                        id="btn_register"
-                        ><i class="material-icons left">person_add</i
-                        >Registrarse</a
-                    >
-                </div>
+
+                <?php
+                    if (!isset($_SESSION['user_name'])) {
+                ?>
+                    <div class="col s12 m12 l8">
+                        <p>¡Mejora tu experiencia en el sistema uniéndote!</p>
+                    </div>
+                    <div class="col s6 m6 l2">
+                        <a
+                            href="mc-views/login.php"
+                            class="btn-flat waves waves-effect waves-light white-text"
+                            id="btn_login"
+                            ><i class="material-icons left">login</i>Ingresar</a
+                        >
+                    </div>
+                    <div class="col s6 m6 l2">
+                        <a
+                            href="mc-views/login.php"
+                            class="btn-flat waves waves-effect waves-light white-text"
+                            id="btn_register"
+                            ><i class="material-icons left">person_add</i
+                            >Registrarse</a
+                        >
+                    </div>
+                <?php
+                    }else{ 
+                ?>   
+                    <div class="col s12 m12 l8">
+                        <p>¡Disfruta del contenido disponible!</p>
+                    </div>
+
+                    <div class="col s6 m6 l2">
+                        <a
+                            href="mc-views/repositorio.php"
+                            class="btn-flat waves waves-effect waves-light white-text"
+                            ><i class="material-icons left">book</i
+                            >ir al repositorio</a
+                        >
+                    </div>
+                <?php } ?>
+
+
             </div>
         </section>
 
@@ -371,7 +391,7 @@ session_start();
         <div class="parallax-container">
             <div class="parallax">
                 <img
-                    src="assets/images/fondos/graes-magazine-6oCJaaAqJ9E-unsplash.jpg"
+                    src="assets/images/fondos/matteo-maretto-i75SxrzXABg-unsplash.jpg"
                     alt=""
                     class="responsive-img"
                 />
@@ -383,7 +403,7 @@ session_start();
         </div>
 
         <!-- FOOTER -->
-        <footer class="page-footer blue-grey darken-3">
+        <footer class="page-footer" style="background: #004a4d;">
             <div class="container">
                 <div class="row">
                     <div class="col l6 s12">
@@ -422,9 +442,9 @@ session_start();
                     </div>
                 </div>
             </div>
-            <div class="footer-copyright blue-grey darken-4">
+            <div class="footer-copyright cyan darken-4">
                 <div class="container">
-                    © 2021 Copyright IujoRepositorio.com
+                    © <?php echo date("Y"); ?>  Copyright IujoRepositorio.com
                     <!-- <a class="grey-text text-lighten-4 right" href="#!">More Links</a> -->
                 </div>
             </div>

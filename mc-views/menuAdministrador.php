@@ -11,12 +11,12 @@ if (!in_array($user_id, $acceso)) {
 <header>
             <!-- <nav>navbar content here</nav> -->
 
-            <ul id="slide-out" class="sidenav sidenav-fixed blue-grey darken-4">
+            <ul id="slide-out" class="sidenav sidenav-fixed" >
                 <li class="primero">
                     <div class="user-view">
                         <div class="background">
                             <img
-                                src="../assets/images/pexels-janko-ferlic-590493-min.jpg"
+                                src="../assets/images/fondos/fondo-principal.jpg"
                                 class="responsive-img"
                             />
                         </div>

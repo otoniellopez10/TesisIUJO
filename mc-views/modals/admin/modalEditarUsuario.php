@@ -6,7 +6,7 @@ $roles = $objRol->getAll();
 
 ?>
 <div id="modalEditarRol" class="modal">
-    <div class="modal-header blue darken-1">
+    <div class="modal-header teal">
         <h5 class="valign-wrapper"> <i class="material-icons left">person_pin</i>Editar rol del usuario</h5>
         <i class="material-icons modal-close">close</i>
     </div>

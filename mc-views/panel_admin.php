@@ -22,7 +22,7 @@ $objCategoria = new Categoria();
 $objEditorial = new Editorial();
 
 $libros = $objLibro->getAll();
-$librosDesactivados = $objLibro->getAll2();
+$librosDesactivados = $objLibro->getAllDesactivados();
 $carreras = $objCarrera->getAll();
 $categorias = $objCategoria->getAll();
 $editoriales = $objEditorial->getAll();
@@ -202,6 +202,8 @@ $editoriales = $objEditorial->getAll();
                             <tbody>
                                 <?php
                                     foreach ($librosDesactivados as $libro) {
+                                        if($libro->estatus == 0){
+
                                 ?>
                         
                                     <tr>
@@ -235,6 +237,7 @@ $editoriales = $objEditorial->getAll();
                                     </tr>
                         
                                 <?php
+                                        }
                                 }
                                 ?>
                             </tbody>
@@ -255,7 +258,7 @@ $editoriales = $objEditorial->getAll();
                                         name="titulo"
                                         required
                                     />
-                                    <label for="i_titulo">titulo:</label>
+                                    <label for="i_titulo">Título:</label>
                                 </div>
                         
                                 <!-- autor -->
@@ -264,7 +267,7 @@ $editoriales = $objEditorial->getAll();
                                 </div>
                         
                                 <!-- editorial -->
-                                <div class="col s10 m5 input-field">
+                                <div class="col s10 input-field">
                                     <select id="i_editorial" name="editorial" required>
                                         <option value="" disabled selected></option>
                                         <?php
@@ -279,17 +282,17 @@ $editoriales = $objEditorial->getAll();
                                 </div>
 
                                 <!-- agregar editorial -->
-                                <div class="col s2 m1 input-field">
+                                <div class="col s2 input-field center-align">
                                     <button type="button" class="btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar una editorial"><i class="material-icons">add</i></button>
                                 </div>
 
                                 <!-- agregar categoria -->
-                                <div class="col s2 m1 input-field">
+                                <!-- <div class="col s2 m1 input-field">
                                     <button type="button" class="btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar un categoría"><i class="material-icons">add</i></button>
-                                </div>
+                                </div> -->
 
                                 <!-- categoria -->
-                                <div class="col s10 m5 input-field">
+                                <div class="col s12 input-field">
                                     <select id="i_categoria" name="categoria" required>
                                         <option value="" disabled selected></option>
                                         <?php

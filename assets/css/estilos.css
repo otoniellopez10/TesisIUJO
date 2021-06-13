@@ -33,20 +33,25 @@ footer {
     }
 }
 
+#slide-out {
+    background: linear-gradient(#134e5e, #009688);
+    background-size: cover;
+}
+
 .row,
 .card {
     margin: 0;
 }
 
-main{
+main {
     margin-bottom: 100px;
 }
 
-footer{
+footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    color: #3C4858;
+    color: #3c4858;
     border-top: 1px solid #e6e6e6;
     padding-top: 5px;
     padding-bottom: 5px;

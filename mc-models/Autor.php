@@ -22,6 +22,16 @@ class Autor {
         return $db->get_results($sql);
     }
 
+    public function getAll2() {
+        global $db;
+        $sql = "SELECT
+                id,nombre
+                FROM $this->table 
+                WHERE estatus = 1";
+
+        return $db->query($sql);
+    }
+
     public function getByLibroId($id){
         global $db;
 

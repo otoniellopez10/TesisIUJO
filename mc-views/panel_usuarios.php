@@ -68,7 +68,6 @@ $personas = $objPersona->getAll();
             }
             .btn-accion{ padding: 0 5px; }
             .modal-header{
-                background: #1872c5;
                 color: white;
                 padding: 10px 30px 1px 30px;
                 position: relative;

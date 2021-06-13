@@ -69,7 +69,7 @@ if (!in_array($user_id, $acceso)) {
                     >
                 </li> -->
                 <li>
-                    <a href="mc-views/logout.php" class="waves-effect" id="btn_desconectar"
+                    <a href="logout.php" class="waves-effect" id="btn_desconectar"
                         ><i class="material-icons white-text">exit_to_app</i>
                         Salir del sistema</a
                     >
