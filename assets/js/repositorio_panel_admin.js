@@ -8,7 +8,7 @@ var idLibro;
 $(document).ready(function () {
     // iniciar los chips para agregar autores en "agregar libro"
     $(".chips-placeholder").chips({
-        placeholder: "Nombre autor",
+        placeholder: "Autor(es)",
         secondaryPlaceholder: "Otro autor",
     });
 
@@ -26,6 +26,9 @@ $(document).ready(function () {
 
     modal2 = $("#modalEditarDatosLibro");
     modalEditarDatosLibro = M.Modal.getInstance(modal2);
+
+    modal3 = $("#modalAgregarEditorial");
+    modalAgregarEditorial = M.Modal.getInstance(modal3);
 });
 
 $("#form_AgregarLibro").submit(function (e) {
@@ -163,12 +166,53 @@ function editarLibro(id) {
             let autores = "";
             // imprimir datos en el modal
             $("#editar_titulo").val(json.libro.titulo);
-            $("#editar_editorial").val(json.libro.editorial);
-            $("#editar_edicion").val(json.libro.edicion);
-            $("#editar_carrera").val(json.libro.carrera);
-            $("#editar_categoria").val(json.libro.categoria);
             $("#editar_resumen").val(json.libro.resumen);
-            $("#editar_titulo").val(json.libro.titulo);
+
+            // SELECT EDITORIAL
+            $("#editar_editorial option").each(function () {
+                if ($(this).attr("value") == json.libro.codEditorial) {
+                    $(this).attr("selected", true);
+                } else {
+                    $(this).attr("selected", false);
+                }
+            });
+            $("#editar_editorial").formSelect();
+
+            // SELECT EDICION
+            $("#editar_edicion option").each(function () {
+                if ($(this).attr("value") == json.libro.edicion) {
+                    $(this).attr("selected", true);
+                } else {
+                    $(this).attr("selected", false);
+                }
+            });
+            $("#editar_edicion").formSelect();
+
+            // SELECT CARRERA
+            $("#editar_carrera option").each(function () {
+                if ($(this).attr("value") == json.libro.codCarrera) {
+                    $(this).attr("selected", true);
+                } else {
+                    $(this).attr("selected", false);
+                }
+            });
+            $("#editar_carrera").formSelect();
+
+            // SELECT CATEGORIA
+            $("#editar_categoria option").each(function () {
+                if ($(this).attr("value") == json.libro.codCategoria) {
+                    $(this).attr("selected", true);
+                } else {
+                    $(this).attr("selected", false);
+                }
+            });
+            $("#editar_categoria").formSelect();
+
+            // $("#editar_editorial").val(json.libro.editorial);
+            // $("#editar_edicion").val(json.libro.edicion);
+            // $("#editar_carrera").val(json.libro.carrera);
+            // $("#editar_categoria").val(json.libro.categoria);
+
             let fechaDate = new Date();
             let fecha = new Date(json.libro.fecha);
             $("#editar_fecha").attr(
@@ -376,6 +420,191 @@ function activarLibro(id) {
         }
     });
 }
+
+function agregarEditorial() {
+    modalAgregarEditorial.open();
+}
+
+$("#btnAgregarEditorial").click(function () {
+    let nombreEditorial = $("#editorial_nombre").val();
+    if (nombreEditorial.length == 0)
+        Swal("Error!", "Debes ingresar el nombre de la editorial", "error");
+});
+
+// filtrar libros en el sistema
+$("#formBuscarLibro").submit(function (e) {
+    e.preventDefault();
+    let fd = new FormData(this);
+    fd.append("mode", "search");
+
+    Swal({
+        title: "Espere un momento",
+        text: "Buscando libros por título...",
+        confirmButtonColor: $(".btn-primary").css("background-color"),
+        confirmButtonText: "Reintentar",
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    method: "POST",
+                    url: HOST,
+                    contentType: false,
+                    processData: false,
+                    data: fd,
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.error) {
+                            reject(res.message);
+                        } else {
+                            resolve(res);
+                        }
+                    },
+                    error: function (error) {
+                        console.error(error);
+                        return false;
+                    },
+                });
+            }).catch(function (reason) {
+                Swal.showValidationMessage(reason);
+                Swal.hideLoading();
+            });
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+        onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+    }).then((result) => {
+        if (result.value) {
+            let json = result.value;
+            let resultados = json.length;
+
+            // limpiar la tabla
+            $("#tbodyLibrosActivos").children().remove();
+
+            // imprimir en la tabla
+            json.forEach((libro) => {
+                let f = new Date(libro.fecha);
+                let dia = f.getDate();
+                if (dia < 10) dia = "0" + dia;
+
+                let mes = f.getMonth();
+                if (mes < 10) mes = "0" + mes;
+                let fecha = dia + "/" + mes + "/" + f.getFullYear();
+                $("#tbodyLibrosActivos").append(`
+                <tr>
+                    <td class="libro_titulo"> ${libro.titulo} </td>
+                    <td> ${libro.editorial} </td>
+                    <td> ${libro.edicion} </td>
+                    <td> ${fecha} </td>
+                    <td> ${libro.carrera} </td>
+                    <td> ${libro.categoria} </td>
+                    <td class="td-actions  text-right">
+                        <button type="button" class="btn-flat btn-accion" title="Ver detalles" onclick="verDatosLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
+                        <i class="material-icons cyan-text">visibility</i>
+                        </button>
+
+                        <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
+                        <i class="material-icons blue-grey-text">edit</i>
+                        </button>
+
+                        <button type="button" class="btn-flat btn-accion" title="Desactivar" onclick="desactivarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
+                        <i class="material-icons red-text">delete</i>
+                        </button>
+                    </td>
+                </tr>
+            `);
+            });
+
+            if (resultados > 1) {
+                $("#resultados").text(resultados + " resultados");
+            } else if (resultados == 1) {
+                $("#resultados").text(resultados + " resultado");
+            }
+        }
+        $("#b_titulo_libro").val("");
+    });
+});
+
+$("#formBuscarLibroDesactivado").submit(function (e) {
+    e.preventDefault();
+    let fd = new FormData(this);
+    fd.append("mode", "search");
+
+    Swal({
+        title: "Espere un momento",
+        text: "Buscando libros por título...",
+        confirmButtonColor: $(".btn-primary").css("background-color"),
+        confirmButtonText: "Reintentar",
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    method: "POST",
+                    url: HOST,
+                    contentType: false,
+                    processData: false,
+                    data: fd,
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.error) {
+                            reject(res.message);
+                        } else {
+                            resolve(res);
+                        }
+                    },
+                    error: function (error) {
+                        console.error(error);
+                        return false;
+                    },
+                });
+            }).catch(function (reason) {
+                Swal.showValidationMessage(reason);
+                Swal.hideLoading();
+            });
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+        onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+    }).then((result) => {
+        if (result.value) {
+            let json = result.value;
+            let resultados = json.length;
+
+            // limpiar la tabla
+            $("#tbodyLibrosDesactivados").children().remove();
+
+            // imprimir en la tabla
+            json.forEach((libro) => {
+                $("#tbodyLibrosDesactivados").append(`
+                <tr>
+                    <td class="libro_titulo"> ${libro.titulo} </td>
+                    <td> ${libro.editorial} </td>
+                    <td> ${libro.edicion} </td>
+                    <td> ${libro.fecha} </td>
+                    <td> ${libro.carrera} </td>
+                    <td> ${libro.categoria} </td>
+                    <td class="td-actions  text-right">
+                        <button type="button" class="btn-flat btn-accion" title="Ver detalles" onclick="verDatosLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
+                        <i class="material-icons cyan-text">visibility</i>
+                        </button>
+
+                        <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
+                        <i class="material-icons blue-grey-text">edit</i>
+                        </button>
+
+                        <button type="button" class="btn-flat btn-accion" title="Activar" onclick="activarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top"><i class="material-icons green-text">done</i>
+                        </button>
+                    </td>
+                </tr>
+            `);
+            });
+
+            if (resultados > 1) {
+                $("#resultados").text(resultados + " resultados");
+            } else if (resultados == 1) {
+                $("#resultados").text(resultados + " resultado");
+            }
+        }
+        $("#b_titulo_libro").val("");
+    });
+});
 
 // validar los campos del formulario para verificar si no estan
 // vacios y desbloquear el boton de confirmar

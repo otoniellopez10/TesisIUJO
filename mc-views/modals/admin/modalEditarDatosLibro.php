@@ -13,12 +13,33 @@
                 </div>
 
                 <div class="col s12 m6 input-field">
-                    <input type="text" id="editar_editorial" name="modal_e_editorial" required placeholder="null"/>
+                    <select id="editar_editorial" name="modal_e_editorial" required>
+                        <option value="" disabled selected></option>
+                        <?php
+                            foreach ($editoriales as $e) {
+                        ?>
+                            <option value="<?= $e->id; ?>"> <?= $e->nombre; ?> </option>
+                        <?php
+                            }
+                        ?>
+                    </select>
                     <label for="editar_editorial">Editorial:</label>
                 </div>
 
                 <div class="col s12 m6 input-field">
-                    <input type="text" id="editar_edicion" name="modal_e_edicion" required placeholder="null"/>
+                    <select id="editar_edicion" name="modal_e_edicion" required>
+                        <option value="" disabled selected></option>
+                        <option value="Primera edición">Primera edición</option>
+                        <option value="Segunda edición">Segunda edición</option>
+                        <option value="Tercera edición">Tercera edición</option>
+                        <option value="Cuarta edición">Cuarta edición</option>
+                        <option value="Quinta edición">Quinta edición</option>
+                        <option value="Sexta edición">Sexta edición</option>
+                        <option value="Séptima edición">Séptima edición</option>
+                        <option value="Octava edición">Octava edición</option>
+                        <option value="Novena edición">Novena edición</option>
+                        <option value="Décima edición">Décima edición</option>
+                    </select>
                     <label for="editar_edicion">Edición:</label>
                 </div>
 
@@ -28,13 +49,31 @@
                 </div>
 
                 <div class="col s12 m6 input-field">
-                    <input type="text" id="editar_carrera" name="modal_e_carrera" required placeholder="null"/>
+                    <select id="editar_carrera" name="modal_e_carrera" required>
+                        <option value="" disabled selected></option>
+                        <?php
+                            foreach ($carreras as $c) {
+                        ?>
+                            <option value="<?= $c->id; ?>"> <?= $c->nombre; ?> </option>
+                        <?php
+                            }
+                        ?>
+                    </select>
                     <label for="editar_carrera">Carrera:</label>
                 </div>
 
                 <div class="col s12 input-field">
-                    <input type="text" id="editar_categoria" name="modal_e_categoria" required placeholder="null"/>
-                    <label for="editar_categoria">Categoría:</label>
+                    <select id="editar_categoria" name="modal_e_categoria" required>
+                        <option value="" disabled selected></option>
+                        <?php
+                            foreach ($categorias as $c) {
+                        ?>
+                            <option value="<?= $c->id; ?>"> <?= $c->nombre; ?> </option>
+                        <?php
+                            }
+                        ?>
+                    </select>
+                    <label for="editar_categoria">categoría:</label>
                 </div>
                 
                 <!-- <div class="col s12 input-field hide">

@@ -15,11 +15,16 @@ $roles = $objRol->getAll();
         <form action="" id="formEditarRol">
             <div class="row">
 
-                <div class="col s12 input-field">
-                    <input type="text" id="EditarRolNombre" disabled required placeholder="null"/>
-                    <label for="EditarRolNombre">Nombre y apellido:</label>
+                <div class="col s12 m6 valign-wrapper">
+                    <b class="teal-text">Nombre y apellido: &nbsp</b>
+                    <p id="EditarRolNombre"></p>
                 </div>
 
+                <div class="col s12 m6 valign-wrapper">
+                    <b class="teal-text">Cédula: &nbsp</b>
+                    <p id="EditarRolCedula"></p>
+                </div>
+                <div class="col s12" style="margin-bottom: 25px;"></div>
                 <div class="col s12 input-field">
                     <select id="editarRolSelect" name="editarRolSelect" required>
                         <option value="" disabled>-- Seleccione un rol --</option>

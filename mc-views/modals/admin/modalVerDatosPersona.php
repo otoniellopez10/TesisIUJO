@@ -9,36 +9,38 @@
             <div class="row">
 
                 <div class="col s4 m6 input-field">
-                    <input type="text" id="persona_id" disabled placeholder="null"/>
-                    <label for="persona_id">Identificador:</label>
+                    <p class="teal-text">Identificador: </p>
+                    <p id="persona_id"></p>
                 </div>
                 <div class="col s8 m6 input-field">
-                    <input type="text" id="persona_cedula" disabled placeholder="null"/>
-                    <label for="persona_cedula">Cédula:</label>
+                    <p class="teal-text">Cédula: </p>
+                    <p id="persona_cedula"></p>
                 </div>
                 <div class="col s12 m6 input-field">
-                    <input type="text" id="persona_nombre" disabled placeholder="null"/>
-                    <label for="persona_nombre">Nombre:</label>
+                    <p class="teal-text">Nombre: </p>
+                    <p id="persona_nombre"></p>
                 </div>
                 <div class="col s12 m6 input-field">
-                    <input type="text" id="persona_apellido" disabled placeholder="null"/>
-                    <label for="persona_apellido">Apellido:</label>
+                    <p class="teal-text">Apellido: </p>
+                    <p id="persona_apellido"></p>
+                </div>
+
+                <div class="col s12 m6 input-field">
+                    <p class="teal-text">Teléfono: </p>
+                    <p id="persona_telefono"></p>
                 </div>
                 <div class="col s12 m6 input-field">
-                    <input type="text" id="persona_telefono" disabled placeholder="null"/>
-                    <label for="persona_telefono">Teléfono:</label>
+                    <p class="teal-text">Tipo: </p>
+                    <p id="persona_tipo"></p>
+                </div>
+
+                <div class="col s12 m6 input-field">
+                    <p class="teal-text">Email: </p>
+                    <p id="persona_email"></p>
                 </div>
                 <div class="col s12 m6 input-field">
-                    <input type="text" id="persona_tipo" disabled placeholder="null"/>
-                    <label for="persona_tipo">Tipo:</label>
-                </div>
-                <div class="col s12 input-field">
-                    <input type="text" id="persona_email" disabled placeholder="null"/>
-                    <label for="persona_email">Email:</label>
-                </div>
-                <div class="col s12 input-field">
-                    <input type="text" id="persona_rol" disabled placeholder="null"/>
-                    <label for="persona_rol">Rol:</label>
+                    <p class="teal-text">Rol: </p>
+                    <p id="persona_rol"></p>
                 </div>
             </div>
         </form>

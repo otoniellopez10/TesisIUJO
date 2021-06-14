@@ -83,6 +83,9 @@ class Libro {
                     l.fecha,
                     l.resumen,
                     l.pdf,
+                    l.editorial AS codEditorial,
+                    l.carrera AS codCarrera,
+                    l.categoria AS codCategoria,
                     e.nombre AS editorial,
                     c.nombre AS carrera,
                     t.nombre AS categoria
@@ -90,7 +93,7 @@ class Libro {
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
-                WHERE l.estatus = 1 AND l.id = $id";
+                WHERE l.id = $id";
         return $db->get_row($sql);
     }
 
@@ -180,6 +183,27 @@ class Libro {
 
         $where = array("id" => $id);
         return  $db->update($this->table, $data, $where);
+    }
+
+
+    function search($titulo, $limit, $estatus){
+        global $db;
+        $sql = "SELECT 
+                    l.id,
+                    l.titulo,
+                    l.edicion,
+                    l.fecha,
+                    l.resumen,
+                    l.pdf,
+                    e.nombre AS editorial,
+                    c.nombre AS carrera,
+                    t.nombre AS categoria
+                FROM $this->table l
+                JOIN $this->tableEditorial e on e.id = l.editorial
+                JOIN $this->tableCarrera c on c.id = l.carrera
+                JOIN $this->tableCategoria t on t.id = l.categoria
+                WHERE l.titulo LIKE '%$titulo%' AND l.estatus = $estatus LIMIT $limit";
+        return $db->get_results($sql);
     }
 
 }

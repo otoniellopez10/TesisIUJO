@@ -128,6 +128,24 @@ if( $mode == "insert"){
         }
     }
     echo json_encode($response);
+
+
+
+}else if($mode == "search"){
+    if( !isset( $_POST['b_titulo_libro'] ) || !isset( $_POST['b_limite_libro'] ))
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    else{
+        $titulo = $_POST['b_titulo_libro'];
+        $limit = $_POST['b_limite_libro'];
+
+        $request = $ObjLibro->search($titulo, $limit, $estatus = 1);
+        if($request){
+            $response = $request;
+        }else{
+            $response = ['error' => true, 'message' => 'Error al filtrar los datos'];
+        }
+    }
+    echo json_encode($response);
 }
 
 

@@ -112,7 +112,7 @@ $personas = $objPersona->getAll();
                 <!-- tabla donde se listan todos los usuarios -->
                 <div id="tap1" class="col s12 ">
                     <div class="modulo_contenido">
-                        <table id="tableTodos" class="striped responsive-table">
+                        <table id="tableTodos" class="responsive-table highlight">
                             <thead class="teal-text">
                             <tr>
                                 <th>Cédula</th>
@@ -168,7 +168,7 @@ $personas = $objPersona->getAll();
                 <!--  table donde se listan los usuarios de tipo "Colaborador" -->
                 <div id="tap2" class="col s12 ">
                     <div class="modulo_contenido">
-                    <table id="tableColaboradores" class="striped responsive-table">
+                    <table id="tableColaboradores" class="highlight responsive-table">
                             <thead class="teal-text">
                             <tr>
                                 <th>Cédula</th>
@@ -224,7 +224,7 @@ $personas = $objPersona->getAll();
                 <!-- tabla donde se listan los usuarios comunes -->
                 <div id="tap3" class="col s12 ">
                     <div class="modulo_contenido">
-                    <table id="tableUsuarios" class="striped responsive-table">
+                    <table id="tableUsuarios" class="highlight responsive-table">
                             <thead class="teal-text">
                             <tr>
                                 <th>Cédula</th>

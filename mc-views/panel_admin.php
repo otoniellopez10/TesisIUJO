@@ -127,6 +127,30 @@ $editoriales = $objEditorial->getAll();
                 <!-- tabla donde se listan todos los libros -->
                 <div id="test1" class="col s12 ">
                     <div class="modulo_contenido">
+
+                        <!-- filtrar libros -->
+                        <div class="row">
+                            <form action="" id="formBuscarLibro">
+                                <div class="col s12 m9 input-field">
+                                    <input type="text" id="b_titulo_libro" name="b_titulo_libro" placeholder="Buscar libro por título" required>
+                                    <label for="b_titulo_libro">Filtrar por título: </label>
+                                </div>
+                                <div class="col s12 m2 input-field">
+                                    <select name="b_limite_libro" id="">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    <label for="b_limite_libro">Límite: </label>
+                                </div>
+                                <div class="col s12 m1 input-field">
+                                    <button type="submit" class="btn waves-effect waves-light tooltipped" id="btn_buscar_libro" data-position="top" data-tooltip="Buscar">
+                                    <i class="material-icons">search</i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <p id="resultados" class="teal-text section"></p>
                         <table id="tableLibros" class="striped responsive-table">
                             <thead class="teal-text">
                             <tr>
@@ -140,13 +164,13 @@ $editoriales = $objEditorial->getAll();
                             </tr>
                             </thead>
                         
-                            <tbody>
+                            <tbody id="tbodyLibrosActivos">
                                 <?php
                                     foreach ($libros as $libro) {
                                 ?>
                         
                                     <tr>
-                                        <td><?= $libro->titulo ?></td>
+                                        <td class="libro_titulo"><?= $libro->titulo ?></td>
                                         <td><?= $libro->editorial ?></td>
                                         <td><?= $libro->edicion ?></td>
                                         <td><?php 
@@ -186,7 +210,30 @@ $editoriales = $objEditorial->getAll();
                 <!-- libros desactivados -->
                 <div id="test2" class="col s12">
                 <div class="modulo_contenido">
-                        <table id="tableLibros" class="striped responsive-table">
+                <!-- filtrar libros -->
+                        <div class="row">
+                            <form action="" id="formBuscarLibroDesactivado">
+                                <div class="col s12 m9 input-field">
+                                    <input type="text" id="b_titulo_libro_desactivado" name="b_titulo_libro" placeholder="Buscar libro por título" required>
+                                    <label for="b_titulo_libro_desactivado">Filtrar por título: </label>
+                                </div>
+                                <div class="col s12 m2 input-field">
+                                    <select name="b_limite_libro" id="b_limite_libro_desactivado">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    <label for="b_limite_libro_desactivado">Límite: </label>
+                                </div>
+                                <div class="col s12 m1 input-field">
+                                    <button type="submit" class="btn waves-effect waves-light tooltipped" id="btn_buscar_libro_desactivado" data-position="top" data-tooltip="Buscar">
+                                    <i class="material-icons">search</i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <p id="resultados" class="teal-text section"></p>
+                        <table id="tableLibrosDesactiados" class="striped responsive-table">
                             <thead class="teal-text">
                             <tr>
                                 <th>Título</th>
@@ -199,10 +246,10 @@ $editoriales = $objEditorial->getAll();
                             </tr>
                             </thead>
                         
-                            <tbody>
+                            <tbody id="tbodyLibrosDesactivados">
                                 <?php
                                     foreach ($librosDesactivados as $libro) {
-                                        if($libro->estatus == 0){
+                                        
 
                                 ?>
                         
@@ -237,7 +284,7 @@ $editoriales = $objEditorial->getAll();
                                     </tr>
                         
                                 <?php
-                                        }
+                                        
                                 }
                                 ?>
                             </tbody>
@@ -283,7 +330,7 @@ $editoriales = $objEditorial->getAll();
 
                                 <!-- agregar editorial -->
                                 <div class="col s2 input-field center-align">
-                                    <button type="button" class="btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar una editorial"><i class="material-icons">add</i></button>
+                                    <button type="button" class="btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar una editorial" onclick="agregarEditorial()"><i class="material-icons">add</i></button>
                                 </div>
 
                                 <!-- agregar categoria -->
@@ -387,6 +434,33 @@ $editoriales = $objEditorial->getAll();
                 
             </div>
         </main>
+
+        <div id="modalAgregarEditorial" class="modal">
+            <div class="modal-header">
+                <h5 class="valign-wrapper"> <i class="material-icons left">add_circle</i> Agregar editorial</h5>
+                <i class="material-icons modal-close">close</i>
+            </div>
+            <div class="modal-content">
+
+                <form action="" id="formAgregarEditorial">
+                    <div class="row">
+                        <div class="col s12 input-field">
+                            <input type="text" id="editorial_nombre" name="editorial_nombre" required placeholder="Nombre de la editorial"/>
+                            <label for="editorial_nombre">Nombre:</label>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="modal-footer row">
+                <div class="col s12 right-align">
+                    <a class="btn-flat waves-effect waves-light modal-close">Cerrar</a>
+                    <button type="submit" class="btn waves-effect waves-light" id="btnAgregarEditorial">Guardar</button>
+                </div>
+            </div>
+        </div>
         
         <?php include_once "modals/admin/modalVerDatosLibro.php" ?>
         <?php include_once "modals/admin/modalEditarDatosLibro.php" ?>
