@@ -355,7 +355,6 @@ function validar(e, a) {
 }
 
 function modalDatosusuario(json){
-    console.log(json);
     // imprimir datos en el modal
     $("#persona_id").text(json.id);
     $("#persona_cedula").text(json.cedula);
