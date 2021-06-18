@@ -315,7 +315,7 @@ session_start();
                     </div>
 
                     <a
-                        href="#mc-views/repositorio.php"
+                        href="mc-views/repositorio.php"
                         class="btn-flat waves-effect waves-light white-text"
                     >
                         ir al repositorio

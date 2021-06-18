@@ -185,9 +185,9 @@ $editoriales = $objEditorial->getAll();
                                         <td class="td-actions  text-right">
                                             
                         
-                                            <button type="button" class="btn-flat btn-accion" title="Ver detalles" onclick="verDatosLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
+                                            <a href="libro.php?libro_id=<?= $libro->id ?>" class="btn-flat btn-accion" title="Ver detalles"  data-toggle="tooltip" data-placement="top">
                                             <i class="material-icons cyan-text">visibility</i>
-                                            </button>
+                                            </a>
                         
                                             <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
                                             <i class="material-icons blue-grey-text">edit</i>
@@ -210,7 +210,7 @@ $editoriales = $objEditorial->getAll();
                 <!-- libros desactivados -->
                 <div id="test2" class="col s12">
                 <div class="modulo_contenido">
-                <!-- filtrar libros -->
+                        <!-- filtrar libros -->
                         <div class="row">
                             <form action="" id="formBuscarLibroDesactivado">
                                 <div class="col s12 m9 input-field">
@@ -269,9 +269,9 @@ $editoriales = $objEditorial->getAll();
                                         <td class="td-actions  text-right">
                                             
                         
-                                            <button type="button" class="btn-flat btn-accion" title="Ver detalles" onclick="verDatosLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
+                                            <a href="libro.php?libro_id=<?= $libro->id ?>" class="btn-flat btn-accion" title="Ver detalles"  data-toggle="tooltip" data-placement="top">
                                             <i class="material-icons cyan-text">visibility</i>
-                                            </button>
+                                            </a>
                         
                                             <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
                                             <i class="material-icons blue-grey-text">edit</i>

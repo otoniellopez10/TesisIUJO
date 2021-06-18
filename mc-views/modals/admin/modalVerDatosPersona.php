@@ -8,11 +8,11 @@
         <form action="" id="formVerDatosPersona">
             <div class="row">
 
-                <div class="col s4 m6 input-field">
+                <div class="col s12 m6 input-field">
                     <p class="teal-text">Identificador: </p>
                     <p id="persona_id"></p>
                 </div>
-                <div class="col s8 m6 input-field">
+                <div class="col s12 m6 input-field">
                     <p class="teal-text">Cédula: </p>
                     <p id="persona_cedula"></p>
                 </div>
@@ -50,6 +50,10 @@
     <div class="modal-footer row">
         <div class="col s12">
             <button class="btn-flat waves-effect waves-light modal-close">Cerrar</button>
+            <button class="btn waves-effect waves-light hide" id="btnModalEditar">Editar</button>
+            <button class="btn waves-effect waves-light red hide" id="btnModalDesactivar">Desactivar</button>
+            <button class="btn waves-effect waves-light hide" id="btnModalActivar">Activar</button>
         </div>
+
     </div>
 </div>

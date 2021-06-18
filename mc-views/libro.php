@@ -11,23 +11,39 @@ if (!in_array($user_id, $acceso)) {
     die();
 }
 
-// include_once '../mc-models/Libro.php';
-// include_once '../mc-models/Carrera.php';
-// include_once '../mc-models/Categoria.php';
-// include_once '../mc-models/Editorial.php';
+$libro_id;
+if( isset($_GET['libro_id']) ){
+    $libro_id = $_GET['libro_id'];
+}else{
+    header("location: error.html");
+}
 
-// $objLibro = new Libro();
-// $objCarrera = new Carrera();
-// $objCategoria = new Categoria();
-// $objEditorial = new Editorial();
+include_once '../mc-models/Libro.php';
+include_once '../mc-models/Autor.php';
 
-// $libros = $objLibro->getAll();
-// $librosDesactivados = $objLibro->getAllDesactivados();
-// $carreras = $objCarrera->getAll();
-// $categorias = $objCategoria->getAll();
-// $editoriales = $objEditorial->getAll();
+$objLibro = new Libro();
+$objAutor = new Autor();
 
+$libro = $objLibro->getOneById($libro_id);
+$consulta_autores = $objAutor->getByLibroId($libro_id);
+$count = count($consulta_autores);
 
+$autores = "Por ";
+$index;
+
+if($count > 1){
+    foreach($consulta_autores as $key => $value){
+        $index = $key + 1;
+        $autores = $autores . $value->nombre ;
+        if( ( $count - $index) > 1){
+            $autores = $autores . ", ";
+        }else if(( $count - $index) == 1){
+            $autores = $autores . " y ";
+        }
+    }
+}else{
+    $autores = "Por " . $consulta_autores[0]->nombre;
+}
 
 ?>
 
@@ -50,7 +66,7 @@ if (!in_array($user_id, $acceso)) {
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-        <title>IUJO Repositorio | Repositorio</title>
+        <title>IUJO Repositorio | <?= $libro->titulo ?> </title>
 
         <style type="text/css">
             #modulo {
@@ -65,6 +81,23 @@ if (!in_array($user_id, $acceso)) {
             header ul li:not(.primero) a {
                 color: #ddd;
             }
+            .head{
+                height: 35vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(../assets/images/fondos/rombo.jpg);
+                background-size: 100% 100%;
+                background-attachment: fixed;
+            }
+            .head h3{
+                font-weight: bold;
+                border-bottom: 3px solid #009688;
+            }
+            .head p{
+                color: #555;
+            }
         </style>
     </head>
 
@@ -78,29 +111,153 @@ if (!in_array($user_id, $acceso)) {
         ?>
 
         <main>
+            <!-- portada -->
+            <div class="head"> 
+                <h3 class="teal-text" id="l_titulo"><?= $libro->titulo ?></h3>
+                <p><?= $autores ?></p>     
+            </div>
+
             <div id="modulo">
                 <h5>
-                    <i class="material-icons left teal-text">dashboard</i>Panel administrativo
+                    <i class="material-icons left teal-text">description</i>Detalles del libro
                 </h5>
-                <!-- portada -->
+
+                <!-- Datos libro -->
                 <div class="row">
                     <div class="col s12 m4 center-align">
                         <img src="../assets/images/libros/libro.png" alt="" class="responsive-img">
                     </div>
                 
                     <div class="s12 m8">
-                        <h5 class="teal-text" id="l_titulo">El caballero de la armadura oxidada</h5>
+                        <h5 class="teal-text" id="l_titulo"></h5>
                         <div class="valign-wrapper">
-                            <p><b>Titulo</b></p>
-                            <p id=l_titulo">Titulo del</p>
+                            <p><b class="teal-text">Editorial: </b></p>
+                            <p> &nbsp;  <?= $libro->editorial ?></p>
                         </div>
+
+                        <div class="valign-wrapper">
+                            <p><b class="teal-text">Edicion:</b></p>
+                            <p> &nbsp; <?= $libro->edicion ?></p>
+                        </div>
+
+                        <div class="valign-wrapper">
+                            <p><b class="teal-text">Fecha:</b></p>
+                            <p> &nbsp; <?php
+                                    echo date("d/m/Y", strtotime($libro->fecha));
+                                ?>
+                             </p>
+                        </div>
+
+                        <div class="valign-wrapper">
+                            <p><b class="teal-text">Carrera:</b></p>
+                            <p> &nbsp; <?= $libro->carrera ?></p>
+                        </div>
+
+                        <div class="valign-wrapper">
+                            <p><b class="teal-text">Categoría: </b></p>
+                            <p> &nbsp; <?= $libro->categoria ?></p>
+                        </div>
+
+                        <div class="">
+                            <p><b class="teal-text">Resumen: </b><?= $libro->resumen ?></p>
+                            <!-- <p> &nbsp; <?php // $libro->resumen ?></p> -->
+                        </div>
+
+                    </div>
+                    
+                </div>
+                <div class="row v">
+                    <div class="col s12 m4" style="padding:2px;">
+                        <button class="btn waves-effect waves-light teal lighten-2" style="width: 100%;"><i class="material-icons left">star</i> Calificar libro</button>
+                    </div>
+                    <?php
+                        $download = str_replace(" ", "-", $libro->titulo) . ".pdf";
+                    ?>
+                    <div class="col s12 m4" style="padding:2px;">
+                        <a href="../assets/pdfs/<?= $libro->pdf ?>" target="_blank" class="btn waves-effect waves-light" style="width: 100%;"><i class="material-icons left">visibility</i>Leer PDF</a>
+                    </div>
+                    <div class="col s12 m4" style="padding:2px;">
+                        <a href="../assets/pdfs/<?= $libro->pdf ?>" class="btn waves-effect waves-light teal lighten-2" style="width: 100%;" download="<?= $download ?>"><i class="material-icons left">download</i> Descargar libro</a>
                     </div>
                 </div>
+                <br>
+                <h5>
+                    <i class="material-icons left teal-text small">person_pin</i>Calificación y comentarios
+                </h5>
+                <!-- Calificacion -->
+                <div class="row">
+                    <h6 class="valign-wrapper teal lighten-1 white-text z-depth-2" style="padding: 10px;">Calificación de los usarios: &nbsp;
+                        <i class="material-icons yellow-text text-darken-1">star</i>
+                        <i class="material-icons yellow-text text-darken-1">star</i>
+                        <i class="material-icons yellow-text text-darken-1">star</i>
+                        <i class="material-icons yellow-text text-darken-1">star_half</i>
+                        <i class="material-icons yellow-text text-darken-1">star_border</i>
+                    </h6>
+                </div>
+
+                <!-- comentarios -->
+                <div class="row section">
+                    <h6 class="valign-wrapper "><i class="material-icons teal-text">comment</i>&nbsp; <b class="grey-text text-darken-3">Últimos comentarios </b></h6>
+
+                    <div class="comentario col s12">
+                        <div class=" valign-wrapper">
+                            <b class="teal-text comentario_nombre">Otoniel López</b>
+                            &nbsp;
+                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star_half</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star_border</i>
+                        </div>
+                        <p class="comentario_opinion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem omnis dolore eum a perspiciatis magni fugiat quidem. Provident fugiat reprehenderit incidunt dolor corporis quos quia doloribus, aliquid, dicta earum molestiae.</p>
+                    </div>
+
+                    <div class="comentario col s12">
+                        <div class=" valign-wrapper">
+                            <b class="teal-text comentario_nombre">Otoniel López</b>
+                            &nbsp;
+                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star_half</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star_border</i>
+                        </div>
+                        <p class="comentario_opinion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem omnis dolore eum a perspiciatis magni fugiat quidem. Provident fugiat reprehenderit incidunt dolor corporis quos quia doloribus, aliquid, dicta earum molestiae.</p>
+                    </div>
+
+                    <div class="comentario col s12">
+                        <div class=" valign-wrapper">
+                            <b class="teal-text comentario_nombre">Otoniel López</b>
+                            &nbsp;
+                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star_half</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star_border</i>
+                        </div>
+                        <p class="comentario_opinion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem omnis dolore eum a perspiciatis magni fugiat quidem. Provident fugiat reprehenderit incidunt dolor corporis quos quia doloribus, aliquid, dicta earum molestiae.</p>
+                    </div>
+
+                    <div class="comentario col s12">
+                        <div class=" valign-wrapper">
+                            <b class="teal-text comentario_nombre">Otoniel López</b>
+                            &nbsp;
+                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star_half</i>
+                            <i class="material-icons yellow-text text-darken-2 tiny">star_border</i>
+                        </div>
+                        <p class="comentario_opinion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem omnis dolore eum a perspiciatis magni fugiat quidem. Provident fugiat reprehenderit incidunt dolor corporis quos quia doloribus, aliquid, dicta earum molestiae.</p>
+                    </div>
+                </div>
+
+
             </div>
         </main>
         
         <?php // include_once "modals/admin/modalVerDatosLibro.php" ?>
-        <?php include_once "modals/admin/modalEditarDatosLibro.php" ?>
+        <?php // include_once "modals/admin/modalEditarDatosLibro.php" ?>
 
         <?php include_once "footer.php" ?>
 

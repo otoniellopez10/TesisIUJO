@@ -108,6 +108,19 @@ $personas = $objPersona->getAll();
                         </ul>
                     </div>
                 </nav>
+
+                <div class="row " style="margin-top: 20px;">
+                    <form action="" id="formBuscarUsuario">
+                        <div class="col s12 m6 l4 input-field">
+                            <input type="text" id="b_usuario_cedula" name="b_usuario_cedula" placeholder="Buscar usuario por cédula" required>
+                            <label for="b_usuario_cedula">Cédula: </label>
+                        </div>
+                        <div class="col s12 m1 l1 input-field">
+                            <button type="submit" class="btn waves-effect waves-light tooltipped"  data-position="top" data-tooltip="Buscar">
+                            <i class="material-icons">search</i></button>
+                        </div>
+                    </form>
+                </div>
                 
                 <!-- tabla donde se listan todos los usuarios -->
                 <div id="tap1" class="col s12 ">

@@ -1,4 +1,4 @@
-const HOST = "../mc-controllers/panelAdminController.php";
+const HOST = "../mc-controllers/libroController.php";
 
 var elemModal; //elemento
 var modalVerDatosLibro; // instancia
@@ -435,6 +435,7 @@ $("#btnAgregarEditorial").click(function () {
 $("#formBuscarLibro").submit(function (e) {
     e.preventDefault();
     let fd = new FormData(this);
+    fd.append("estatus", 1);
     fd.append("mode", "search");
 
     Swal({
@@ -511,13 +512,13 @@ $("#formBuscarLibro").submit(function (e) {
                     </td>
                 </tr>
             `);
-            });
 
             if (resultados > 1) {
                 $("#resultados").text(resultados + " resultados");
             } else if (resultados == 1) {
                 $("#resultados").text(resultados + " resultado");
             }
+            });
         }
         $("#b_titulo_libro").val("");
     });
@@ -526,6 +527,7 @@ $("#formBuscarLibro").submit(function (e) {
 $("#formBuscarLibroDesactivado").submit(function (e) {
     e.preventDefault();
     let fd = new FormData(this);
+    fd.append("estatus", 0);
     fd.append("mode", "search");
 
     Swal({

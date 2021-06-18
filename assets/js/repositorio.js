@@ -1,4 +1,4 @@
-const HOST = "../mc-controllers/repositorioController.php";
+const HOST = "../mc-controllers/libroController.php";
 
 $(document).ready(function () {
     // cargar autores en el autocomplete

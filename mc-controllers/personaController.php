@@ -71,6 +71,24 @@ if($mode == "insert"){
     echo json_encode($response);
 
 
+}else if($mode == "getOneByCedula"){
+    if ( !isset($_POST['cedula']) ){
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    }else{
+        $cedula = $_POST['cedula'];
+
+        $consulta = $objPersona->getOneByCedula($cedula);
+        if ($consulta === false) {
+            $response = ['error' => true, 'message' => 'Ocurrió un error al tratar de ver los detalles del usuario'];
+        }else if($consulta == null){
+            $response = ['error' => true, 'message' => 'No existe un usuario con la cédula indicada.'];
+        } else {
+            $response = $consulta;
+        }
+    }
+    echo json_encode($response);
+
+
 }else if($mode == "desactivar"){
     if ( !isset($_POST['usuario_id']) ){
         $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];

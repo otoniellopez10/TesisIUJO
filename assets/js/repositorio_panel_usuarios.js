@@ -22,18 +22,7 @@ function verPersona(id) {
     })
         .then((resp) => resp.json())
         .then((json) => {
-            let autores = "";
-            // imprimir datos en el modal
-            $("#persona_id").text(json.id);
-            $("#persona_cedula").text(json.cedula);
-            $("#persona_nombre").text(json.nombre);
-            $("#persona_apellido").text(json.apellido);
-            $("#persona_telefono").text(json.telefono);
-            $("#persona_tipo").text(json.tipo);
-            $("#persona_email").text(json.email);
-            $("#persona_rol").text(json.rol);
-
-            modalVerpersona.open();
+            modalDatosusuario(json);
         });
 }
 
@@ -193,6 +182,83 @@ function activarPersona(usuario_id) {
     });
 }
 
+$("#b_usuario_cedula").keypress(function (e) {
+    var a = /[0-9]/;
+    validar(e, a);
+    if (this.value.length == 8) {
+        return false;
+    }
+});
+
+// enviar formulario de buscar usuario por cedula
+$("#formBuscarUsuario").submit(function (e) {
+    e.preventDefault();
+
+    let cedula = $("#b_usuario_cedula").val();
+    if (cedula.length < 6 || cedula.length > 8) {
+        Swal("Error!", "Ingrese una cédula válida", "error");
+        return false;
+    }
+
+    let fd = new FormData();
+    fd.append("mode", "getOneByCedula");
+    fd.append("cedula", cedula);
+
+    Swal({
+        title: "Espere un momento",
+        text: "Buscando usuario...",
+        confirmButtonColor: $(".btn-primary").css("background-color"),
+        confirmButtonText: "Reintentar",
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    method: "POST",
+                    url: HOST,
+                    contentType: false,
+                    processData: false,
+                    data: fd,
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.error) {
+                            reject(res.message);
+                        } else {
+                            resolve(res);
+                        }
+                    },
+                    error: function (error) {
+                        console.error(error);
+                        return false;
+                    },
+                });
+            }).catch(function (reason) {
+                $("#b_usuario_cedula").val("");
+                Swal.showValidationMessage(reason);
+                Swal.hideLoading();
+            });
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+        onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+    }).then((result) => {
+        if (result.value) {
+            gbUsuarioId = result.value.usuario_id;
+            modalDatosusuario(result.value);
+        }
+    });
+});
+
+// funcion al darle al boton de editar en el modal
+$("#btnModalEditar").click(function () {
+    editarPersona(gbUsuarioId);
+});
+
+$("#btnModalDesactivar").click(function () {
+    desactivarPersona(gbUsuarioId);
+});
+
+$("#btnModalActivar").click(function () {
+    activarPersona(gbUsuarioId);
+});
 // funcion al darle "guardar cambios" del formulario para cambiar el rol del usuario
 $("#formEditarRol").submit(function (e) {
     e.preventDefault();
@@ -262,3 +328,54 @@ $("#formEditarRol").submit(function (e) {
         }
     });
 });
+
+////////////////////////////////////////////
+////////////////////////////////////////////
+//////////// FUNCIONES EXTRAS //////////////
+////////////////////////////////////////////
+////////////////////////////////////////////
+
+function validar(e, a) {
+    var key = e.keyCode || e.which;
+    var expresion = a;
+    var especiales = "8-37-38-46";
+    var tecla = String.fromCharCode(key);
+    var teclado_especial = false;
+
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            teclado_especial == true;
+        }
+    }
+
+    if (!expresion.test(tecla) && !teclado_especial) {
+        e.preventDefault();
+        return false;
+    }
+}
+
+function modalDatosusuario(json){
+    console.log(json);
+    // imprimir datos en el modal
+    $("#persona_id").text(json.id);
+    $("#persona_cedula").text(json.cedula);
+    $("#persona_nombre").text(json.nombre);
+    $("#persona_apellido").text(json.apellido);
+    $("#persona_telefono").text(json.telefono);
+    $("#persona_tipo").text(json.tipo);
+    $("#persona_email").text(json.email);
+    $("#persona_rol").text(json.rol);
+
+    $("#b_usuario_cedula").val("");
+    $("#btnModalEditar").removeClass("hide");
+
+    if (json.estatus == 1) {
+        $("#btnModalDesactivar").removeClass("hide");
+    } else $("#btnModalDesactivar").addClass("hide");
+
+    if (json.estatus == 0) {
+        $("#btnModalActivar").removeClass("hide");
+    } else $("#btnModalActivar").addClass("hide");
+
+    modalVerpersona.open();
+}
