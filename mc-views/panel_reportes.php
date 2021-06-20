@@ -57,7 +57,7 @@ if (!in_array($user_id, $acceso)) {
                 border: 1px solid rgba(0,0,0,0.1);
                 border-radius: 10px;
                 cursor: pointer;
-                margin: 10px 0px;
+                margin: 10px 0;
             }
         </style>
     </head>
@@ -107,24 +107,52 @@ if (!in_array($user_id, $acceso)) {
                 
                 <!-- Reportes de Libros -->
                 <div id="test1" class="row reportes">
-                    <div class="col s12 m6 l4 valign-wrapper hoverable reporte">
-                        <i class="material-icons medium teal-text">looks_one</i>
-                        <h6>Más vistos</h6>
+                    <div class="col s12 m6 l4">
+                        <div class="valign-wrapper hoverable reporte">
+                            <i class="material-icons medium teal-text">looks_one</i>
+                            <h6>Más vistos</h6>
+                        </div>
                     </div>
 
-                    <div class="col s12 m6 l4 valign-wrapper hoverable reporte">
-                        <i class="material-icons medium teal-text">looks_two</i>
-                        <h6>Más vistos</h6>
+                    <div class="col s12 m6 l4">
+                        <div class="valign-wrapper hoverable reporte">
+                            <i class="material-icons medium teal-text">looks_two</i>
+                            <h6>Más descargados</h6>
+                        </div>
                     </div>
 
-                    <div class="col s12 m6 l4 valign-wrapper hoverable reporte">
-                        <i class="material-icons medium teal-text">looks_3</i>
-                        <h6>mejor calificados</h6>
+                    <div class="col s12 m6 l4">
+                        <div class="valign-wrapper hoverable reporte">
+                            <i class="material-icons medium teal-text">looks_3</i>
+                            <h6>Con mejor calificación</h6>
+                        </div>
                     </div>
 
-                    <div class="col s12 m6 l4 valign-wrapper hoverable reporte">
-                        <i class="material-icons medium teal-text">looks_4</i>
-                        <h6>Libros mas rescargados</h6>
+                    <div class="col s12 m6 l4">
+                        <div class="valign-wrapper hoverable reporte">
+                            <i class="material-icons medium teal-text">looks_4</i>
+                            <h6>Cantidad de libros activos / no activos</h6>
+                        </div>
+                    </div>
+
+                    <div class="col s12 libros_resultado ">
+                        <table id="tableReporteLibros" class="striped responsive-table">
+                            <thead class="teal-text">
+                            <tr>
+                                <th>Título</th>
+                                <th>Editorial</th>
+                                <th>Edición</th>
+                                <th>Fecha</th>
+                                <th>Carrera</th>
+                                <th>Categoría</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                        
+                            <tbody id="tbodyLibros">
+                               
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 

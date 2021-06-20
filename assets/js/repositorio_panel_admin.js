@@ -498,9 +498,9 @@ $("#formBuscarLibro").submit(function (e) {
                     <td> ${libro.carrera} </td>
                     <td> ${libro.categoria} </td>
                     <td class="td-actions  text-right">
-                        <button type="button" class="btn-flat btn-accion" title="Ver detalles" onclick="verDatosLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
+                        <a href="libro.php?libro_id=${libro.id}" class="btn-flat btn-accion" title="Ver detalles"  data-toggle="tooltip" data-placement="top">
                         <i class="material-icons cyan-text">visibility</i>
-                        </button>
+                        </a>
 
                         <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
                         <i class="material-icons blue-grey-text">edit</i>
@@ -583,9 +583,9 @@ $("#formBuscarLibroDesactivado").submit(function (e) {
                     <td> ${libro.carrera} </td>
                     <td> ${libro.categoria} </td>
                     <td class="td-actions  text-right">
-                        <button type="button" class="btn-flat btn-accion" title="Ver detalles" onclick="verDatosLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
+                        <a href="libro.php?libro_id=${libro.id}" class="btn-flat btn-accion" title="Ver detalles"  data-toggle="tooltip" data-placement="top">
                         <i class="material-icons cyan-text">visibility</i>
-                        </button>
+                        </a>
 
                         <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
                         <i class="material-icons blue-grey-text">edit</i>
