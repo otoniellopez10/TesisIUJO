@@ -31,28 +31,17 @@ if (!in_array($user_id, $acceso)) {
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-        <title>IUJO Repositorio | Repositorio</title>
+        <title>IUJO Repositorio | Reportes</title>
 
         <style type="text/css">
             #modulo {
                 margin: 0 30px;
             }
-            #modulo h5{
+            #modulo > h5{
                 margin: 10px 0px;
                 padding: 10px 0;
                 border-bottom: 2px solid teal;
             }
-            .modulo_contenido {
-                padding: 30px 20px;
-                border: 1px solid rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
-            }
-            #test1 h6, #test2 h6{
-                margin-top: 40px;
-                font-weight: bold;
-                color: #26a69a;
-            }
-            .col{margin: 10px 0px;}
             header ul li:not(.primero) a {
                 color: #ddd;
             }
@@ -63,17 +52,12 @@ if (!in_array($user_id, $acceso)) {
                 z-index: 10;
             }
             .btn-accion{ padding: 0 5px; }
-            .modal-header{
-                background: #26a69a;
-                color: white;
-                padding: 10px 30px 1px 30px;
-                position: relative;
-            }
-            .modal-header .modal-close{
-                position: absolute;
-                top: 50%;
-                right: 20px;
-                transform: translateY(-25%);
+
+            .reporte{
+                border: 1px solid rgba(0,0,0,0.1);
+                border-radius: 10px;
+                cursor: pointer;
+                margin: 10px 0px;
             }
         </style>
     </head>
@@ -90,7 +74,7 @@ if (!in_array($user_id, $acceso)) {
         <main>
             <div id="modulo">
                 <h5>
-                    <i class="material-icons left teal-text">dashboard</i>Panel administrativo
+                    <i class="material-icons left teal-text">settings</i>Reportes
                 </h5>
                 
                 <!-- contenido panel administradr -->
@@ -98,183 +82,63 @@ if (!in_array($user_id, $acceso)) {
                 <nav class="nav-extended teal" id="nav">
                     <div class="nav-content">
                         <ul class="tabs tabs-transparent">
-                            <li class="tab"><a class="active" href="#test1">Lista de libros</a></li>
-                            <li class="tab"><a class="" href="#test2">Agregar</a></li>
+                            <li class="tab"><a class="active" href="#test1">Reporte de libros</a></li>
+                            <li class="tab"><a class="" href="#test2">Reporte de usuarios</a></li>
+                            <li class="tab"><a class="" href="#test3">otros</a></li>
                         </ul>
                     </div>
                 </nav>
+
+                <br>
+                <!-- filtrar libros -->
+                <div class="row">
+                    <form action="" id="formBuscarLibro">
+                        <div class="col s12 m2   input-field">
+                            <select name="b_limite_libro" id="">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <label for="b_limite_libro">Límite de resultados: </label>
+                        </div>
+                    </form>
+                </div>
                 
-                <!-- tabla donde se listan todos los libros -->
-                <div id="test1" class="col s12 ">
-                    <div class="modulo_contenido">
-                        <table id="tableLibros" class="striped responsive-table">
-                            <thead class="teal-text">
-                            <tr>
-                                <th>Título</th>
-                                <th>Editorial</th>
-                                <th>Edición</th>
-                                <th>Fecha</th>
-                                <th>Categoría</th>
-                                <th>Materia</th>
-                                <th>Acciones</th>
-                            </tr>
-                            </thead>
-                        
-                            <tbody>
-                                <?php
-                                    include_once '../mc-models/Libro.php';
-                                    $objLibro = new Libro();
-                                    $libros = $objLibro->getAll();
-                        
-                                    foreach ($libros as $libro) {
-                                ?>
-                        
-                                    <tr>
-                                        <td><?= $libro->titulo ?></td>
-                                        <td><?= $libro->editorial ?></td>
-                                        <td><?= $libro->edicion ?></td>
-                                        <td><?php 
-                                                $fecha = $libro->fecha;
-                                                $fecha_format = date("d/m/Y", strtotime($fecha));
-                                                echo $fecha_format;
-                                            ?></td>
-                                        <td><?= $libro->categoria ?></td>
-                                        <td><?= $libro->materia ?></td>
-                        
-                        
-                                        <td class="td-actions  text-right">
-                                            
-                        
-                                            <button type="button" class="btn-flat btn-accion" title="Ver detalles" onclick="verDatosLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
-                                            <i class="material-icons cyan-text">visibility</i>
-                                            </button>
-                        
-                                            <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
-                                            <i class="material-icons blue-grey-text">edit</i>
-                                            </button>
-                        
-                                            <button type="button" class="btn-flat btn-accion" title="Desactivar" onclick="desactivarLibro( <?= $libro->id ?> )" data-toggle="tooltip" data-placement="top">
-                                            <i class="material-icons red-text">delete</i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                        
-                                <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                <!-- Reportes de Libros -->
+                <div id="test1" class="row reportes">
+                    <div class="col s12 m6 l4 valign-wrapper hoverable reporte">
+                        <i class="material-icons medium teal-text">looks_one</i>
+                        <h6>Más vistos</h6>
+                    </div>
+
+                    <div class="col s12 m6 l4 valign-wrapper hoverable reporte">
+                        <i class="material-icons medium teal-text">looks_two</i>
+                        <h6>Más vistos</h6>
+                    </div>
+
+                    <div class="col s12 m6 l4 valign-wrapper hoverable reporte">
+                        <i class="material-icons medium teal-text">looks_3</i>
+                        <h6>mejor calificados</h6>
+                    </div>
+
+                    <div class="col s12 m6 l4 valign-wrapper hoverable reporte">
+                        <i class="material-icons medium teal-text">looks_4</i>
+                        <h6>Libros mas rescargados</h6>
                     </div>
                 </div>
 
-                <!-- form para agregar un libro -->
+                <!-- Reportes de Usuarios -->
                 <div id="test2" class="col s12 ">
                     <div class="modulo_contenido">
-                        <form action="" id="form_AgregarLibro">
-                            <div class="row">
-                                <!-- titulo -->
-                                <div class="col s12 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_titulo"
-                                        name="titulo"
-                                        required
-                                    />
-                                    <label for="i_titulo">titulo:</label>
-                                </div>
-                        
-                                <!-- autor -->
-                                <div class="col s12 input-field">
-                                    <div class="chips chips-placeholder" id="chips"></div>
-                                </div>
-                        
-                                <!-- editorial -->
-                                <div class="col s12 m6 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_editorial"
-                                        name="editorial"
-                                        required
-                                    />
-                                    <label for="i_editorial">Editorial:</label>
-                                </div>
-                        
-                                <!-- edicion -->
-                                <div class="col s12 m6 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_edicion"
-                                        name="edicion"
-                                        required
-                                    />
-                                    <label for="i_edicion">Edición:</label>
-                                </div>
-                        
-                                <!-- fecha -->
-                                <div class="col s12 m6 l4 input-field">
-                                    <input
-                                        type="date"
-                                        id="i_fecha"
-                                        name="fecha"
-                                        required
-                                    />
-                                    <label for="i_fecha">Fecha:</label>
-                                </div>
-                        
-                                <!-- categoria -->
-                                <div class="col s12 m6 l4 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_categoria"
-                                        name="categoria"
-                                        required
-                                    />
-                                    <label for="i_categoria">Categoría:</label>
-                                </div>
-                        
-                                <!-- materia -->
-                                <div class="col s12 m6 l4 input-field">
-                                    <input
-                                        type="text"
-                                        id="i_materia"
-                                        name="materia"
-                                        required
-                                    />
-                                    <label for="i_materia">Materia:</label>
-                                </div>
-                        
-                                <!-- descripcion -->
-                                <div class="col s12 input-field">
-                                    <textarea class="materialize-textarea" name="descripcion" id="i_descripcion" cols="30" rows="10" data-length="255" required></textarea>
-                                    <label for="i_descripcion">Descripción:</label>
-                                </div>
-                        
-                            </div>
-                            <div class="row">
-                                <div class="col s12">
-                                    <label for="i_pdf">Selecciona el archivo PDF</label>
-                                    <div class="file-field input-field">
-                                        <div class="btn">
-                                            <span>Browse</span>
-                                            <input type="file" id="i_pdf" name="pdf" required>
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            <input type="text" class="file-path validate" placeholder="Upload file">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                            <div class="col s12">
-                                <button type="button" class="btn waves-effect waves-light grey" id="btnLimpiarCampos" onclick="limpiarCampos()">
-                                    Limpiar campos
-                                </button>
-                                
-                                <button type="submit" class="btn waves-effect waves-light disabled" id="btnAgregarLibro">
-                                    Confirmar
-                                </button>
-                            </div>
-                        </form>
+                        b
+                    </div>
+                </div>
+
+                <!-- Otros reportes -->
+                <div id="test3" class="col s12 ">
+                    <div class="modulo_contenido">
+                        c
                     </div>
                 </div>
                 
@@ -293,7 +157,7 @@ if (!in_array($user_id, $acceso)) {
         <!-- alertas -->
         <script type="text/javascript" src="../assets/librerias/js/sweetalert2.all.min.js"></script>
         <script type="text/javascript" src="../assets/librerias/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="../assets/js/repositorio_panel_admin.js"></script>
+        <script type="text/javascript" src="../assets/js/repositorio_panel_reportes.js"></script>
         <script>
             M.AutoInit();
         </script>

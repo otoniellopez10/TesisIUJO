@@ -3,3 +3,4 @@
 - Generar pag de reportes
 - Editar Autores 
 - Agregar "Descargas" a la tabla de libro para su consulta
+- agregar vistas a la tabla de libros para su consulta

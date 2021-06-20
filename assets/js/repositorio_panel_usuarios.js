@@ -23,6 +23,7 @@ function verPersona(id) {
         .then((resp) => resp.json())
         .then((json) => {
             modalDatosusuario(json);
+            gbUsuarioId = id;
         });
 }
 
