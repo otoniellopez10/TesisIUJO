@@ -82,8 +82,8 @@ if (!in_array($user_id, $acceso)) {
                 <nav class="nav-extended teal" id="nav">
                     <div class="nav-content">
                         <ul class="tabs tabs-transparent">
-                            <li class="tab"><a class="" href="#test1">Reporte de libros</a></li>
-                            <li class="tab"><a class="active" href="#test2">Reporte de usuarios</a></li>
+                            <li class="tab"><a class="active" href="#test1">Reporte de libros</a></li>
+                            <li class="tab"><a class="" href="#test2">Reporte de usuarios</a></li>
                             <li class="tab"><a class="" href="#test3">otros</a></li>
                         </ul>
                     </div>

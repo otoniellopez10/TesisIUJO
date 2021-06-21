@@ -1,6 +1,6 @@
 ========== PRINCIPALES ADMIN ==========
 
-- Generar pag de reportes
+- Generar pag de reportes LISTO!
 - Editar Autores 
-- Agregar "Descargas" a la tabla de libro para su consulta
-- agregar vistas a la tabla de libros para su consulta
+- Agregar "Descargas" a la tabla de libro para su consulta LISTO!
+- agregar vistas a la tabla de libros para su consulta LISTO!
