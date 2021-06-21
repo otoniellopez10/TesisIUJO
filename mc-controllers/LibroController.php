@@ -168,8 +168,67 @@ if( $mode == "insert"){
     echo json_encode($response);
 
 
-}
+// INICIO DE LOS REPORTES DE LIBROS
+}else if( $mode == "getMasVistos"){
+    if( !isset( $_POST['limite'] ) )
+        $response = ['error' => true, 'message' => 'Indique el limite de consulta'];
+    else{
+        $limite = $_POST['limite'];
 
+        $request = $ObjLibro->getMasVistos($limite);
+        if(count($request) == 0){
+            $response = ['error' => true, 'message' => 'Ningún libro ha sido visto'];
+        }else{
+            $response = $request;
+        }
+    }
+
+    echo json_encode($response);
+
+}else if( $mode == "getMasDescargados"){
+    if( !isset( $_POST['limite'] ) )
+        $response = ['error' => true, 'message' => 'Indique el limite de consulta'];
+    else{
+        $limite = $_POST['limite'];
+
+        $request = $ObjLibro->getMasDescargados($limite);
+        if(count($request) == 0){
+            $response = ['error' => true, 'message' => 'Ningún libro ha sido descargado'];
+        }else{
+            $response = $request;
+        }
+    }
+
+    echo json_encode($response);
+
+
+}else if( $mode == "getMejorCalificados"){
+    if( !isset( $_POST['limite'] ) )
+        $response = ['error' => true, 'message' => 'Indique el limite de consulta'];
+    else{
+        $limite = $_POST['limite'];
+
+        $request = $ObjLibro->getMejorCalificados($limite);
+        if(count($request) == 0){
+            $response = ['error' => true, 'message' => 'Ningún libro ha sido calificado'];
+        }else{
+            $response = $request;
+        }
+    }
+
+    echo json_encode($response);
+
+}else if( $mode == "getReporteLibros"){
+    if( !isset( $_POST['limite'] ) )
+        $response = ['error' => true, 'message' => 'Indique el limite de consulta'];
+    else{
+        $limite = $_POST['limite'];
+
+        $response = $ObjLibro->getReporteLibros($limite);
+    }
+
+    echo json_encode($response);
+}
 
 
 function format($cadena){

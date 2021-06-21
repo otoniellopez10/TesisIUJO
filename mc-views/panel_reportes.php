@@ -55,7 +55,7 @@ if (!in_array($user_id, $acceso)) {
 
             .reporte{
                 border: 1px solid rgba(0,0,0,0.1);
-                border-radius: 10px;
+                border-radius: 7px;
                 cursor: pointer;
                 margin: 10px 0;
             }
@@ -94,7 +94,7 @@ if (!in_array($user_id, $acceso)) {
                 <div class="row">
                     <form action="" id="formBuscarLibro">
                         <div class="col s12 m2   input-field">
-                            <select name="b_limite_libro" id="">
+                            <select name="b_limite_libro" id="select_limite">
                                 <option value="10">10</option>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
@@ -107,44 +107,46 @@ if (!in_array($user_id, $acceso)) {
                 
                 <!-- Reportes de Libros -->
                 <div id="test1" class="row reportes">
-                    <div class="col s12 m6 l4">
-                        <div class="valign-wrapper hoverable reporte">
-                            <i class="material-icons medium teal-text">looks_one</i>
-                            <h6>Más vistos</h6>
+                    <div id="botonesReportes">
+                        <div class="col s12 m6 l4">
+                            <div class="valign-wrapper hoverable reporte" onclick="reporteLibro('getMasVistos', 'Visualizaciones')">
+                                <i class="material-icons medium teal-text">looks_one</i>
+                                <h6>Más vistos</h6>
+                            </div>
+                        </div>
+                        
+                        <div class="col s12 m6 l4">
+                            <div class="valign-wrapper hoverable reporte" onclick="reporteLibro('getMasDescargados', 'Descargas')">
+                                <i class="material-icons medium teal-text">looks_two</i>
+                                <h6>Más descargados</h6>
+                            </div>
+                        </div>
+                        
+                        <div class="col s12 m6 l4">
+                            <div class="valign-wrapper hoverable reporte" onclick="reporteLibro('getMejorCalificados', 'Calificación')">
+                                <i class="material-icons medium teal-text">looks_3</i>
+                                <h6>Con mejor calificación</h6>
+                            </div>
+                        </div>
+                        
+                        <div class="col s12 m6 l4">
+                            <div class="valign-wrapper hoverable reporte" onclick="reporteLibros()">
+                                <i class="material-icons medium teal-text">looks_4</i>
+                                <h6>Cantidad de libros activos / no activos</h6>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col s12 m6 l4">
-                        <div class="valign-wrapper hoverable reporte">
-                            <i class="material-icons medium teal-text">looks_two</i>
-                            <h6>Más descargados</h6>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m6 l4">
-                        <div class="valign-wrapper hoverable reporte">
-                            <i class="material-icons medium teal-text">looks_3</i>
-                            <h6>Con mejor calificación</h6>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m6 l4">
-                        <div class="valign-wrapper hoverable reporte">
-                            <i class="material-icons medium teal-text">looks_4</i>
-                            <h6>Cantidad de libros activos / no activos</h6>
-                        </div>
-                    </div>
-
-                    <div class="col s12 libros_resultado ">
+                    <div class="col s12" id="libros_resultado">
+                        <button class="btn-flat waves-effect waves-light tooltipped" data-position="right" data-tooltip="Volver" onclick="cerrarReportes()"><i class="material-icons teal-text left">arrow_back</i>Volver</button>
                         <table id="tableReporteLibros" class="striped responsive-table">
                             <thead class="teal-text">
                             <tr>
+                                <th>top</th>
                                 <th>Título</th>
                                 <th>Editorial</th>
                                 <th>Edición</th>
-                                <th>Fecha</th>
-                                <th>Carrera</th>
-                                <th>Categoría</th>
+                                <th id="thResultado"></th>
                                 <th>Acciones</th>
                             </tr>
                             </thead>

@@ -13,6 +13,9 @@ class Libro {
         $this->tableEditorial = "libro_editorial";
         $this->tableCarrera = "libro_carrera";
         $this->tableCategoria = "libro_categoria";
+        $this->tableCalificacion = "calificacion_libro";
+        $this->tableDescarga = "descarga_libro";
+        $this->tableVista = "vista_libro";
     }
 
     public function getAll() {
@@ -204,6 +207,94 @@ class Libro {
                 JOIN $this->tableCategoria t on t.id = l.categoria
                 WHERE l.titulo LIKE '%$titulo%' AND l.estatus = $estatus LIMIT $limit";
         return $db->get_results($sql);
+    }
+
+
+
+
+    // REPORTES DE LIBROS!!!
+    function getMasVistos($limit){
+        global $db;
+        $sql = "SELECT 
+                    l.id,
+                    l.titulo,
+                    l.edicion,
+                    l.fecha,
+                    l.resumen,
+                    l.pdf,
+                    e.nombre AS editorial,
+                    c.nombre AS carrera,
+                    t.nombre AS categoria,
+                    COUNT(v.libro_id) as cantidad
+                FROM $this->tableVista v
+                JOIN $this->table l on l.id = v.libro_id
+                JOIN $this->tableEditorial e on e.id = l.editorial
+                JOIN $this->tableCarrera c on c.id = l.carrera
+                JOIN $this->tableCategoria t on t.id = l.categoria
+                GROUP BY l.id ORDER BY cantidad DESC LIMIT $limit";
+        return $db->get_results($sql);
+    }
+
+    function getMasDescargados($limit){
+        global $db;
+        $sql = "SELECT 
+                    l.id,
+                    l.titulo,
+                    l.edicion,
+                    l.fecha,
+                    l.resumen,
+                    l.pdf,
+                    e.nombre AS editorial,
+                    c.nombre AS carrera,
+                    t.nombre AS categoria,
+                    COUNT(v.libro_id) as cantidad
+                FROM $this->tableDescarga v
+                JOIN $this->table l on l.id = v.libro_id
+                JOIN $this->tableEditorial e on e.id = l.editorial
+                JOIN $this->tableCarrera c on c.id = l.carrera
+                JOIN $this->tableCategoria t on t.id = l.categoria
+                GROUP BY l.id ORDER BY cantidad DESC LIMIT $limit";
+        return $db->get_results($sql);
+    }
+
+    function getMejorCalificados($limit){
+        global $db;
+        $sql = "SELECT 
+                    l.id,
+                    l.titulo,
+                    l.edicion,
+                    l.fecha,
+                    l.resumen,
+                    l.pdf,
+                    e.nombre AS editorial,
+                    c.nombre AS carrera,
+                    t.nombre AS categoria,
+                    AVG(v.calificacion) as cantidad
+                FROM $this->tableCalificacion v
+                JOIN $this->table l on l.id = v.libro_id
+                JOIN $this->tableEditorial e on e.id = l.editorial
+                JOIN $this->tableCarrera c on c.id = l.carrera
+                JOIN $this->tableCategoria t on t.id = l.categoria
+                GROUP BY l.id ORDER BY cantidad DESC LIMIT $limit";
+        return $db->get_results($sql);
+    }
+
+    function getReporteLibros($limit){
+        global $db;
+        $sql = "SELECT 
+                    COUNT(l.estatus) as cantidad
+                FROM  $this->table l 
+                WHERE l.estatus = 1 LIMIT $limit";
+        $response['activos'] =  $db->get_results($sql);
+
+        $sql = "SELECT 
+                    COUNT(l.estatus) as cantidad
+                FROM  $this->table l 
+                WHERE l.estatus = 0 LIMIT $limit";
+        $response['desactivados'] =  $db->get_results($sql);
+
+        return $response;
+
     }
 
 }
