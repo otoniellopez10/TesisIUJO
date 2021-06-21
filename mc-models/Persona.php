@@ -13,6 +13,10 @@ class persona {
         $this->tableTipo = "persona_tipo";
         $this->tableUsuario = "usuario";
         $this->tableRol = "usuario_rol";
+
+        $this->tableVista = "vista_libro";
+        $this->tableDescarga = "descarga_libro";
+        $this->tableCalificacion = "calificacion_libro";
     }
 
     public function getOne($id) {
@@ -149,4 +153,62 @@ class persona {
     //     return $db->update($this->table, $data, $where);
     // }
 
+    // REPORTES
+
+    function getUsuarioVistas(){
+        global $db;
+
+        $sql = "SELECT
+                    p.*,
+                    t.nombre AS tipo,
+                    u.email,
+                    r.nombre AS rol, 
+                    r.id AS rol_id,
+                    COUNT(v.usuario_id) AS cantidad
+                    FROM $this->tableVista v
+                    JOIN $this->table AS p on p.id = v.usuario_id
+                    JOIN $this->tableTipo AS t on t.id = p.persona_tipo
+                    JOIN $this->tableUsuario AS u on u.id = p.usuario_id
+                    JOIN $this->tableRol AS r on r.id = u.rol_id
+                WHERE p.estatus = 1 AND r.id IN (2,3) GROUP BY v.usuario_id ORDER BY cantidad DESC";
+        return $db->get_results($sql); 
+    }
+
+
+    function getUsuarioDescargas(){
+        global $db;
+
+        $sql = "SELECT
+                    p.*,
+                    t.nombre AS tipo,
+                    u.email,
+                    r.nombre AS rol, 
+                    r.id AS rol_id,
+                    COUNT(v.usuario_id) AS cantidad
+                    FROM $this->tableDescarga v
+                    JOIN $this->table AS p on p.id = v.usuario_id
+                    JOIN $this->tableTipo AS t on t.id = p.persona_tipo
+                    JOIN $this->tableUsuario AS u on u.id = p.usuario_id
+                    JOIN $this->tableRol AS r on r.id = u.rol_id
+                WHERE p.estatus = 1 AND r.id IN (2,3) GROUP BY v.usuario_id ORDER BY cantidad DESC";
+        return $db->get_results($sql); 
+    }
+
+
+    function getReporteUsuarios($limit){
+        global $db;
+        $sql = "SELECT 
+                    COUNT(l.rol_id) as cantidad
+                FROM  $this->tableUsuario l 
+                WHERE l.rol_id = 2 LIMIT $limit";
+        $response['activos'] =  $db->get_results($sql);
+
+        $sql = "SELECT 
+                    COUNT(l.rol_id) as cantidad
+                FROM  $this->tableUsuario l 
+                WHERE l.rol_id = 3 LIMIT $limit";
+        $response['desactivados'] =  $db->get_results($sql);
+
+        return $response;
+    }
 }

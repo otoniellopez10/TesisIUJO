@@ -82,8 +82,8 @@ if (!in_array($user_id, $acceso)) {
                 <nav class="nav-extended teal" id="nav">
                     <div class="nav-content">
                         <ul class="tabs tabs-transparent">
-                            <li class="tab"><a class="active" href="#test1">Reporte de libros</a></li>
-                            <li class="tab"><a class="" href="#test2">Reporte de usuarios</a></li>
+                            <li class="tab"><a class="" href="#test1">Reporte de libros</a></li>
+                            <li class="tab"><a class="active" href="#test2">Reporte de usuarios</a></li>
                             <li class="tab"><a class="" href="#test3">otros</a></li>
                         </ul>
                     </div>
@@ -109,21 +109,21 @@ if (!in_array($user_id, $acceso)) {
                 <div id="test1" class="row reportes">
                     <div id="botonesReportes">
                         <div class="col s12 m6 l4">
-                            <div class="valign-wrapper hoverable reporte" onclick="reporteLibro('getMasVistos', 'Visualizaciones')">
+                            <div class="valign-wrapper hoverable reporte" onclick="reporte('getMasVistos', 'Visualizaciones', 'libro')">
                                 <i class="material-icons medium teal-text">looks_one</i>
                                 <h6>Más vistos</h6>
                             </div>
                         </div>
                         
                         <div class="col s12 m6 l4">
-                            <div class="valign-wrapper hoverable reporte" onclick="reporteLibro('getMasDescargados', 'Descargas')">
+                            <div class="valign-wrapper hoverable reporte" onclick="reporte('getMasDescargados', 'Descargas', 'libro')">
                                 <i class="material-icons medium teal-text">looks_two</i>
                                 <h6>Más descargados</h6>
                             </div>
                         </div>
                         
                         <div class="col s12 m6 l4">
-                            <div class="valign-wrapper hoverable reporte" onclick="reporteLibro('getMejorCalificados', 'Calificación')">
+                            <div class="valign-wrapper hoverable reporte" onclick="reporte('getMejorCalificados', 'Calificación', 'libro')">
                                 <i class="material-icons medium teal-text">looks_3</i>
                                 <h6>Con mejor calificación</h6>
                             </div>
@@ -159,9 +159,47 @@ if (!in_array($user_id, $acceso)) {
                 </div>
 
                 <!-- Reportes de Usuarios -->
-                <div id="test2" class="col s12 ">
-                    <div class="modulo_contenido">
-                        b
+                <div id="test2" class="row reportes">
+                    <div id="botonesReportesUsuarios">
+                        <div class="col s12 m6 l4">
+                            <div class="valign-wrapper hoverable reporte" onclick="reporte('getUsuarioVistas', 'Libros leidos', 'usuario')">
+                                <i class="material-icons medium teal-text">looks_one</i>
+                                <h6>Más libros leidos</h6>
+                            </div>
+                        </div>
+                        
+                        <div class="col s12 m6 l4">
+                            <div class="valign-wrapper hoverable reporte" onclick="reporte('getUsuarioDescargas', 'Libros descargados', 'usuario')">
+                                <i class="material-icons medium teal-text">looks_two</i>
+                                <h6>Más libros descargados</h6>
+                            </div>
+                        </div>
+                        
+                        <div class="col s12 m6 l4">
+                            <div class="valign-wrapper hoverable reporte" onclick="reporteUsuarios()">
+                                <i class="material-icons medium teal-text">looks_3</i>
+                                <h6>Reporte de usuarios y colaboradores</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12" id="usuarios_resultado">
+                        <button class="btn-flat waves-effect waves-light tooltipped" data-position="right" data-tooltip="Volver" onclick="cerrarReportes()"><i class="material-icons teal-text left">arrow_back</i>Volver</button>
+                        <table id="tableReporteUsuarios" class="striped responsive-table">
+                            <thead class="teal-text">
+                            <tr>
+                                <th>top</th>
+                                <th>Nombre</th>
+                                <th>Cédula</th>
+                                <th id="thResultadoUsuario">Cantidad</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                        
+                            <tbody id="tbodyUsuarios">
+                               
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 

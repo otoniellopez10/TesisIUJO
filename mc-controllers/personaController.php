@@ -123,7 +123,7 @@ if($mode == "insert"){
     echo json_encode($response);
 
 
-}else if($mode = "cambiarRol"){
+}else if($mode == "cambiarRol"){
     if ( !isset($_POST['usuario_id']) || !isset($_POST['editarRolSelect'])){
         $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
     }else{
@@ -136,6 +136,53 @@ if($mode == "insert"){
         } else {
             $response = ['error' => false, 'message' => 'El usuario ha sido actualizado con éxito'];
         }
+    }
+
+    echo json_encode($response);
+
+
+
+// INICIO DE LOS REPORTES!!!
+}else if($mode == "getUsuarioVistas"){
+    if ( !isset($_POST['limite']) ){
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    }else{
+        $limite = $_POST['limite'];
+
+        $consulta = $objPersona->getUsuarioVistas();
+        if (count($consulta) == 0) {
+            $response = ['error' => true, 'message' => 'Ningún usuario ha visto algún libro'];
+        } else {
+            $response = $consulta;
+        }
+    }
+
+    echo json_encode($response);
+
+}else if($mode == "getUsuarioDescargas"){
+    if ( !isset($_POST['limite']) ){
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    }else{
+        $limite = $_POST['limite'];
+
+        $consulta = $objPersona->getUsuarioDescargas();
+        if (count($consulta) == 0) {
+            $response = ['error' => true, 'message' => 'Ningún usuario ha descargado algún libro'];
+        } else {
+            $response = $consulta;
+        }
+    }
+
+    echo json_encode($response);
+
+
+}else if($mode == "getReporteUsuarios"){
+    if( !isset( $_POST['limite'] ) )
+        $response = ['error' => true, 'message' => 'Indique el limite de consulta'];
+    else{
+        $limite = $_POST['limite'];
+
+        $response = $objPersona->getReporteUsuarios($limite);
     }
 
     echo json_encode($response);

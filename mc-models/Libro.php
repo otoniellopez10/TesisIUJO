@@ -231,7 +231,7 @@ class Libro {
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
-                GROUP BY l.id ORDER BY cantidad DESC LIMIT $limit";
+                WHERE l.estatus = 1 GROUP BY l.id ORDER BY cantidad DESC LIMIT $limit";
         return $db->get_results($sql);
     }
 
@@ -253,7 +253,7 @@ class Libro {
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
-                GROUP BY l.id ORDER BY cantidad DESC LIMIT $limit";
+                WHERE l.estatus = 1 GROUP BY l.id ORDER BY cantidad DESC LIMIT $limit";
         return $db->get_results($sql);
     }
 
@@ -275,7 +275,7 @@ class Libro {
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
-                GROUP BY l.id ORDER BY cantidad DESC LIMIT $limit";
+                WHERE l.estatus = 1 GROUP BY l.id ORDER BY cantidad DESC LIMIT $limit";
         return $db->get_results($sql);
     }
 
