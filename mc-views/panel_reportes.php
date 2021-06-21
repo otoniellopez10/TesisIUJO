@@ -84,7 +84,7 @@ if (!in_array($user_id, $acceso)) {
                         <ul class="tabs tabs-transparent">
                             <li class="tab"><a class="active" href="#test1">Reporte de libros</a></li>
                             <li class="tab"><a class="" href="#test2">Reporte de usuarios</a></li>
-                            <li class="tab"><a class="" href="#test3">otros</a></li>
+                            <!-- <li class="tab"><a class="" href="#test3">otros</a></li> -->
                         </ul>
                     </div>
                 </nav>
@@ -204,11 +204,11 @@ if (!in_array($user_id, $acceso)) {
                 </div>
 
                 <!-- Otros reportes -->
-                <div id="test3" class="col s12 ">
+                <!-- <div id="test3" class="col s12 ">
                     <div class="modulo_contenido">
                         c
                     </div>
-                </div>
+                </div> -->
                 
             </div>
         </main>

@@ -241,7 +241,7 @@ function imprimirResultadosUsuario(json, textoTh){
             <td> ${usuario.cedula} </td>
             <td> ${usuario.cantidad} </td>
             <td class="td-actions  text-right">
-                <a href="libro.php?libro_id=${usuario.id}" class="btn-flat btn-accion" title="Ver detalles"  data-toggle="tooltip" data-placement="top">
+                <a href="perfil.php?usuario=${usuario.usuario_id}" class="btn-flat btn-accion" title="Ver perfil"  data-toggle="tooltip" data-placement="top">
                 <i class="material-icons cyan-text">visibility</i>
                 </a>
             </td>
