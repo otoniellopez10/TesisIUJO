@@ -114,7 +114,7 @@ if($count > 1){
             <!-- portada -->
             <div class="head"> 
                 <h3 class="teal-text" id="l_titulo"><?= $libro->titulo ?></h3>
-                <p><?= $autores ?></p>     
+                <p><?= $autores ?></p>
             </div>
 
             <div id="modulo">
@@ -126,6 +126,14 @@ if($count > 1){
                 <div class="row">
                     <div class="col s12 m4 center-align">
                         <img src="../assets/images/libros/libro.png" alt="" class="responsive-img">
+                        <!-- <div class="center-align" style="padding-top: 15px;">
+                            <p><b class="teal-text">Calificación: </b></p>
+                            <i class="material-icons yellow-text text-darken-1">star</i>
+                            <i class="material-icons yellow-text text-darken-1">star</i>
+                            <i class="material-icons yellow-text text-darken-1">star</i>
+                            <i class="material-icons yellow-text text-darken-1">star_half</i>
+                            <i class="material-icons yellow-text text-darken-1">star_border</i>
+                        </div> -->
                     </div>
                 
                     <div class="s12 m8">
@@ -163,6 +171,7 @@ if($count > 1){
                             <!-- <p> &nbsp; <?php // $libro->resumen ?></p> -->
                         </div>
 
+                        <br>
                     </div>
                     
                 </div>
@@ -185,71 +194,76 @@ if($count > 1){
                     <i class="material-icons left teal-text small">person_pin</i>Calificación y comentarios
                 </h5>
                 <!-- Calificacion -->
+                <?php
+                    $calificacion = $objLibro->getCalificacionByLibroId($libro->id);
+                    $x = "";
+                ?>
                 <div class="row">
                     <h6 class="valign-wrapper teal lighten-1 white-text z-depth-2" style="padding: 10px;">Calificación de los usarios: &nbsp;
-                        <i class="material-icons yellow-text text-darken-1">star</i>
-                        <i class="material-icons yellow-text text-darken-1">star</i>
-                        <i class="material-icons yellow-text text-darken-1">star</i>
-                        <i class="material-icons yellow-text text-darken-1">star_half</i>
-                        <i class="material-icons yellow-text text-darken-1">star_border</i>
+                        <?php
+                            $promedio = $calificacion[0]->cantidad;
+                            if($promedio != null){
+                                $promedio = $calificacion[0]->cantidad;
+                                for ($i=0; $i < 5; $i++) { 
+                                    if($promedio > 1) $x = $x . "<i class='material-icons yellow-text text-darken-1'>star</i>";
+
+                                    else if($promedio > 0 && $promedio < 1) $x = $x . "<i class='material-icons yellow-text text-darken-1'>star_half</i>";
+
+                                    else $x = $x . "<i class='material-icons yellow-text text-darken-1'>star_border</i>";
+                                    $promedio = $promedio - 1;
+                                }
+                            }else{
+                                $x = "Sin calificar";
+                            }
+
+                            echo $x;
+                        ?>
                     </h6>
                 </div>
 
                 <!-- comentarios -->
                 <div class="row section">
                     <h6 class="valign-wrapper "><i class="material-icons teal-text">comment</i>&nbsp; <b class="grey-text text-darken-3">Últimos comentarios </b></h6>
+                            
+                    <?php
+                        $comentarios = $objLibro->getComentariosByLibroId($libro->id);
+                        $dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+                        $meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio","Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                        foreach ($comentarios as $key => $comentario) {
+                            $x = $comentario->calificacion;
+                            
+                            $fecha = strtotime($comentario->fecha);
+                            $dia = date("d", $fecha);
+                            $mes = intval(date("m", $fecha));
+                            $year = intval(date("Y", $fecha));
 
-                    <div class="comentario col s12">
-                        <div class=" valign-wrapper">
-                            <b class="teal-text comentario_nombre">Otoniel López</b>
-                            &nbsp;
-                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star_half</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star_border</i>
-                        </div>
-                        <p class="comentario_opinion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem omnis dolore eum a perspiciatis magni fugiat quidem. Provident fugiat reprehenderit incidunt dolor corporis quos quia doloribus, aliquid, dicta earum molestiae.</p>
-                    </div>
+                            $fecha_format = $dia . " de " . $meses[$mes-1] . " del " . $year;
+                            ?>
 
-                    <div class="comentario col s12">
-                        <div class=" valign-wrapper">
-                            <b class="teal-text comentario_nombre">Otoniel López</b>
-                            &nbsp;
-                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star_half</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star_border</i>
-                        </div>
-                        <p class="comentario_opinion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem omnis dolore eum a perspiciatis magni fugiat quidem. Provident fugiat reprehenderit incidunt dolor corporis quos quia doloribus, aliquid, dicta earum molestiae.</p>
-                    </div>
+                            <div class="comentario col s12">
+                                <div class="valign-wrapper">
+                                    <b class="teal-text comentario_nombre"><?= $comentario->nombre . " " . $comentario->apellido ?></b>
+                                    &nbsp;
+                                    <?php
+                                    for ($i=0; $i < 5; $i++) { 
+                                        if($x >= 1){
+                                            echo "<i class='material-icons yellow-text text-darken-2 tiny'>star</i>";
+                                        }else{
+                                            echo "<i class='material-icons yellow-text text-darken-2 tiny'>star_border</i>";
+                                        }
+                                        $x -= 1;
+                                    }
+                                    ?> 
+                                </div>
+                                <p class="comentario_opinion"><?= $comentario->comentario ?> <b class="grey-text" style="font-size: 12px;"> <?= $fecha_format ?> </b></p>
+                            </div>
 
-                    <div class="comentario col s12">
-                        <div class=" valign-wrapper">
-                            <b class="teal-text comentario_nombre">Otoniel López</b>
-                            &nbsp;
-                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star_half</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star_border</i>
-                        </div>
-                        <p class="comentario_opinion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem omnis dolore eum a perspiciatis magni fugiat quidem. Provident fugiat reprehenderit incidunt dolor corporis quos quia doloribus, aliquid, dicta earum molestiae.</p>
-                    </div>
 
-                    <div class="comentario col s12">
-                        <div class=" valign-wrapper">
-                            <b class="teal-text comentario_nombre">Otoniel López</b>
-                            &nbsp;
-                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star_half</i>
-                            <i class="material-icons yellow-text text-darken-2 tiny">star_border</i>
-                        </div>
-                        <p class="comentario_opinion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem omnis dolore eum a perspiciatis magni fugiat quidem. Provident fugiat reprehenderit incidunt dolor corporis quos quia doloribus, aliquid, dicta earum molestiae.</p>
-                    </div>
+
+
+                            <?php
+                        }
+                    ?>
                 </div>
 
 

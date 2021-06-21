@@ -16,6 +16,9 @@ class Libro {
         $this->tableCalificacion = "calificacion_libro";
         $this->tableDescarga = "descarga_libro";
         $this->tableVista = "vista_libro";
+
+        $this->tableUsuario = "usuario";
+        $this->tablePersona = "persona";
     }
 
     public function getAll() {
@@ -209,6 +212,42 @@ class Libro {
         return $db->get_results($sql);
     }
 
+    function getDescargasByLibroId($id){
+        global $db;
+        $sql = "SELECT 
+                    COUNT(v.libro_id) as cantidad
+                FROM $this->tableDescarga v
+                JOIN $this->table l on l.id = v.libro_id
+                WHERE l.estatus = 1 AND v.libro_id = $id";
+        return $db->get_results($sql);
+    }
+
+    function getCalificacionByLibroId($id){
+        global $db;
+        $sql = "SELECT 
+                    AVG(v.calificacion) as cantidad
+                FROM $this->tableCalificacion v
+                JOIN $this->table l on l.id = v.libro_id
+                WHERE l.estatus = 1 AND v.libro_id = $id";
+        return $db->get_results($sql);
+    }
+
+    function getComentariosByLibroId($id){
+        global $db;
+        $sql = "SELECT 
+                    v.id,
+                    v.calificacion,
+                    v.comentario,
+                    v.fecha,
+                    p.nombre,
+                    p.apellido
+                FROM $this->tableCalificacion v
+                JOIN $this->table l on l.id = v.libro_id
+                JOIN $this->tableUsuario u on u.id = v.usuario_id
+                JOIN $this->tablePersona p on p.usuario_id = u.id
+                WHERE l.estatus = 1 AND v.libro_id = $id GROUP BY v.id ORDER BY v.fecha DESC";
+        return $db->get_results($sql);
+    }
 
 
 
