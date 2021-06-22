@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 06-05-2021 a las 18:56:22
--- Versión del servidor: 5.7.24
--- Versión de PHP: 7.2.19
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 21-06-2021 a las 23:11:59
+-- Versión del servidor: 10.4.18-MariaDB
+-- Versión de PHP: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,21 +24,139 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `autor`
+--
+
+CREATE TABLE `autor` (
+  `id` int(10) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `estatus` int(10) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `autor`
+--
+
+INSERT INTO `autor` (`id`, `nombre`, `estatus`) VALUES
+(44, 'Otoniel López', 1),
+(45, 'Candida Guerra', 1),
+(46, 'Jorge Saens', 1),
+(47, 'Pedro Pablo', 1),
+(48, 'Lejon Jaramillo', 1),
+(49, 'Robert Fisher', 1),
+(50, 'Autor 1', 1),
+(51, 'Autor 2', 1),
+(52, 'Autor 3', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `bitacora_libro`
+--
+
+CREATE TABLE `bitacora_libro` (
+  `id` int(10) NOT NULL,
+  `usuario_id` int(10) NOT NULL,
+  `libro_id` int(10) NOT NULL,
+  `operacion` varchar(255) NOT NULL,
+  `fecha` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `bitacora_persona`
+--
+
+CREATE TABLE `bitacora_persona` (
+  `id` int(10) NOT NULL,
+  `persona_id` int(10) NOT NULL,
+  `operacion` varchar(255) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `calificacion_libro`
+--
+
+CREATE TABLE `calificacion_libro` (
+  `id` int(10) NOT NULL,
+  `usuario_id` int(10) NOT NULL,
+  `libro_id` int(10) NOT NULL,
+  `calificacion` int(10) NOT NULL,
+  `comentario` varchar(255) DEFAULT NULL,
+  `fecha` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `calificacion_libro`
+--
+
+INSERT INTO `calificacion_libro` (`id`, `usuario_id`, `libro_id`, `calificacion`, `comentario`, `fecha`) VALUES
+(1, 3, 35, 5, 'Un libro entretenido y con buena enseñanza.', '0000-00-00 00:00:00'),
+(2, 3, 35, 3, 'Excelente contenido', '2021-06-21 01:56:24'),
+(3, 3, 35, 3, 'Muy buen libro.', '2021-06-21 01:57:12'),
+(4, 2, 34, 4, 'buen libro', '2021-06-21 01:58:07'),
+(5, 2, 34, 2, 'le falta contenido', '2021-06-21 01:58:07'),
+(6, 2, 34, 1, 'Muy mala redaccion', '2021-06-21 01:58:51');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `descarga_libro`
+--
+
+CREATE TABLE `descarga_libro` (
+  `id` int(10) NOT NULL,
+  `usuario_id` int(10) NOT NULL,
+  `libro_id` int(10) NOT NULL,
+  `fecha` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `descarga_libro`
+--
+
+INSERT INTO `descarga_libro` (`id`, `usuario_id`, `libro_id`, `fecha`) VALUES
+(1, 3, 33, '2021-06-20 18:00:23'),
+(2, 3, 34, '2021-06-20 18:00:49'),
+(3, 3, 35, '2021-06-20 18:00:50'),
+(4, 3, 36, '2021-06-20 18:00:52'),
+(5, 3, 36, '2021-06-20 18:00:52'),
+(6, 2, 34, '2021-06-21 04:27:34'),
+(7, 2, 36, '2021-06-21 04:27:34');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `libro`
 --
 
 CREATE TABLE `libro` (
-  `id_libro` int(10) NOT NULL,
-  `titulo` varchar(100) DEFAULT NULL,
-  `autor` int(5) DEFAULT NULL,
-  `editorial` int(5) DEFAULT NULL,
+  `id` int(10) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `editorial` int(10) NOT NULL,
   `edicion` varchar(50) DEFAULT NULL,
-  `fecha` date DEFAULT NULL,
-  `categoria` int(5) DEFAULT NULL,
-  `materia` int(5) DEFAULT NULL,
-  `descripcion` varchar(500) DEFAULT NULL,
-  `estatus` int(10) DEFAULT '1'
+  `fecha` date NOT NULL,
+  `carrera` int(10) NOT NULL,
+  `categoria` int(10) DEFAULT NULL,
+  `resumen` varchar(500) DEFAULT NULL,
+  `pdf` varchar(255) NOT NULL,
+  `estatus` int(10) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `libro`
+--
+
+INSERT INTO `libro` (`id`, `titulo`, `editorial`, `edicion`, `fecha`, `carrera`, `categoria`, `resumen`, `pdf`, `estatus`) VALUES
+(32, 'El caballero de la armadura oxidada', 1, 'Primera edición', '2000-04-21', 10, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto recusandae porro, quia earum nam accusamus numquam dicta qui consequuntur aliquid debitis consequatur deserunt illum possimus provident, nostrum excepturi soluta. Quas?', 'xzsBnIMcD6X1UKCufT8VplantillaDiploma.pdf', 0),
+(33, 'Calculo I', 1, 'Primera edición', '2000-04-22', 10, 6, 'Libro de calculo 1 por Jorge  Saens', 'SvcNIgLTKPHjewq3pXJWlic. grado 2 - 200204930883.pdf', 1),
+(34, 'Ingles I', 2, 'Segunda edición', '2000-04-21', 10, 2, 'Libro de ingles por Pedro y Pablo con contenido para principiante', 'TVA9kHj3I2waP64qsgoSlic. grado 2 - 200204930883.pdf', 1),
+(35, 'El Caballero de la armadura oxidada', 12, 'Primera edición', '1987-05-01', 10, 9, 'El Caballero de la Armadura Oxidada cuenta la historia de una caballero, que preocupado en sobremanera por las apariencias y el ser alabado por sus hazañas, las cuales realiza más por los aplausos que por una convicción', 'HKcBSg46FerkTZvbQxDfMOMENTO I.pdf', 1),
+(36, 'Titulo de libro de ejemplo', 8, 'Primera edición', '2000-04-21', 10, 7, 'Libro de prueba con el fin de agregar mas contenido al sistema y probar su funcionamiento', '1aGNC6YgnBzIUdX7fMZPSCRUMstudy-SBOK-Guide-3rd-edition-Spanish.pdf', 1);
 
 -- --------------------------------------------------------
 
@@ -48,11 +165,52 @@ CREATE TABLE `libro` (
 --
 
 CREATE TABLE `libro_autor` (
+  `libro_id` int(10) NOT NULL,
+  `autor_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `libro_autor`
+--
+
+INSERT INTO `libro_autor` (`libro_id`, `autor_id`) VALUES
+(32, 44),
+(32, 45),
+(33, 46),
+(34, 47),
+(34, 48),
+(35, 49),
+(36, 50),
+(36, 51),
+(36, 52);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `libro_carrera`
+--
+
+CREATE TABLE `libro_carrera` (
   `id` int(5) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `estatus` int(10) DEFAULT '1'
+  `estatus` int(10) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `libro_carrera`
+--
+
+INSERT INTO `libro_carrera` (`id`, `nombre`, `estatus`) VALUES
+(1, 'Administración', 1),
+(2, 'Contaduría', 1),
+(3, 'Informática', 1),
+(4, 'Mecánica', 1),
+(5, 'Electrónica', 1),
+(6, 'Electrotecnia', 1),
+(7, 'Educación Especial', 1),
+(8, 'Educación preescolar', 1),
+(9, 'Educación Integral', 1),
+(10, 'General', 1);
 
 -- --------------------------------------------------------
 
@@ -63,7 +221,7 @@ CREATE TABLE `libro_autor` (
 CREATE TABLE `libro_categoria` (
   `id` int(5) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `estatus` int(10) DEFAULT '1'
+  `estatus` int(10) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -71,11 +229,17 @@ CREATE TABLE `libro_categoria` (
 --
 
 INSERT INTO `libro_categoria` (`id`, `nombre`, `estatus`) VALUES
-(1, 'Literatura', 1),
-(2, 'Ciencia ficción', 1),
-(3, 'Fantasía', 1),
-(4, 'Novela', 1),
-(5, 'Drama', 1);
+(1, 'Lenguaje', 1),
+(2, 'Idiomas', 1),
+(3, 'Matemática', 1),
+(4, 'Contabilidad', 1),
+(5, 'Software', 1),
+(6, 'Cálculo', 1),
+(7, 'Computación', 1),
+(8, 'Historia', 1),
+(9, 'Literatura', 1),
+(10, 'Filosofía', 1),
+(11, 'Gastronomía', 1);
 
 -- --------------------------------------------------------
 
@@ -86,7 +250,7 @@ INSERT INTO `libro_categoria` (`id`, `nombre`, `estatus`) VALUES
 CREATE TABLE `libro_editorial` (
   `id` int(5) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `estatus` int(10) DEFAULT '1'
+  `estatus` int(10) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -95,33 +259,16 @@ CREATE TABLE `libro_editorial` (
 
 INSERT INTO `libro_editorial` (`id`, `nombre`, `estatus`) VALUES
 (1, 'Santillana', 1),
-(2, 'Caracol', 1),
-(3, 'Planeta', 1),
-(4, 'Editorial 4', 1),
-(5, 'Editorial 5', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `libro_materia`
---
-
-CREATE TABLE `libro_materia` (
-  `id` int(5) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `estatus` int(10) DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `libro_materia`
---
-
-INSERT INTO `libro_materia` (`id`, `nombre`, `estatus`) VALUES
-(1, 'Matemática', 1),
-(2, 'Lógica', 1),
-(3, 'programación', 1),
-(4, 'Lenguaje', 1),
-(5, 'Análisis', 1);
+(2, 'Planeta', 1),
+(3, 'Alpha Decay', 1),
+(4, 'Penguin Random House Grupo Editorial', 1),
+(5, 'Anagrama editorial', 1),
+(6, 'Blackie Books', 1),
+(7, 'Seix Barral', 1),
+(8, 'Libros del Asteroide', 1),
+(9, 'Malpaso', 1),
+(10, 'Sexto Piso', 1),
+(12, 'Ediciones Obelisco', 1);
 
 -- --------------------------------------------------------
 
@@ -135,23 +282,67 @@ CREATE TABLE `persona` (
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `telefono` varchar(50) DEFAULT NULL,
+  `persona_tipo` int(10) NOT NULL,
   `usuario_id` int(10) NOT NULL,
-  `estatus` int(10) DEFAULT '1'
+  `estatus` int(10) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`id`, `cedula`, `nombre`, `apellido`, `telefono`, `persona_tipo`, `usuario_id`, `estatus`) VALUES
+(1, 27397595, 'Otoniel', 'Lopez', '04245274818', 1, 1, 1),
+(2, 11111111, 'Juan', 'perez', '04245274818', 2, 2, 1),
+(3, 33333333, 'Luis', 'Rivero', '04245274818', 6, 3, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario_datos`
+-- Estructura de tabla para la tabla `persona_tipo`
 --
 
-CREATE TABLE `usuario_datos` (
+CREATE TABLE `persona_tipo` (
+  `id` int(10) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `estatus` int(10) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `persona_tipo`
+--
+
+INSERT INTO `persona_tipo` (`id`, `nombre`, `estatus`) VALUES
+(1, 'Estudiante', 1),
+(2, 'Docente', 1),
+(3, 'Coordinador', 1),
+(4, 'Directivo', 1),
+(5, 'Administracion', 1),
+(6, 'Obrero', 1),
+(7, 'Otro', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
   `id` int(10) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `rol_id` int(10) NOT NULL,
-  `estatus` int(10) NOT NULL DEFAULT '1'
+  `estatus` int(10) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `email`, `password`, `rol_id`, `estatus`) VALUES
+(1, 'admin@tesis.com', '$2y$10$St71MD.ufAC1JkSAZ19oxOwxFgJlrLgJm1JxTgEtVC86wITu78S3.', 1, 1),
+(2, 'colaborador@tesis.com', '$2y$10$FaBsKTq60rvy4l.WYPqDk.C87ZfnRe/oREGy6pNurANzuJxPBhQGK', 2, 1),
+(3, 'persona@tesis.com', '$2y$10$6v7e2oerxCO5Acb4EoX51.NdnhXWWmY9efLhgPmxihTPVhinXouKi', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -162,7 +353,7 @@ CREATE TABLE `usuario_datos` (
 CREATE TABLE `usuario_rol` (
   `id` int(5) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `estatus` int(11) DEFAULT '1'
+  `estatus` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -170,32 +361,99 @@ CREATE TABLE `usuario_rol` (
 --
 
 INSERT INTO `usuario_rol` (`id`, `nombre`, `estatus`) VALUES
-(1, 'Estudiante', 1),
-(2, 'Docente', 1),
-(3, 'Coordinador', 1),
-(4, 'Director', 1),
-(5, 'Administrativo', 1),
-(6, 'Obrero', 1),
-(7, 'Otro', 1);
+(1, 'Administrador', 1),
+(2, 'Colaborador', 1),
+(3, 'Usuario', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vista_libro`
+--
+
+CREATE TABLE `vista_libro` (
+  `id` int(10) NOT NULL,
+  `usuario_id` int(10) NOT NULL,
+  `libro_id` int(10) NOT NULL,
+  `fecha` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `vista_libro`
+--
+
+INSERT INTO `vista_libro` (`id`, `usuario_id`, `libro_id`, `fecha`) VALUES
+(1, 3, 33, '0000-00-00 00:00:00'),
+(2, 3, 34, '0000-00-00 00:00:00'),
+(3, 3, 35, '2021-06-20 17:25:01'),
+(4, 3, 35, '2021-06-20 17:25:01'),
+(5, 2, 33, '2021-06-21 04:19:32'),
+(6, 2, 34, '2021-06-21 04:21:05');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
+-- Indices de la tabla `autor`
+--
+ALTER TABLE `autor`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `bitacora_libro`
+--
+ALTER TABLE `bitacora_libro`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `libro_id` (`libro_id`);
+
+--
+-- Indices de la tabla `bitacora_persona`
+--
+ALTER TABLE `bitacora_persona`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `persona_id` (`persona_id`);
+
+--
+-- Indices de la tabla `calificacion_libro`
+--
+ALTER TABLE `calificacion_libro`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `libro_id` (`libro_id`);
+
+--
+-- Indices de la tabla `descarga_libro`
+--
+ALTER TABLE `descarga_libro`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `libro_id` (`libro_id`);
+
+--
 -- Indices de la tabla `libro`
 --
 ALTER TABLE `libro`
-  ADD PRIMARY KEY (`id_libro`),
-  ADD KEY `autor` (`autor`,`editorial`,`categoria`,`materia`),
-  ADD KEY `categoria` (`categoria`),
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pdf` (`pdf`),
+  ADD KEY `autor` (`editorial`,`carrera`,`categoria`),
+  ADD KEY `categoria` (`carrera`),
   ADD KEY `editorial` (`editorial`),
-  ADD KEY `materia` (`materia`);
+  ADD KEY `materia` (`categoria`),
+  ADD KEY `tema` (`categoria`);
 
 --
 -- Indices de la tabla `libro_autor`
 --
 ALTER TABLE `libro_autor`
+  ADD KEY `libro_id` (`libro_id`,`autor_id`),
+  ADD KEY `autor_id` (`autor_id`) USING BTREE;
+
+--
+-- Indices de la tabla `libro_carrera`
+--
+ALTER TABLE `libro_carrera`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -211,22 +469,23 @@ ALTER TABLE `libro_editorial`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `libro_materia`
---
-ALTER TABLE `libro_materia`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `persona`
 --
 ALTER TABLE `persona`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`);
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `persona_tipo` (`persona_tipo`);
 
 --
--- Indices de la tabla `usuario_datos`
+-- Indices de la tabla `persona_tipo`
 --
-ALTER TABLE `usuario_datos`
+ALTER TABLE `persona_tipo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
   ADD KEY `rol_id` (`rol_id`);
 
@@ -237,38 +496,70 @@ ALTER TABLE `usuario_rol`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `vista_libro`
+--
+ALTER TABLE `vista_libro`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `libro_id` (`libro_id`),
+  ADD KEY `usuario_id` (`usuario_id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `autor`
+--
+ALTER TABLE `autor`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT de la tabla `bitacora_libro`
+--
+ALTER TABLE `bitacora_libro`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `bitacora_persona`
+--
+ALTER TABLE `bitacora_persona`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `calificacion_libro`
+--
+ALTER TABLE `calificacion_libro`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `descarga_libro`
+--
+ALTER TABLE `descarga_libro`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
-  MODIFY `id_libro` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT de la tabla `libro_autor`
+-- AUTO_INCREMENT de la tabla `libro_carrera`
 --
-ALTER TABLE `libro_autor`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `libro_carrera`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `libro_categoria`
 --
 ALTER TABLE `libro_categoria`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `libro_editorial`
 --
 ALTER TABLE `libro_editorial`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `libro_materia`
---
-ALTER TABLE `libro_materia`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
@@ -277,10 +568,16 @@ ALTER TABLE `persona`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `usuario_datos`
+-- AUTO_INCREMENT de la tabla `persona_tipo`
 --
-ALTER TABLE `usuario_datos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `persona_tipo`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_rol`
@@ -289,29 +586,76 @@ ALTER TABLE `usuario_rol`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT de la tabla `vista_libro`
+--
+ALTER TABLE `vista_libro`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `bitacora_libro`
+--
+ALTER TABLE `bitacora_libro`
+  ADD CONSTRAINT `bitacora_libro_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `bitacora_libro_ibfk_2` FOREIGN KEY (`libro_id`) REFERENCES `libro` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `bitacora_persona`
+--
+ALTER TABLE `bitacora_persona`
+  ADD CONSTRAINT `bitacora_persona_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `calificacion_libro`
+--
+ALTER TABLE `calificacion_libro`
+  ADD CONSTRAINT `calificacion_libro_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `calificacion_libro_ibfk_2` FOREIGN KEY (`libro_id`) REFERENCES `libro` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `descarga_libro`
+--
+ALTER TABLE `descarga_libro`
+  ADD CONSTRAINT `descarga_libro_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `descarga_libro_ibfk_2` FOREIGN KEY (`libro_id`) REFERENCES `libro` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `libro`
 --
 ALTER TABLE `libro`
-  ADD CONSTRAINT `libro_ibfk_1` FOREIGN KEY (`autor`) REFERENCES `libro_autor` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `libro_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `libro_categoria` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `libro_ibfk_3` FOREIGN KEY (`editorial`) REFERENCES `libro_editorial` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `libro_ibfk_4` FOREIGN KEY (`materia`) REFERENCES `libro_materia` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `libro_ibfk_5` FOREIGN KEY (`carrera`) REFERENCES `libro_carrera` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `libro_ibfk_6` FOREIGN KEY (`categoria`) REFERENCES `libro_categoria` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `libro_autor`
+--
+ALTER TABLE `libro_autor`
+  ADD CONSTRAINT `libro_autor_ibfk_3` FOREIGN KEY (`autor_id`) REFERENCES `autor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `libro_autor_ibfk_4` FOREIGN KEY (`libro_id`) REFERENCES `libro` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `persona`
 --
 ALTER TABLE `persona`
-  ADD CONSTRAINT `persona_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario_datos` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `persona_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `persona_ibfk_2` FOREIGN KEY (`persona_tipo`) REFERENCES `persona_tipo` (`id`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `usuario_datos`
+-- Filtros para la tabla `usuario`
 --
-ALTER TABLE `usuario_datos`
-  ADD CONSTRAINT `usuario_datos_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `usuario_rol` (`id`) ON UPDATE CASCADE;
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `usuario_rol` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `vista_libro`
+--
+ALTER TABLE `vista_libro`
+  ADD CONSTRAINT `vista_libro_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `vista_libro_ibfk_2` FOREIGN KEY (`libro_id`) REFERENCES `libro` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

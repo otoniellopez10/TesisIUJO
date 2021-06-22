@@ -27,7 +27,11 @@ $objCategoria = new Categoria();
 $objEditorial = new Editorial();
 
 
-$libros = $objLibro->getAll();
+$libros = $objLibro->getAll(30);
+$librosRecomendados = $objLibro->getRecomendados();
+$librosMejorCalificados = $objLibro->getMejorCalificados(25);
+
+
 $carreras = $objCarrera->getAll();
 $categorias = $objCategoria->getAll();
 $editoriales = $objEditorial->getAll();
@@ -75,9 +79,10 @@ $editoriales = $objEditorial->getAll();
                     <div class="nav-content">
                         <ul class="tabs tabs-transparent">
                             <li class="tab"><a class="" href="#test1">Recomendados</a></li>
-                            <li class="tab"><a class="" href="#test2">Mejor calificados</a></li>
+                            <li class="tab"><a class="active" href="#test2">Mejor calificados</a></li>
                             <li class="tab"><a class="" href="#test3">Más descargados</a></li>
-                            <li class="tab"><a class="active" href="#test4">Buscar</a></li>
+                            <li class="tab"><a class="" href="#test4">Más vistos</a></li>
+                            <li class="tab"><a class="" href="#test5">Buscar</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -88,16 +93,22 @@ $editoriales = $objEditorial->getAll();
                     <?php
                         CONST LIMITE = 20;
                         $contador = 0;
-                        foreach ($libros as $libro) {
-                            if( $contador == LIMITE) break;
+                        foreach ($librosRecomendados as $index => $libro) {
                             // fecha
                             $fecha = Date("d-m-Y", strtotime($libro->fecha));
                             $allAutores = $objAutor->getByLibroId($libro->id);
-                            $count = count($allAutores) - 1;
-                            $autores = " ";
-                            foreach($allAutores as $clave => $autor){
+                            $count = count($allAutores);
+                            $autores = "";
+
+                            foreach($allAutores as $key => $autor){
+                                $index = $key + 1;
+                                $if = $count - $index;
                                 $autores = $autores . $autor->nombre . " " . $autor->apellido;
-                                if($clave < $count) $autores = $autores . ", ";
+                                if( ( $count - $index) > 1){
+                                    $autores = $autores . ", ";
+                                }else if(( $count - $index) == 1){
+                                    $autores = $autores . " y ";
+                                }
                             }
                     ?>
                     <div class="col s12 libro">
@@ -144,7 +155,7 @@ $editoriales = $objEditorial->getAll();
                                 </div>
 
                                 <div class="botones-accion ">
-                                    <a href="<?php echo "../assets/pdfs/".$libro->pdf ?>" class="btn-small waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Leer PDF" target="_blank"><i class="material-icons">visibility</i></a>
+                                    <a href="<?= "libro.php?libro_id=" . $libro->id ?>" class="btn-small waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Ver detalles" target="_blank"><i class="material-icons">visibility</i></a>
                                     <!-- <i class="material-icons green-text">download</i>
                                     <i class="material-icons yellow-text">star</i> -->
                                 </div>
@@ -170,13 +181,109 @@ $editoriales = $objEditorial->getAll();
                 </div>
 
                 <!-- libros mejor calificados -->
-                <div id="test2" class="row modulo_contenido">En desarrollo</div>
+                <div id="test2" class="row modulo_contenido">
+                <?php
+                        foreach ($librosMejorCalificados as $index => $libro) {
+                            // fecha
+                            $fecha = Date("d-m-Y", strtotime($libro->fecha));
+                            $allAutores = $objAutor->getByLibroId($libro->id);
+                            $count = count($allAutores);
+                            $autores = "";
+
+                            foreach($allAutores as $key => $autor){
+                                $index = $key + 1;
+                                $if = $count - $index;
+                                $autores = $autores . $autor->nombre . " " . $autor->apellido;
+                                if( ( $count - $index) > 1){
+                                    $autores = $autores . ", ";
+                                }else if(( $count - $index) == 1){
+                                    $autores = $autores . " y ";
+                                }
+                            }
+                    ?>
+                    <div class="col s12 libro">
+                        <div class="row valign-wrapper">
+                            <div class="col s0 m2 l2 hide-on-small-only libro_imagen">
+                                <img src="../assets/images/libros/libro.png" alt="" class="responsive-img">
+                            </div>
+
+                            <div class="col s12 m10 l10 libro_datos">
+                                <h5 class="titulo teal-text valign-wrapper"><b><?= $libro->titulo ?></b>
+                                    <a href="#">
+                                        <i class="material-icons yellow-text text-darken-1 right">star_outline</i>
+                                    </a>
+                                </h5>
+
+                                <div class="valign-wrapper">
+                                    <b>Calificación: &nbsp;</b>
+                                    <p><?=  $autores ?></p>
+                                </div>
+                                
+                                <div class="valign-wrapper">
+                                    <b>Autor(es): &nbsp;</b>
+                                    <p><?=  $autores ?></p>
+                                </div>
+                                
+                                <div class="valign-wrapper">
+                                    <b>Editorial: &nbsp;</b>
+                                    <p><?= $libro->editorial ?></p>
+                                </div>
+                                
+                                <div class="valign-wrapper">
+                                    <b>Edicion: &nbsp;</b>
+                                    <p><?= $libro->edicion ?></p>
+                                </div>
+
+                                <div class="valign-wrapper">
+                                    <b>Fecha de pubicación: &nbsp;</b>
+                                    <p><?= $fecha ?></p>
+                                </div>
+
+                                <div class="valign-wrapper">
+                                    <b>Categoría: &nbsp;</b>
+                                    <p><?= $libro->categoria ?></p>
+                                </div>
+
+                                <div class="valign-wrapper">
+                                    <b>Carrera: &nbsp;</b>
+                                    <p><?= $libro->carrera ?></p>
+                                </div>
+
+                                <div class="botones-accion ">
+                                    <a href="<?= "libro.php?libro_id=" . $libro->id ?>" class="btn-small waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Ver detalles" target="_blank"><i class="material-icons">visibility</i></a>
+                                    <!-- <i class="material-icons green-text">download</i>
+                                    <i class="material-icons yellow-text">star</i> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col s12 m4">
+                                <button class="btn waves-effect waves-light">Prueba</button>
+                            </div>
+                            <div class="col s12 m4">
+                                <button class="btn waves-effect waves-light">Prueba</button>
+                            </div>
+                            <div class="col s12 m4">
+                                <button class="btn waves-effect waves-light">Prueba</button>
+                            </div>
+                        </div> -->
+                        <div class="divider"></div>
+                    </div>
+                    <?php
+                    $contador++;
+                        }
+                    ?>
+                </div>
 
                 <!-- Libros mas descargados -->
                 <div id="test3" class="row modulo_contenido">En desarrollo</div>
 
+                <div id="test4" class="row modulo_contenido">
+                En desarrollo
+                </div>
+
                 <!-- Buscar -->
-                <div id="test4" class="row">
+                <div id="test5" class="row">
 
                     <!-- buscar libro -->
                     <div class="col s12 modulo_contenido">

@@ -21,8 +21,8 @@ $objCarrera = new Carrera();
 $objCategoria = new Categoria();
 $objEditorial = new Editorial();
 
-$libros = $objLibro->getAll();
-$librosDesactivados = $objLibro->getAllDesactivados();
+$libros = $objLibro->getAll(30);
+$librosDesactivados = $objLibro->getAllDesactivados(30);
 $carreras = $objCarrera->getAll();
 $categorias = $objCategoria->getAll();
 $editoriales = $objEditorial->getAll();

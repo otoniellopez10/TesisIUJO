@@ -66,7 +66,7 @@ class persona {
         return $db->get_row($sql);
     }
 
-    public function getAll() {
+    public function getAll($limit) {
         global $db;
         $sql = "SELECT
                 p.*,
@@ -77,7 +77,7 @@ class persona {
                 JOIN $this->tableTipo AS t on t.id = p.persona_tipo
                 JOIN $this->tableUsuario AS u on u.id = p.usuario_id
                 JOIN $this->tableRol AS r on r.id = u.rol_id
-                WHERE r.id IN (2,3)"; //que solo muestre colaboradors (2) y usuarios (3), mas no el admin (1)
+                WHERE r.id IN (2,3) LIMIT $limit"; //que solo muestre colaboradors (2) y usuarios (3), mas no el admin (1)
         return $db->get_results($sql); 
     }
 

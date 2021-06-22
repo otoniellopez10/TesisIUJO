@@ -1,6 +1,14 @@
-========== PRINCIPALES ADMIN ==========
+========== ADMINISTRADOR ==========
 
-- Generar pag de reportes LISTO!
+*** Pendientes
+
 - Editar Autores 
-- Agregar "Descargas" a la tabla de libro para su consulta LISTO!
-- agregar vistas a la tabla de libros para su consulta LISTO!
+
+*** Listas
+- Generar pag de reportes
+- Agregar tabla de Descargas
+- Agregar tabla de vistas
+- Agregar tabla de calificacion y comentarios
+
+============= USUARIO =============
+

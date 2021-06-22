@@ -21,7 +21,7 @@ class Libro {
         $this->tablePersona = "persona";
     }
 
-    public function getAll() {
+    public function getAll($limit) {
         global $db;
         $sql = "SELECT 
                     l.id,
@@ -37,7 +37,7 @@ class Libro {
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
-                WHERE l.estatus = 1";
+                WHERE l.estatus = 1 LIMIT $limit";
         return $db->get_results($sql);
     }
 
@@ -60,7 +60,7 @@ class Libro {
         return $db->get_results($sql);
     }
 
-    public function getAllDesactivados() {
+    public function getAllDesactivados($limit) {
         global $db;
         $sql = "SELECT 
                     l.id,
@@ -76,7 +76,7 @@ class Libro {
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
-                WHERE l.estatus = 0";
+                WHERE l.estatus = 0 LIMIT $limit";
         return $db->get_results($sql);
     }
 
@@ -209,6 +209,26 @@ class Libro {
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
                 WHERE l.titulo LIKE '%$titulo%' AND l.estatus = $estatus LIMIT $limit";
+        return $db->get_results($sql);
+    }
+
+    public function getRecomendados() {
+        global $db;
+        $sql = "SELECT 
+                    l.id,
+                    l.titulo,
+                    l.edicion,
+                    l.fecha,
+                    l.resumen,
+                    l.pdf,
+                    e.nombre AS editorial,
+                    c.nombre AS carrera,
+                    t.nombre AS categoria
+                FROM $this->table l
+                JOIN $this->tableEditorial e on e.id = l.editorial
+                JOIN $this->tableCarrera c on c.id = l.carrera
+                JOIN $this->tableCategoria t on t.id = l.categoria
+                WHERE l.estatus = 1 ORDER BY rand() LIMIT 20";
         return $db->get_results($sql);
     }
 
