@@ -279,7 +279,44 @@ class Libro {
         return $db->get_results($sql);
     }
 
+    
+    function getComentarioByUsuarioId($usuario_id, $libro_id){
+        global $db;
+        $sql = "SELECT 
+                    v.id,
+                    v.calificacion,
+                    v.comentario,
+                    v.fecha
+                FROM $this->tableCalificacion v
+                JOIN $this->table l on l.id = v.libro_id
+                WHERE l.estatus = 1 AND v.libro_id = $libro_id AND v.usuario_id = $usuario_id";
+        return $db->get_row($sql);
+    }
 
+    function setComentario($usuario_id, $libro_id, $calificacion, $comentario){
+        global $db;
+        $data = array(
+            'usuario_id' => $usuario_id,
+            'libro_id' => $libro_id,
+            'calificacion' => $calificacion,
+            'comentario' => $comentario
+        );
+
+        $delete = $this->deleteComentario($usuario_id, $libro_id);
+        if($delete){
+            return  $db->insert($this->tableCalificacion, $data);
+        }
+    }
+
+    function deleteComentario($usuario_id, $libro_id){
+        global $db;
+        $where = array(
+            'usuario_id' => $usuario_id,
+            'libro_id' => $libro_id
+        );
+        
+        return  $db->delete($this->tableCalificacion, $where);
+    }
 
     // REPORTES DE LIBROS!!!
     function getMasVistos($limit){

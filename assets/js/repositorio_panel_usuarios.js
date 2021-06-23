@@ -73,7 +73,7 @@ function desactivarPersona(usuario_id) {
         confirmButtonText: "Sí, desactivar",
     }).then((result) => {
         if (result.value == true) {
-            Swal({
+            Swal.fire({
                 title: "Espere un momento",
                 text: "Desactivando usuario...",
                 confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -106,17 +106,17 @@ function desactivarPersona(usuario_id) {
                     });
                 },
                 allowOutsideClick: () => !Swal.isLoading(),
-                onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+                didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
             }).then((result) => {
                 if (result.value) {
                     let resp = result.value;
-                    Swal("Listo!", resp.message, "success").then((e) => {
+                    Swal.fire("Listo!", resp.message, "success").then((e) => {
                         window.location.reload();
                     });
                 }
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // Swal("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
+            // Swal.fire("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
         }
     });
 }
@@ -135,7 +135,7 @@ function activarPersona(usuario_id) {
         confirmButtonText: "Sí, activar",
     }).then((result) => {
         if (result.value == true) {
-            Swal({
+            Swal.fire({
                 title: "Espere un momento",
                 text: "Activando usuario...",
                 confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -168,17 +168,17 @@ function activarPersona(usuario_id) {
                     });
                 },
                 allowOutsideClick: () => !Swal.isLoading(),
-                onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+                didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
             }).then((result) => {
                 if (result.value) {
                     let resp = result.value;
-                    Swal("Listo!", resp.message, "success").then((e) => {
+                    Swal.fire("Listo!", resp.message, "success").then((e) => {
                         window.location.reload();
                     });
                 }
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // Swal("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
+            // Swal.fire("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
         }
     });
 }
@@ -197,7 +197,7 @@ $("#formBuscarUsuario").submit(function (e) {
 
     let cedula = $("#b_usuario_cedula").val();
     if (cedula.length < 6 || cedula.length > 8) {
-        Swal("Error!", "Ingrese una cédula válida", "error");
+        Swal.fire("Error!", "Ingrese una cédula válida", "error");
         return false;
     }
 
@@ -205,7 +205,7 @@ $("#formBuscarUsuario").submit(function (e) {
     fd.append("mode", "getOneByCedula");
     fd.append("cedula", cedula);
 
-    Swal({
+    Swal.fire({
         title: "Espere un momento",
         text: "Buscando usuario...",
         confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -239,7 +239,7 @@ $("#formBuscarUsuario").submit(function (e) {
             });
         },
         allowOutsideClick: () => !Swal.isLoading(),
-        onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+        didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
     }).then((result) => {
         if (result.value) {
             gbUsuarioId = result.value.usuario_id;
@@ -282,7 +282,7 @@ $("#formEditarRol").submit(function (e) {
         confirmButtonText: "Confirmar",
     }).then((result) => {
         if (result.value == true) {
-            Swal({
+            Swal.fire({
                 title: "Espere un momento",
                 text: "Actualizando usuario...",
                 confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -315,17 +315,17 @@ $("#formEditarRol").submit(function (e) {
                     });
                 },
                 allowOutsideClick: () => !Swal.isLoading(),
-                onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+                didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
             }).then((result) => {
                 if (result.value) {
                     let resp = result.value;
-                    Swal("Listo!", resp.message, "success").then((e) => {
+                    Swal.fire("Listo!", resp.message, "success").then((e) => {
                         window.location.reload();
                     });
                 }
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // Swal("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
+            // Swal.fire("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
         }
     });
 });

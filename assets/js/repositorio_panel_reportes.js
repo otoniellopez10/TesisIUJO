@@ -26,7 +26,7 @@ function reporte(tipoReporte, th, destino){
     fd.append("mode", tipoReporte);
     fd.append("limite", limite);
 
-    Swal({
+    Swal.fire({
         title: "Espere un momento",
         text: "Realizando consulta...",
         confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -53,14 +53,14 @@ function reporte(tipoReporte, th, destino){
             });
         },
         allowOutsideClick: () => !Swal.isLoading(),
-        onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+        didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
     }).then((result) => {
 
         if (result.value) {
             let resp = result.value;
 
             if(resp.error){
-                Swal("Error", resp.mensaje, "error");
+                Swal.fire("Error", resp.mensaje, "error");
             }else{
                 if(destino == "libro") imprimirResultadosLibro(resp, th);
                 else if(destino == "usuario") imprimirResultadosUsuario(resp, th);
@@ -77,7 +77,7 @@ function reporteLibros(){
     fd.append("mode", "getReporteLibros");
     fd.append("limite", limite);
 
-    Swal({
+    Swal.fire({
         title: "Espere un momento",
         text: "Realizando consulta...",
         confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -104,19 +104,19 @@ function reporteLibros(){
             });
         },
         allowOutsideClick: () => !Swal.isLoading(),
-        onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+        didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
     }).then((result) => {
 
         if (result.value) {
             let resp = result.value;
 
             if(resp.error){
-                Swal("Error", resp.mensaje, "error");
+                Swal.fire("Error", resp.mensaje, "error");
             }else{
                 let activos = resp.activos[0].cantidad
                 let desactivados = resp.desactivados[0].cantidad
 
-                Swal("Reporte de libros", `El sistema cuenta con ${activos} libros activos y ${desactivados} en modo deshabilitado.`, "info");
+                Swal.fire("Reporte de libros", `El sistema cuenta con ${activos} libros activos y ${desactivados} en modo deshabilitado.`, "info");
             }
         }
     });
@@ -182,7 +182,7 @@ function reporteUsuarios(){
     fd.append("mode", "getReporteUsuarios");
     fd.append("limite", limite);
 
-    Swal({
+    Swal.fire({
         title: "Espere un momento",
         text: "Realizando consulta...",
         confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -209,19 +209,19 @@ function reporteUsuarios(){
             });
         },
         allowOutsideClick: () => !Swal.isLoading(),
-        onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+        didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
     }).then((result) => {
 
         if (result.value) {
             let resp = result.value;
 
             if(resp.error){
-                Swal("Error", resp.mensaje, "error");
+                Swal.fire("Error", resp.mensaje, "error");
             }else{
                 let activos = resp.activos[0].cantidad
                 let desactivados = resp.desactivados[0].cantidad
 
-                Swal("Reporte de usuarios", `El sistema cuenta con ${activos} usuarios colaborador y ${desactivados} usuario comunes.`, "info");
+                Swal.fire("Reporte de usuarios", `El sistema cuenta con ${activos} usuarios colaborador y ${desactivados} usuario comunes.`, "info");
             }
         }
     });

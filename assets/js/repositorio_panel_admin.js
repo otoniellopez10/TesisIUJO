@@ -43,7 +43,7 @@ $("#form_AgregarLibro").submit(function (e) {
         confirmButtonText: "Sí, agregar",
     }).then((result) => {
         if (result.value == true) {
-            Swal({
+            Swal.fire({
                 title: "Espere un momento",
                 text: "Cargando libro al sistema...",
                 confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -88,17 +88,17 @@ $("#form_AgregarLibro").submit(function (e) {
                     });
                 },
                 allowOutsideClick: () => !Swal.isLoading(),
-                onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+                didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
             }).then((result) => {
                 if (result.value) {
                     let resp = result.value;
-                    Swal("Listo!", resp.message, "success").then((e) => {
+                    Swal.fire("Listo!", resp.message, "success").then((e) => {
                         window.location.reload();
                     });
                 }
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // Swal("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
+            // Swal.fire("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
         }
     });
 });
@@ -249,7 +249,7 @@ $("#formEditarDatosLibro").submit(function (e) {
         confirmButtonText: "Sí, actualizar",
     }).then((result) => {
         if (result.value == true) {
-            Swal({
+            Swal.fire({
                 title: "Espere un momento",
                 text: "Desactivando libro...",
                 confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -282,17 +282,17 @@ $("#formEditarDatosLibro").submit(function (e) {
                     });
                 },
                 allowOutsideClick: () => !Swal.isLoading(),
-                onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+                didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
             }).then((result) => {
                 if (result.value) {
                     let resp = result.value;
-                    Swal("Listo!", resp.message, "success").then((e) => {
+                    Swal.fire("Listo!", resp.message, "success").then((e) => {
                         window.location.reload();
                     });
                 }
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // Swal("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
+            // Swal.fire("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
         }
     });
 });
@@ -307,7 +307,7 @@ function desactivarLibro(id) {
         confirmButtonText: "Sí, desactivar",
     }).then((result) => {
         if (result.value == true) {
-            Swal({
+            Swal.fire({
                 title: "Espere un momento",
                 text: "Desactivando libro...",
                 confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -344,17 +344,17 @@ function desactivarLibro(id) {
                     });
                 },
                 allowOutsideClick: () => !Swal.isLoading(),
-                onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+                didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
             }).then((result) => {
                 if (result.value) {
                     let resp = result.value;
-                    Swal("Listo!", resp.message, "success").then((e) => {
+                    Swal.fire("Listo!", resp.message, "success").then((e) => {
                         window.location.reload();
                     });
                 }
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // Swal("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
+            // Swal.fire("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
         }
     });
 }
@@ -369,7 +369,7 @@ function activarLibro(id) {
         confirmButtonText: "Sí, activar",
     }).then((result) => {
         if (result.value == true) {
-            Swal({
+            Swal.fire({
                 title: "Activando libro",
                 text: "Espere un momento...",
                 confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -406,17 +406,17 @@ function activarLibro(id) {
                     });
                 },
                 allowOutsideClick: () => !Swal.isLoading(),
-                onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+                didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
             }).then((result) => {
                 if (result.value) {
                     let resp = result.value;
-                    Swal("Listo!", resp.message, "success").then((e) => {
+                    Swal.fire("Listo!", resp.message, "success").then((e) => {
                         window.location.reload();
                     });
                 }
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // Swal("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
+            // Swal.fire("Cancelado", "La solicitud sigue en estado \"Pendiente\"", "info");
         }
     });
 }
@@ -428,7 +428,7 @@ function agregarEditorial() {
 $("#btnAgregarEditorial").click(function () {
     let nombreEditorial = $("#editorial_nombre").val();
     if (nombreEditorial.length == 0)
-        Swal("Error!", "Debes ingresar el nombre de la editorial", "error");
+        Swal.fire("Error!", "Debes ingresar el nombre de la editorial", "error");
 });
 
 // filtrar libros en el sistema
@@ -438,7 +438,7 @@ $("#formBuscarLibro").submit(function (e) {
     fd.append("estatus", 1);
     fd.append("mode", "search");
 
-    Swal({
+    Swal.fire({
         title: "Espere un momento",
         text: "Buscando libros por título...",
         confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -471,7 +471,7 @@ $("#formBuscarLibro").submit(function (e) {
             });
         },
         allowOutsideClick: () => !Swal.isLoading(),
-        onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+        didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
     }).then((result) => {
         if (result.value) {
             let json = result.value;
@@ -530,7 +530,7 @@ $("#formBuscarLibroDesactivado").submit(function (e) {
     fd.append("estatus", 0);
     fd.append("mode", "search");
 
-    Swal({
+    Swal.fire({
         title: "Espere un momento",
         text: "Buscando libros por título...",
         confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -563,7 +563,7 @@ $("#formBuscarLibroDesactivado").submit(function (e) {
             });
         },
         allowOutsideClick: () => !Swal.isLoading(),
-        onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+        didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
     }).then((result) => {
         if (result.value) {
             let json = result.value;

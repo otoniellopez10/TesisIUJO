@@ -3,6 +3,7 @@
 *** Pendientes
 
 - Editar Autores 
+- poder agregar editorial
 
 *** Listas
 - Generar pag de reportes
@@ -12,3 +13,15 @@
 
 ============= USUARIO =============
 
+*** Pendientes
+- Buscar libro por filtro 
+- Agregar a favoritos
+- Perfil de usuario
+- Mi espacio
+
+*** Listas
+- Calificar libro
+
+
+
+AGREGAR EL LOGO DEL IUJO AL SISTEMA!!!

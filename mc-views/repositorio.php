@@ -82,9 +82,9 @@ $editoriales = $objEditorial->getAll();
                         <ul class="tabs tabs-transparent">
                             <li class="tab"><a class="" href="#test1">Recomendados</a></li>
                             <li class="tab"><a class="" href="#test2">Mejor calificados</a></li>
-                            <li class="tab"><a class="active" href="#test3">Más descargados</a></li>
+                            <li class="tab"><a class="" href="#test3">Más descargados</a></li>
                             <li class="tab"><a class="" href="#test4">Más vistos</a></li>
-                            <li class="tab"><a class="" href="#test5">Buscar</a></li>
+                            <li class="tab"><a class="active" href="#test5">Buscar</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -126,19 +126,19 @@ $editoriales = $objEditorial->getAll();
                             <div class="row">
 
                                 <div class="col s12 m6 input-field">
-                                    <input type="text" id="i_titulo" name="titulo"/>
-                                    <label for="i_titulo">Buscar por título:</label>
+                                    <input type="text" id="b_titulo" name="b_titulo"/>
+                                    <label for="b_titulo">Buscar por título:</label>
                                 </div>
 
                                 <div class="input-field col s12 m6">
-                                    <input type="text" id="i_autor" name="autor" class="autocomplete">
-                                    <label for="i_autor">Buscar por autor</label>
+                                    <input type="text" id="b_autor" name="b_autor" class="autocomplete">
+                                    <label for="b_autor">Buscar por autor</label>
                                 </div>
 
                                 <!-- editorial -->
                                 <div class="col s12 m6 l4 input-field">
-                                    <select id="i_editorial" name="editorial" required>
-                                        <option value="" disabled selected></option>
+                                    <select id="b_editorial" name="b_editorial" >
+                                        <option value="" selected>Todas</option>
                                         <?php
                                             foreach ($editoriales as $e) {
                                         ?>
@@ -147,13 +147,13 @@ $editoriales = $objEditorial->getAll();
                                             }
                                         ?>
                                     </select>
-                                    <label for="i_editorial">Buscar por editorial:</label>
+                                    <label for="b_editorial">Buscar por editorial:</label>
                                 </div>
 
                                 <!-- categoria -->
                                 <div class="col s12 m6 l4 input-field">
-                                    <select id="i_categoria" name="categoria" required>
-                                        <option value="" disabled selected></option>
+                                    <select id="b_categoria" name="b_categoria" >
+                                        <option value="" selected>Todas</option>
                                         <?php
                                             foreach ($categorias as $c) {
                                         ?>
@@ -162,22 +162,23 @@ $editoriales = $objEditorial->getAll();
                                             }
                                         ?>
                                     </select>
-                                    <label for="i_categoria">Buscar por categoría:</label>
+                                    <label for="b_categoria">Buscar por categoría:</label>
                                 </div>
 
                                 <!-- carrera -->
                                 <div class="col s12 m12 l4 input-field">
-                                    <select id="i_carrera" name="carrera" required>
-                                        <option value="" disabled selected></option>
+                                    <select id="b_carrera" name="b_carrera" >
+                                        <option value="" selected>General</option>
                                         <?php
                                             foreach ($carreras as $c) {
+                                                if($c->nombre == "General") continue;
                                         ?>
                                             <option value="<?= $c->id; ?>"> <?= $c->nombre; ?> </option>
                                         <?php
                                             }
                                         ?>
                                     </select>
-                                    <label for="i_carrera">Buscar por carrera:</label>
+                                    <label for="b_carrera">Buscar por carrera:</label>
                                 </div>
 
                                 <div class="col s12 right-align">
@@ -221,8 +222,8 @@ function render($array){
 
         foreach($allAutores as $key => $autor){
             $index = $key + 1;
-            $if = $count - $index;
-            $autores = $autores . $autor->nombre . " " . $autor->apellido;
+            
+            $autores = $autores . $autor->nombre;
             if( ( $count - $index) > 1){
                 $autores = $autores . ", ";
             }else if(( $count - $index) == 1){
@@ -237,7 +238,7 @@ function render($array){
         $promedio = $calificacion->cantidad;
         if($promedio != null){
             for ($i=0; $i < 5; $i++) { 
-                if($promedio > 1) $x = $x . "<i class='material-icons yellow-text text-darken-1 '>star</i>";
+                if($promedio >= 1) $x = $x . "<i class='material-icons yellow-text text-darken-1 '>star</i>";
 
                 else if($promedio > 0 && $promedio < 1) $x = $x . "<i class='material-icons yellow-text text-darken-1 '>star_half</i>";
 
@@ -316,3 +317,4 @@ function render($array){
 <?php
     }
 }
+

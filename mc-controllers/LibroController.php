@@ -168,6 +168,63 @@ if( $mode == "insert"){
     echo json_encode($response);
 
 
+}else if($mode == "getComentarioByUsuarioId"){
+    if($_SESSION["user"]->rol_id == 1){
+        $response = ['error' => true, 'message' => 'El administrador no puede calificar libros'];
+    }else if( !isset( $_POST['libro_id'] ))
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    else{
+        $libro_id = $_POST['libro_id'];
+        $usuario_id = $_SESSION['user']->id;
+
+        $request = $ObjLibro->getComentarioByUsuarioId($usuario_id, $libro_id);
+        if($request == null){
+            $response = ['error' => false, 'estatus' => 1]; //estatus 1 para indicar que el llibro no ha sido calificado por dicho usuario
+        }else{
+            $response = ['error' => false, 'estatus' => 2, "comentario" => $request]; //estatus 2 para indicar que si ha sido calificado
+        }
+    }
+
+    echo json_encode($response);
+
+}else if($mode == "setComentario"){
+
+    if( !isset( $_POST['libro_id'] ) || !isset( $_POST['numeroEstrellas']) || !isset( $_POST['modalCalificarComentario']) || !isset( $_SESSION['user']->id ))
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    else{
+        $libro_id = $_POST['libro_id'];
+        $estrellas = $_POST['numeroEstrellas'];
+        $comentario = $_POST['modalCalificarComentario'];
+        $usuario_id = $_SESSION['user']->id;
+
+        $request = $ObjLibro->setComentario($usuario_id, $libro_id, $estrellas, $comentario);
+        if(!$request){
+            $response = ['error' => true, 'message' => "Ocurrió un error al publicar el comentario"];
+        }else{
+            $response = ['error' => false, 'message' => "Su comentario ha sido publicado con éxito!"];
+        }
+    }
+
+    echo json_encode($response);
+
+}else if($mode == "deleteComentario"){
+    if( !isset( $_POST['libro_id'] ) || !isset( $_SESSION['user']->id ) )
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    else{
+        $libro_id = $_POST['libro_id'];
+        $usuario_id = $_SESSION['user']->id;
+
+        $request = $ObjLibro->deleteComentario($usuario_id, $libro_id);
+        if(!$request){
+            $response = ['error' => true, 'message' => "Ocurrió un error al eliminar el comentario"];
+        }else{
+            $response = ['error' => false, 'message' => "Su comentario ha sido eliminado con éxito!"];
+        }
+    }
+
+    echo json_encode($response);
+
+
 // INICIO DE LOS REPORTES DE LIBROS
 }else if( $mode == "getMasVistos"){
     if( !isset( $_POST['limite'] ) )

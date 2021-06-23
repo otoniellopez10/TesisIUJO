@@ -55,7 +55,7 @@ $x = "";
 $promedio = $calificacion->cantidad;
 if($promedio != null){
     for ($i=0; $i < 5; $i++) { 
-        if($promedio > 1) $x = $x . "<i class='material-icons yellow-text text-darken-1'>star</i>";
+        if($promedio >= 1) $x = $x . "<i class='material-icons yellow-text text-darken-1'>star</i>";
 
         else if($promedio > 0 && $promedio < 1) $x = $x . "<i class='material-icons yellow-text text-darken-1'>star_half</i>";
 
@@ -65,7 +65,7 @@ if($promedio != null){
 }else{
     $x = "Sin calificar";
 }
-
+// $x = $promedio;
 // descargas
 $descargas =  $objLibro->getDescargasByLibroId($libro->id)->cantidad;
 
@@ -124,6 +124,31 @@ $visualizaciones = $objLibro->getVistasByLibroId($libro->id)->cantidad;
             .head p{
                 color: #555;
             }
+            .modal-header{
+                background: #26a69a;
+                color: white;
+                padding: 10px 30px 1px 30px;
+                position: relative;
+            }
+            .modal-header .modal-close{
+                position: absolute;
+                top: 50%;
+                right: 20px;
+                transform: translateY(-25%);
+            }
+            #formCalificarLibro .estrellas{
+                display: flex;
+                justify-content: center;
+            }
+            #formCalificarLibro .estrellas p{
+                cursor: pointer;
+                padding: 0 3px;
+                transition: all ease .3s;
+            }
+            #formCalificarLibro .estrellas p:hover{
+                transform: scale(1.3);
+            }
+
         </style>
     </head>
 
@@ -219,7 +244,7 @@ $visualizaciones = $objLibro->getVistasByLibroId($libro->id)->cantidad;
                 </div>
                 <div class="row v">
                     <div class="col s12 m4" style="padding:2px;">
-                        <button class="btn waves-effect waves-light teal lighten-2" style="width: 100%;"><i class="material-icons left">star</i> Calificar libro</button>
+                        <button class="btn waves-effect waves-light teal lighten-2" style="width: 100%;" onclick="calificarLibro(<?= $libro->id ?>)"><i class="material-icons left">star</i> Calificar libro</button>
                     </div>
                     <?php
                         $download = str_replace(" ", "-", $libro->titulo) . ".pdf";
@@ -291,7 +316,7 @@ $visualizaciones = $objLibro->getVistasByLibroId($libro->id)->cantidad;
             </div>
         </main>
         
-        <?php // include_once "modals/admin/modalVerDatosLibro.php" ?>
+        <?php  include_once "modals/usuario/modalCalificarLibro.php" ?>
         <?php // include_once "modals/admin/modalEditarDatosLibro.php" ?>
 
         <?php include_once "footer.php" ?>

@@ -84,7 +84,7 @@ $(document).ready(function () {
             if (i_clavenueva.val() != i_clavenueva2.val())
                 throw "Las contraseñas no coinciden";
         } catch (e) {
-            swal({
+            swal.fire({
                 title: "Error",
                 text: e,
                 icon: "error",
@@ -116,7 +116,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (res) {
                 if (res.error) {
-                    swal("Error", res.message, "error");
+                    swal.fire("Error", res.message, "error");
                     return;
                 } else {
                     usuario_id = res.id;
@@ -140,9 +140,9 @@ $(document).ready(function () {
             dataType: "json",
             success: function (res) {
                 if (res.error) {
-                    swal("Error", res.message, "error");
+                    swal.fire("Error", res.message, "error");
                 } else {
-                    swal({
+                    swal.fire({
                         title: "¡Registro exitoso!",
                         text: res.message,
                         icon: "success",
@@ -169,7 +169,7 @@ $(document).ready(function () {
         let fd = new FormData(this);
         fd.append("mode", "loadOne");
 
-        Swal({
+        Swal.fire({
             title: "Iniciando Sesión",
             text: "Espere un momento...",
             confirmButtonColor: $(".btn-primary").css("background-color"),
@@ -192,7 +192,7 @@ $(document).ready(function () {
                             }
                         },
                         error: function (error) {
-                            Swal("Error!", error.mensaje, "error");
+                            Swal.fire("Error!", error.mensaje, "error");
                             return false;
                         },
                     });
@@ -202,7 +202,7 @@ $(document).ready(function () {
                 });
             },
             allowOutsideClick: () => !Swal.isLoading(),
-            onOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+            didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
         }).then((result) => {
             if (result.value) {
                 window.location = "../mc-views/repositorio.php";

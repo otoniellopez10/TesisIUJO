@@ -18,27 +18,22 @@ $(document).ready(function () {
 
 $("#form_buscar_libro").submit(function (e) {
     e.preventDefault();
-    console.log("e");
-    return;
-
-    var consulta = `SELECT 
-                        l.id,
-                        l.titulo,
-                        l.edicion,
-                        l.fecha,
-                        l.resumen,
-                        l.pdf,
-                        e.nombre AS editorial,
-                        c.nombre AS carrera,
-                        t.nombre AS categoria 
-                        FROM libro l
-                        JOIN libro_editorial e on e.id = l.editorial
-                        JOIN libro_carrera c on c.id = l.carrera
-                        JOIN tableCategoria t on t.id = l.categoria WHERE ";`;
-
-    if ($("#i_titulo").val() != "") consulta += "l.titulo ";
+    // console.log("");
 });
 
 function limpiarCampos() {
     $("#form_buscar_libro")[0].reset();
+}
+
+// verificar que no esten vacios todos los campos de busqueda
+function verificarCamposBusqueda(){
+    if(
+        $("#b_titulo").val() == "" ||
+        $("#b_autor").val() == "" ||
+        $("#b_editorial").val() == "" ||
+        $("#b_categoria").val() == "" ||
+        $("#b_carrera").val() == "" 
+    ){
+        Swal.fire("Espera!", "Primero debes introducir algún dato para la busqueda", "info");
+    }
 }
