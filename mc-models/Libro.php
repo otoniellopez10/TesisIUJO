@@ -212,7 +212,7 @@ class Libro {
         return $db->get_results($sql);
     }
 
-    public function getRecomendados() {
+    public function getRecomendados($limit) {
         global $db;
         $sql = "SELECT 
                     l.id,
@@ -228,8 +228,18 @@ class Libro {
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
-                WHERE l.estatus = 1 ORDER BY rand() LIMIT 20";
+                WHERE l.estatus = 1 ORDER BY rand() LIMIT $limit";
         return $db->get_results($sql);
+    }
+
+    function getVistasByLibroId($id){
+        global $db;
+        $sql = "SELECT 
+                    COUNT(v.libro_id) as cantidad
+                FROM $this->tableVista v
+                JOIN $this->table l on l.id = v.libro_id
+                WHERE l.estatus = 1 AND v.libro_id = $id";
+        return $db->get_row($sql);
     }
 
     function getDescargasByLibroId($id){
@@ -239,9 +249,9 @@ class Libro {
                 FROM $this->tableDescarga v
                 JOIN $this->table l on l.id = v.libro_id
                 WHERE l.estatus = 1 AND v.libro_id = $id";
-        return $db->get_results($sql);
+        return $db->get_row($sql);
     }
-
+    
     function getCalificacionByLibroId($id){
         global $db;
         $sql = "SELECT 
@@ -249,7 +259,7 @@ class Libro {
                 FROM $this->tableCalificacion v
                 JOIN $this->table l on l.id = v.libro_id
                 WHERE l.estatus = 1 AND v.libro_id = $id";
-        return $db->get_results($sql);
+        return $db->get_row($sql);
     }
 
     function getComentariosByLibroId($id){
@@ -290,7 +300,7 @@ class Libro {
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
-                WHERE l.estatus = 1 GROUP BY l.id ORDER BY cantidad DESC LIMIT $limit";
+                WHERE l.estatus = 1 GROUP BY l.id ORDER BY cantidad DESC, l.titulo ASC LIMIT $limit";
         return $db->get_results($sql);
     }
 

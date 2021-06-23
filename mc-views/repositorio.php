@@ -27,9 +27,11 @@ $objCategoria = new Categoria();
 $objEditorial = new Editorial();
 
 
-$libros = $objLibro->getAll(30);
-$librosRecomendados = $objLibro->getRecomendados();
+$libros = $objLibro->getAll(25);
+$librosRecomendados = $objLibro->getRecomendados(25);
 $librosMejorCalificados = $objLibro->getMejorCalificados(25);
+$librosMasDescargados = $objLibro->getMasDescargados(25);
+$librosMasVistos = $objLibro->getMasVistos(25);
 
 
 $carreras = $objCarrera->getAll();
@@ -79,8 +81,8 @@ $editoriales = $objEditorial->getAll();
                     <div class="nav-content">
                         <ul class="tabs tabs-transparent">
                             <li class="tab"><a class="" href="#test1">Recomendados</a></li>
-                            <li class="tab"><a class="active" href="#test2">Mejor calificados</a></li>
-                            <li class="tab"><a class="" href="#test3">Más descargados</a></li>
+                            <li class="tab"><a class="" href="#test2">Mejor calificados</a></li>
+                            <li class="tab"><a class="active" href="#test3">Más descargados</a></li>
                             <li class="tab"><a class="" href="#test4">Más vistos</a></li>
                             <li class="tab"><a class="" href="#test5">Buscar</a></li>
                         </ul>
@@ -89,197 +91,29 @@ $editoriales = $objEditorial->getAll();
 
                 <!-- libros recomendados -->
                 <div id="test1" class="row modulo_contenido">
-
                     <?php
-                        CONST LIMITE = 20;
-                        $contador = 0;
-                        foreach ($librosRecomendados as $index => $libro) {
-                            // fecha
-                            $fecha = Date("d-m-Y", strtotime($libro->fecha));
-                            $allAutores = $objAutor->getByLibroId($libro->id);
-                            $count = count($allAutores);
-                            $autores = "";
-
-                            foreach($allAutores as $key => $autor){
-                                $index = $key + 1;
-                                $if = $count - $index;
-                                $autores = $autores . $autor->nombre . " " . $autor->apellido;
-                                if( ( $count - $index) > 1){
-                                    $autores = $autores . ", ";
-                                }else if(( $count - $index) == 1){
-                                    $autores = $autores . " y ";
-                                }
-                            }
-                    ?>
-                    <div class="col s12 libro">
-                        <div class="row valign-wrapper">
-                            <div class="col s0 m2 l2 hide-on-small-only libro_imagen">
-                                <img src="../assets/images/libros/libro.png" alt="" class="responsive-img">
-                            </div>
-
-                            <div class="col s12 m10 l10 libro_datos">
-                                <h5 class="titulo teal-text valign-wrapper"><b><?= $libro->titulo ?></b>
-                                    <a href="#">
-                                        <i class="material-icons yellow-text text-darken-1 right">star_outline</i>
-                                    </a>
-                                </h5>
-                                
-                                <div class="valign-wrapper">
-                                    <b>Autor(es): &nbsp;</b>
-                                    <p><?=  $autores ?></p>
-                                </div>
-                                
-                                <div class="valign-wrapper">
-                                    <b>Editorial: &nbsp;</b>
-                                    <p><?= $libro->editorial ?></p>
-                                </div>
-                                
-                                <div class="valign-wrapper">
-                                    <b>Edicion: &nbsp;</b>
-                                    <p><?= $libro->edicion ?></p>
-                                </div>
-
-                                <div class="valign-wrapper">
-                                    <b>Fecha de pubicación: &nbsp;</b>
-                                    <p><?= $fecha ?></p>
-                                </div>
-
-                                <div class="valign-wrapper">
-                                    <b>Categoría: &nbsp;</b>
-                                    <p><?= $libro->categoria ?></p>
-                                </div>
-
-                                <div class="valign-wrapper">
-                                    <b>Carrera: &nbsp;</b>
-                                    <p><?= $libro->carrera ?></p>
-                                </div>
-
-                                <div class="botones-accion ">
-                                    <a href="<?= "libro.php?libro_id=" . $libro->id ?>" class="btn-small waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Ver detalles" target="_blank"><i class="material-icons">visibility</i></a>
-                                    <!-- <i class="material-icons green-text">download</i>
-                                    <i class="material-icons yellow-text">star</i> -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="row">
-                            <div class="col s12 m4">
-                                <button class="btn waves-effect waves-light">Prueba</button>
-                            </div>
-                            <div class="col s12 m4">
-                                <button class="btn waves-effect waves-light">Prueba</button>
-                            </div>
-                            <div class="col s12 m4">
-                                <button class="btn waves-effect waves-light">Prueba</button>
-                            </div>
-                        </div> -->
-                        <div class="divider"></div>
-                    </div>
-                    <?php
-                    $contador++;
-                        }
+                        render($librosRecomendados);
                     ?>
                 </div>
 
                 <!-- libros mejor calificados -->
                 <div id="test2" class="row modulo_contenido">
-                <?php
-                        foreach ($librosMejorCalificados as $index => $libro) {
-                            // fecha
-                            $fecha = Date("d-m-Y", strtotime($libro->fecha));
-                            $allAutores = $objAutor->getByLibroId($libro->id);
-                            $count = count($allAutores);
-                            $autores = "";
-
-                            foreach($allAutores as $key => $autor){
-                                $index = $key + 1;
-                                $if = $count - $index;
-                                $autores = $autores . $autor->nombre . " " . $autor->apellido;
-                                if( ( $count - $index) > 1){
-                                    $autores = $autores . ", ";
-                                }else if(( $count - $index) == 1){
-                                    $autores = $autores . " y ";
-                                }
-                            }
-                    ?>
-                    <div class="col s12 libro">
-                        <div class="row valign-wrapper">
-                            <div class="col s0 m2 l2 hide-on-small-only libro_imagen">
-                                <img src="../assets/images/libros/libro.png" alt="" class="responsive-img">
-                            </div>
-
-                            <div class="col s12 m10 l10 libro_datos">
-                                <h5 class="titulo teal-text valign-wrapper"><b><?= $libro->titulo ?></b>
-                                    <a href="#">
-                                        <i class="material-icons yellow-text text-darken-1 right">star_outline</i>
-                                    </a>
-                                </h5>
-
-                                <div class="valign-wrapper">
-                                    <b>Calificación: &nbsp;</b>
-                                    <p><?=  $autores ?></p>
-                                </div>
-                                
-                                <div class="valign-wrapper">
-                                    <b>Autor(es): &nbsp;</b>
-                                    <p><?=  $autores ?></p>
-                                </div>
-                                
-                                <div class="valign-wrapper">
-                                    <b>Editorial: &nbsp;</b>
-                                    <p><?= $libro->editorial ?></p>
-                                </div>
-                                
-                                <div class="valign-wrapper">
-                                    <b>Edicion: &nbsp;</b>
-                                    <p><?= $libro->edicion ?></p>
-                                </div>
-
-                                <div class="valign-wrapper">
-                                    <b>Fecha de pubicación: &nbsp;</b>
-                                    <p><?= $fecha ?></p>
-                                </div>
-
-                                <div class="valign-wrapper">
-                                    <b>Categoría: &nbsp;</b>
-                                    <p><?= $libro->categoria ?></p>
-                                </div>
-
-                                <div class="valign-wrapper">
-                                    <b>Carrera: &nbsp;</b>
-                                    <p><?= $libro->carrera ?></p>
-                                </div>
-
-                                <div class="botones-accion ">
-                                    <a href="<?= "libro.php?libro_id=" . $libro->id ?>" class="btn-small waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Ver detalles" target="_blank"><i class="material-icons">visibility</i></a>
-                                    <!-- <i class="material-icons green-text">download</i>
-                                    <i class="material-icons yellow-text">star</i> -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="row">
-                            <div class="col s12 m4">
-                                <button class="btn waves-effect waves-light">Prueba</button>
-                            </div>
-                            <div class="col s12 m4">
-                                <button class="btn waves-effect waves-light">Prueba</button>
-                            </div>
-                            <div class="col s12 m4">
-                                <button class="btn waves-effect waves-light">Prueba</button>
-                            </div>
-                        </div> -->
-                        <div class="divider"></div>
-                    </div>
                     <?php
-                    $contador++;
-                        }
+                        render($librosMejorCalificados);
                     ?>
                 </div>
 
                 <!-- Libros mas descargados -->
-                <div id="test3" class="row modulo_contenido">En desarrollo</div>
+                <div id="test3" class="row modulo_contenido">
+                    <?php
+                        render($librosMasDescargados);
+                    ?>
+                </div>
 
                 <div id="test4" class="row modulo_contenido">
-                En desarrollo
+                    <?php
+                        render($librosMasVistos);
+                    ?>
                 </div>
 
                 <!-- Buscar -->
@@ -373,3 +207,112 @@ $editoriales = $objEditorial->getAll();
         </script>
     </body>
 </html>
+
+<?php
+
+function render($array){
+    global $objAutor, $objLibro;
+    foreach ($array as $index => $libro) {
+        // fecha
+        $fecha = Date("d-m-Y", strtotime($libro->fecha));
+        $allAutores = $objAutor->getByLibroId($libro->id);
+        $count = count($allAutores);
+        $autores = "";
+
+        foreach($allAutores as $key => $autor){
+            $index = $key + 1;
+            $if = $count - $index;
+            $autores = $autores . $autor->nombre . " " . $autor->apellido;
+            if( ( $count - $index) > 1){
+                $autores = $autores . ", ";
+            }else if(( $count - $index) == 1){
+                $autores = $autores . " y ";
+            }
+        }
+
+        // clasificacion (estrellas)
+        $calificacion = $objLibro->getCalificacionByLibroId($libro->id);
+        $x = "";
+
+        $promedio = $calificacion->cantidad;
+        if($promedio != null){
+            for ($i=0; $i < 5; $i++) { 
+                if($promedio > 1) $x = $x . "<i class='material-icons yellow-text text-darken-1 '>star</i>";
+
+                else if($promedio > 0 && $promedio < 1) $x = $x . "<i class='material-icons yellow-text text-darken-1 '>star_half</i>";
+
+                else $x = $x . "<i class='material-icons yellow-text text-darken-1 '>star_border</i>";
+                $promedio = $promedio - 1;
+            }
+        }else{
+            $x = "Sin calificación";
+        }
+?>
+<div class="col s12 libro">
+    <div class="row valign-wrapper">
+        <div class="col s0 m3 hide-on-small-only libro_imagen">
+            <img src="../assets/images/libros/libro.png" alt="" class="responsive-img" width="70%">
+        </div>
+
+        <div class="col s12 m9  libro_datos">
+            <h5 class="titulo teal-text valign-wrapper"><b><?= $libro->titulo ?></b>
+            </h5>
+            
+            <div class="valign-wrapper">
+                <b>Calificación: &nbsp;</b>
+                <p><?= $x ?></p>
+            </div>
+            
+            <div class="valign-wrapper">
+                <b>Autor(es): &nbsp;</b>
+                <p><?=  $autores ?></p>
+            </div>
+            
+            <div class="valign-wrapper">
+                <b>Editorial: &nbsp;</b>
+                <p><?= $libro->editorial ?></p>
+            </div>
+            
+            <div class="valign-wrapper">
+                <b>Edicion: &nbsp;</b>
+                <p><?= $libro->edicion ?></p>
+            </div>
+
+            <div class="valign-wrapper">
+                <b>Fecha de pubicación: &nbsp;</b>
+                <p><?= $fecha ?></p>
+            </div>
+
+            <div class="valign-wrapper">
+                <b>Categoría: &nbsp;</b>
+                <p><?= $libro->categoria ?></p>
+            </div>
+
+            <div class="valign-wrapper">
+                <b>Carrera: &nbsp;</b>
+                <p><?= $libro->carrera ?></p>
+            </div>
+
+
+            <div class="botones-accion ">
+                <button class="btn-small waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Agregar a favoritos" style="margin-right: 5px;" onclick="agregarFavoritos(<?= $libro->id ?>)"><i class="material-icons ">star</i></button>
+                <a href="<?= "libro.php?libro_id=" . $libro->id ?>" class="btn-small waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Ver detalles" target="_blank"><i class="material-icons">visibility</i></a>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col s12 m4">
+            <button class="btn waves-effect waves-light">Prueba</button>
+        </div>
+        <div class="col s12 m4">
+            <button class="btn waves-effect waves-light">Prueba</button>
+        </div>
+        <div class="col s12 m4">
+            <button class="btn waves-effect waves-light">Prueba</button>
+        </div>
+    </div> -->
+    <div class="divider"></div>
+</div>
+<?php
+    }
+}

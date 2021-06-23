@@ -25,6 +25,8 @@ $objLibro = new Libro();
 $objAutor = new Autor();
 
 $libro = $objLibro->getOneById($libro_id);
+
+// autores
 $consulta_autores = $objAutor->getByLibroId($libro_id);
 $count = count($consulta_autores);
 
@@ -45,6 +47,30 @@ if($count > 1){
     $autores = "Por " . $consulta_autores[0]->nombre;
 }
 
+
+//  Calificacion        
+$calificacion = $objLibro->getCalificacionByLibroId($libro->id);
+$x = "";
+
+$promedio = $calificacion->cantidad;
+if($promedio != null){
+    for ($i=0; $i < 5; $i++) { 
+        if($promedio > 1) $x = $x . "<i class='material-icons yellow-text text-darken-1'>star</i>";
+
+        else if($promedio > 0 && $promedio < 1) $x = $x . "<i class='material-icons yellow-text text-darken-1'>star_half</i>";
+
+        else $x = $x . "<i class='material-icons yellow-text text-darken-1'>star_border</i>";
+        $promedio = $promedio - 1;
+    }
+}else{
+    $x = "Sin calificar";
+}
+
+// descargas
+$descargas =  $objLibro->getDescargasByLibroId($libro->id)->cantidad;
+
+// vistas
+$visualizaciones = $objLibro->getVistasByLibroId($libro->id)->cantidad;
 ?>
 
 <!DOCTYPE html>
@@ -138,6 +164,12 @@ if($count > 1){
                 
                     <div class="s12 m8">
                         <h5 class="teal-text" id="l_titulo"></h5>
+
+                        <div class="valign-wrapper">
+                            <p><b class="teal-text">Calificación: </b></p>
+                            <p> &nbsp; <?= $x ?></p>
+                        </div>
+
                         <div class="valign-wrapper">
                             <p><b class="teal-text">Editorial: </b></p>
                             <p> &nbsp;  <?= $libro->editorial ?></p>
@@ -170,6 +202,16 @@ if($count > 1){
                             <p><b class="teal-text">Resumen: </b><?= $libro->resumen ?></p>
                             <!-- <p> &nbsp; <?php // $libro->resumen ?></p> -->
                         </div>
+                        
+                        <div class="valign-wrapper">
+                            <p><b class="teal-text">Visualizaciones: </b></p>
+                            <p> &nbsp; <?= $visualizaciones ?></p>
+                        </div>
+
+                        <div class="valign-wrapper">
+                            <p><b class="teal-text">Descargas: </b></p>
+                            <p> &nbsp; <?= $descargas ?></p>
+                        </div>
 
                         <br>
                     </div>
@@ -193,31 +235,10 @@ if($count > 1){
                 <h5>
                     <i class="material-icons left teal-text small">person_pin</i>Calificación y comentarios
                 </h5>
-                <!-- Calificacion -->
-                <?php
-                    $calificacion = $objLibro->getCalificacionByLibroId($libro->id);
-                    $x = "";
-                ?>
+
                 <div class="row">
                     <h6 class="valign-wrapper teal lighten-1 white-text z-depth-2" style="padding: 10px;">Calificación de los usarios: &nbsp;
-                        <?php
-                            $promedio = $calificacion[0]->cantidad;
-                            if($promedio != null){
-                                $promedio = $calificacion[0]->cantidad;
-                                for ($i=0; $i < 5; $i++) { 
-                                    if($promedio > 1) $x = $x . "<i class='material-icons yellow-text text-darken-1'>star</i>";
-
-                                    else if($promedio > 0 && $promedio < 1) $x = $x . "<i class='material-icons yellow-text text-darken-1'>star_half</i>";
-
-                                    else $x = $x . "<i class='material-icons yellow-text text-darken-1'>star_border</i>";
-                                    $promedio = $promedio - 1;
-                                }
-                            }else{
-                                $x = "Sin calificar";
-                            }
-
-                            echo $x;
-                        ?>
+                        <?=  $x; ?>
                     </h6>
                 </div>
 
