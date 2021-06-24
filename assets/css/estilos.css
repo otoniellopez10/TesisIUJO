@@ -59,3 +59,25 @@ footer {
     background: #eee;
     z-index: 1;
 }
+
+/* modificaciones del datatable */
+
+.dataTables_wrapper .dataTables_paginate {
+    /* color: white; */
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    border: none;
+    color: teal !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{
+    background: teal;
+    border: none;
+    color: white !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: #01b1b1;
+    border: none;
+    color: white !important;
+}
+
+

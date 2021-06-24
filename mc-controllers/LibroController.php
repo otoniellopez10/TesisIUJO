@@ -154,6 +154,90 @@ if( $mode == "insert"){
 
 
     
+}else if($mode == "searchConFiltro"){
+
+    if( !isset( $_POST['b_titulo'] ) || 
+    !isset( $_POST['b_autor'] ) || 
+    !isset( $_POST['b_editorial'] ) || 
+    !isset( $_POST['b_categoria'] ) || 
+    !isset( $_POST['b_carrera'] )
+    )
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    else{
+        $titulo = $_POST['b_titulo'];
+        $autor = $_POST['b_autor'];
+        $editorial = $_POST['b_editorial'];
+        $categoria = $_POST['b_categoria'];
+        $carrera = $_POST['b_carrera'];
+        $limit = 50;
+
+        $where = "l.estatus = 1";
+        $order = " ORDER BY l.titulo DESC ";
+
+        if($titulo != "") $where = $where . " AND l.titulo LIKE '%$titulo%'";
+        if($editorial != "") $where = $where . " AND l.editorial = $editorial";
+        if($categoria != "") $where = $where . " AND l.categoria = $categoria";
+        if($carrera != "") $where = $where . " AND l.carrera = $carrera";
+        if($autor != ""){
+
+        }
+
+        $request = $ObjLibro->searchConFiltro($where, $order, $limit = 50);
+        if($request){
+            $array = array();
+            foreach ($request as $key => $libro) {
+                $temp_array;
+
+                $temp_array["libro"] = $libro;
+
+                $allAutores = $ObjAutor->getByLibroId($libro->id);
+                $count = count($allAutores);
+                $autores = "";
+
+                foreach($allAutores as $key => $autor){
+                    $index = $key + 1;
+                    
+                    $autores = $autores . $autor->nombre;
+                    if( ( $count - $index) > 1){
+                        $autores = $autores . ", ";
+                    }else if(( $count - $index) == 1){
+                        $autores = $autores . " y ";
+                    }
+                }
+                $temp_array["autores"] = $autores;
+
+                // clasificacion (estrellas)
+                $calificacion = $ObjLibro->getCalificacionByLibroId($libro->id);
+                $x = "";
+
+                $promedio = $calificacion->cantidad;
+                if($promedio != null){
+                    for ($i=0; $i < 5; $i++) { 
+                        if($promedio >= 1) $x = $x . "<i class='material-icons yellow-text text-darken-1 '>star</i>";
+
+                        else if($promedio > 0 && $promedio < 1) $x = $x . "<i class='material-icons yellow-text text-darken-1 '>star_half</i>";
+
+                        else $x = $x . "<i class='material-icons yellow-text text-darken-1 '>star_border</i>";
+                        $promedio = $promedio - 1;
+                    }
+                }else{
+                    $x = "Sin calificación";
+                }
+                $temp_array["calificacion"] = $x;
+
+                // añadir el libro al array con todos los datos.
+                array_push($array, $temp_array);
+            }
+            $response = $array;
+        } 
+            
+        else $response = ["error" => true, "message" => "No se ha encontrado ningun libro con estos filtros."];
+    }
+
+
+    echo json_encode($response);
+
+
 }else if( $mode == "getAutores"){
     
     $autores = $ObjAutor->getAll2();

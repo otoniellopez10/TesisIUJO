@@ -212,6 +212,26 @@ class Libro {
         return $db->get_results($sql);
     }
 
+    function searchConFiltro($where, $order, $limit){
+        global $db;
+        $sql = "SELECT 
+                    l.id,
+                    l.titulo,
+                    l.edicion,
+                    l.fecha,
+                    l.resumen,
+                    l.pdf,
+                    e.nombre AS editorial,
+                    c.nombre AS carrera,
+                    t.nombre AS categoria
+                FROM $this->table l
+                JOIN $this->tableEditorial e on e.id = l.editorial
+                JOIN $this->tableCarrera c on c.id = l.carrera
+                JOIN $this->tableCategoria t on t.id = l.categoria
+                WHERE $where $order LIMIT $limit";
+        return $db->get_results($sql);
+    }
+
     public function getRecomendados($limit) {
         global $db;
         $sql = "SELECT 
