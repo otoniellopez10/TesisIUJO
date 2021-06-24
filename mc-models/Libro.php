@@ -443,7 +443,7 @@ class Libro {
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
-                WHERE l.estatus = 1 AND f.usuario_id = $usuario_id";
+                WHERE l.estatus = 1 AND f.usuario_id = $usuario_id ORDER BY l.titulo ASC";
         return $db->get_results($sql);
     }
 

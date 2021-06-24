@@ -4,6 +4,7 @@
 
 - Editar Autores 
 - poder agregar editorial
+- agregar dataTables a todas las tablas! 
 
 *** Listas
 - Generar pag de reportes
@@ -14,14 +15,20 @@
 ============= USUARIO =============
 
 *** Pendientes
-- Buscar libro por filtro 
-- Agregar a favoritos
-- Perfil de usuario
-- Mi espacio
+- Buscar libro por autor
+- Perfil de usuario (con todas sus funciones)
 
 *** Listas
 - Calificar libro
+- Buscar libro por titulo, categoria, carrera o editorial
+- Agregar a favoritos
+- Mi espacio
 
 
 
 AGREGAR EL LOGO DEL IUJO AL SISTEMA!!!
+
+ORDEN
+- agregar dataTables a todas las tablas!
+- poder agregar editorial (ademas, agregar el "Sin editorial")
+- Perfil de usuario (con todas sus funciones)
