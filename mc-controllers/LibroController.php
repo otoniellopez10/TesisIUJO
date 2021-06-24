@@ -263,6 +263,22 @@ if( $mode == "insert"){
     echo json_encode($response);
 
 
+}else if($mode == "deleteFavorito"){
+    if( !isset( $_POST['libro_id']))
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    else{
+
+        $usuario_id = $_SESSION["user"]->id;
+        $libro_id = $_POST["libro_id"];
+
+
+        $request = $ObjLibro->deleteFavorito($usuario_id, $libro_id);
+        if($request) $response = $response = ["error" => false, "message" => "El libro se eliminó de favoritos correctamente."];
+        else $response = ["error" => true, "message" => "Ocurrió un error al intenar eliminar el libro de favoritos"];
+
+    }
+
+    echo json_encode($response);
 }else if( $mode == "getAutores"){
     
     $autores = $ObjAutor->getAll2();

@@ -425,6 +425,28 @@ class Libro {
 
     }
 
+    function getFavoritos($usuario_id){
+        global $db;
+
+        $sql = "SELECT 
+                    l.id,
+                    l.titulo,
+                    l.edicion,
+                    l.fecha,
+                    l.resumen,
+                    l.pdf,
+                    e.nombre AS editorial,
+                    c.nombre AS carrera,
+                    t.nombre AS categoria
+                FROM $this->tableFavoritos f
+                JOIN $this->table l on l.id = f.libro_id
+                JOIN $this->tableEditorial e on e.id = l.editorial
+                JOIN $this->tableCarrera c on c.id = l.carrera
+                JOIN $this->tableCategoria t on t.id = l.categoria
+                WHERE l.estatus = 1 AND f.usuario_id = $usuario_id";
+        return $db->get_results($sql);
+    }
+
     function getOneFavorito($usuario_id, $libro_id){
         global $db;
 
@@ -444,5 +466,16 @@ class Libro {
         );
 
         return $db->insert($this->tableFavoritos, $data);
+    }
+
+    function deleteFavorito($usuario_id, $libro_id){
+        global $db;
+
+        $where = array(
+            "usuario_id" => $usuario_id,
+            "libro_id" => $libro_id
+        );
+
+        return $db->delete($this->tableFavoritos, $where);
     }
 }

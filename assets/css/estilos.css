@@ -60,6 +60,26 @@ footer {
     z-index: 1;
 }
 
+.btn-fantasma {
+    background: none;
+    border: 3px solid teal;
+    border-radius: 20px;
+    margin-top: 30px;
+    color: teal;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+.btn-fantasma:hover {
+    background: teal;
+    color: white;
+}
+
+.img-hover{transition: all ease 1s;}
+.img-hover:hover{
+    transform: scale(1.2);
+}
 /* modificaciones del datatable */
 
 /* .dataTables_wrapper .dataTables_paginate {
