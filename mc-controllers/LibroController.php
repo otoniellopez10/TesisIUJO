@@ -172,7 +172,7 @@ if( $mode == "insert"){
         $limit = 50;
 
         $where = "l.estatus = 1";
-        $order = " ORDER BY l.titulo DESC ";
+        $order = " ORDER BY l.titulo ASC ";
 
         if($titulo != "") $where = $where . " AND l.titulo LIKE '%$titulo%'";
         if($editorial != "") $where = $where . " AND l.editorial = $editorial";
@@ -187,7 +187,7 @@ if( $mode == "insert"){
             $array = array();
             foreach ($request as $key => $libro) {
                 $temp_array;
-
+                $libro->fecha = date("d/m/Y", strtotime($libro->fecha));
                 $temp_array["libro"] = $libro;
 
                 $allAutores = $ObjAutor->getByLibroId($libro->id);
@@ -234,6 +234,31 @@ if( $mode == "insert"){
         else $response = ["error" => true, "message" => "No se ha encontrado ningun libro con estos filtros."];
     }
 
+
+    echo json_encode($response);
+
+
+}else if($mode == "agregarFavoritos"){
+
+    if( !isset( $_POST['libro_id']))
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    else{
+
+        $usuario_id = $_SESSION["user"]->id;
+        $libro_id = $_POST["libro_id"];
+
+        // buscar si ya el libro esta en favoritos
+        $request = $ObjLibro->getOneFavorito($usuario_id, $libro_id);
+
+        if($request != null){
+            $response = ["error" => true, "message" => "Este libro ya se encuentra marcado como favorito"];
+        }else{
+            $request = $ObjLibro->setOneFavoritos($usuario_id, $libro_id);
+            if($request == 0) $response = $response = ["error" => false, "message" => "El libro se agregó a favoritos con éxito!"]; //el last_id devuelve el ultimo id de la insercion, por ende si devuelve 0 es que si se inserto
+            else $response = ["error" => true, "message" => "Ocurrió un error al intenar agregar el libro a favoritos"];
+        }
+
+    }
 
     echo json_encode($response);
 

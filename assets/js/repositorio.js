@@ -1,7 +1,9 @@
 const HOST = "../mc-controllers/libroController.php";
 
 var contBuscador = $("#c_form_buscador");
-var contResultados = $("#c_resultados_busqueda");
+var contResultados = $("#contResultados");
+var tableResultados = $("#tableResultados");
+var tbodyResultados = $("#tbodyResultados");
 var btnCerrarResultados = $("#btnCerrarResultados");
 
 $(document).ready(function () {
@@ -22,34 +24,6 @@ $(document).ready(function () {
     // esconder contenedor de resultados
     contResultados.slideUp(0);
     btnCerrarResultados.slideUp(0);
-
-    $("#tablePrueba").DataTable({
-        language: {
-            "decimal": "",
-            "emptyTable": "No hay resultados",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-            "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
-            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Límite: _MENU_",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando...",
-            "search": "Buscar:",
-            "zeroRecords": "Sin resultados encontrados",
-            "paginate": {
-                "first": "Primero",
-                "last": "Ultimo",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        },
-        responsive: true
-    
-    
-    });
-
-    $("#tablePrueba_length select").formSelect();
     
 });
 
@@ -111,6 +85,54 @@ $("#form_buscar_libro").submit(function (e) {
     });
 });
 
+function agregarFavoritos(libro_id){
+    Swal.fire({
+        title: "Espere un momento",
+        text: "Cargando solicitud...",
+        confirmButtonColor: $(".btn-primary").css("background-color"),
+        confirmButtonText: "Reintentar",
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+            return new Promise((resolve, reject) => {
+
+                let fd = new FormData();
+                fd.append("mode","agregarFavoritos");
+                fd.append("libro_id",libro_id);
+
+                $.ajax({
+                    method: "POST",
+                    url: HOST,
+                    contentType: false,
+                    processData: false,
+                    data: fd,
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.error) {
+                            reject(res.message);
+                        } else {
+                            resolve(res);
+                        }
+                    },
+                    error: function (error) {
+                        console.error(error);
+                        return false;
+                    },
+                });
+            }).catch(function (reason) {
+                Swal.showValidationMessage(reason);
+                Swal.hideLoading();
+            });
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+        didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+    }).then((result) => {
+        if (result.value) {
+            let resp = result.value;
+            Swal.fire("Listo!", resp.message, "success");
+        }
+    });
+}
+
 function limpiarCampos() {
     $("#form_buscar_libro")[0].reset();
 }
@@ -132,74 +154,60 @@ function verificarCamposBusqueda(){
 
 
 function imprimirResultadosBusqueda(data){
-    contResultados.children().remove();
-    
+    tableResultados.DataTable().clear().destroy();
+    let contador = 1;
     data.forEach(json => {
 
-        // darle formato a la fecha
-        let f = new Date(json.libro.fecha);
-        let dia = f.getDate();
-        if (dia < 10) dia = "0" + dia;
-
-        let mes = f.getMonth();
-        if (mes < 10) mes = "0" + mes;
-        let fecha = dia + "/" + mes + "/" + f.getFullYear();
-
-        contResultados.append(`
-        <div class="row valign-wrapper">
-        <div class="col s0 m3 hide-on-small-only libro_imagen center-align">
-            <img src="../assets/images/libros/libro.png" alt="" class="responsive-img" width="70%">
-        </div>
-
-        <div class="col s12 m9  libro_datos">
-            <h5 class="titulo teal-text valign-wrapper"><b> ${json.libro.titulo}</b>
-            </h5>
-            
-            <div class="valign-wrapper">
-                <b>Calificación: &nbsp;</b>
-                <p>${json.calificacion} </p>
-            </div>
-            
-            <div class="valign-wrapper">
-                <b>Autor(es): &nbsp;</b>
-                <p>${json.autores}</p>
-            </div>
-            
-            <div class="valign-wrapper">
-                <b>Editorial: &nbsp;</b>
-                <p>${json.libro.editorial}</p>
-            </div>
-            
-            <div class="valign-wrapper">
-                <b>Edicion: &nbsp;</b>
-                <p>${json.libro.edicion}</p>
-            </div>
-
-            <div class="valign-wrapper">
-                <b>Fecha de pubicación: &nbsp;</b>
-                <p>${fecha}</p>
-            </div>
-
-            <div class="valign-wrapper">
-                <b>Categoría: &nbsp;</b>
-                <p>${json.libro.categoria}</p>
-            </div>
-
-            <div class="valign-wrapper">
-                <b>Carrera: &nbsp;</b>
-                <p>${json.libro.carrera}</p>
-            </div>
-
-
-            <div class="botones-accion ">
-                <button class="btn-small waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Agregar a favoritos" style="margin-right: 5px;" onclick="agregarFavoritos(${json.libro.id})"><i class="material-icons ">star</i></button>
-                <a href="libro.php?libro_id=${json.libro.id}" class="btn-small waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Ver detalles" target="_blank"><i class="material-icons">visibility</i></a>
-            </div>
-        </div>
-    </div>
-    <div class="divider"></div>
+        tbodyResultados.append(`
+            <tr>
+                <td> ${contador} </td>
+                <td class="libro_titulo"> ${json.libro.titulo} </td>
+                <td> ${json.libro.editorial} </td>
+                <td> ${json.libro.edicion} </td>
+                <td> ${json.libro.fecha} </td>
+                <td> ${json.libro.categoria} </td>
+                <td class="td-actions valign-wrapper">
+                    <a href="libro.php?libro_id=${json.libro.id}" class="btn-flat btn-accion" title="Ver detalles"  data-toggle="tooltip" data-placement="top">
+                        <i class="material-icons cyan-text">visibility</i>
+                    </a>
+                    <button class="btn-flat btn-accion" title="Agregar a favoritos"  data-toggle="tooltip" data-placement="top" onclick="agregarFavoritos(${json.libro.id})">
+                        <i class="material-icons yellow-text text-darken-1">star</i>
+                    </button>
+                </td>
+            </tr>
         `);
+
+        contador++;
     });
+
+    // convertir en dataTable
+    tableResultados.DataTable({
+        language: {
+            "decimal": "",
+            "emptyTable": "No hay resultados",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Límite: _MENU_",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "Sin resultados encontrados",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
+        responsive: true
+    
+    
+    });
+
+    $("#tableResultados_length select").formSelect();
 
     contBuscador.slideUp(200);
     btnCerrarResultados.slideDown(400);

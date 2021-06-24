@@ -62,22 +62,30 @@ footer {
 
 /* modificaciones del datatable */
 
-.dataTables_wrapper .dataTables_paginate {
-    /* color: white; */
-}
+/* .dataTables_wrapper .dataTables_paginate {
+    color: white;
+} */
+/* botones del menu datatable */
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     border: none;
     color: teal !important;
 }
+/* botones del menu datatable activo */
 .dataTables_wrapper .dataTables_paginate .paginate_button.current{
     background: teal;
     border: none;
     color: white !important;
 }
+/* botones del menu datatable activo en hover*/
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
     background: #01b1b1;
     border: none;
     color: white !important;
+}
+
+/* raya de abajo*/
+table.dataTable.no-footer {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 

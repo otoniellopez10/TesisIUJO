@@ -19,6 +19,8 @@ class Libro {
 
         $this->tableUsuario = "usuario";
         $this->tablePersona = "persona";
+
+        $this->tableFavoritos = "favoritos";
     }
 
     public function getAll($limit) {
@@ -423,4 +425,24 @@ class Libro {
 
     }
 
+    function getOneFavorito($usuario_id, $libro_id){
+        global $db;
+
+        $sql = "SELECT * 
+                FROM $this->tableFavoritos f
+                WHERE f.usuario_id = $usuario_id AND f.libro_id = $libro_id";
+
+        return $db->get_row($sql);
+    }
+
+    function setOneFavoritos($usuario_id, $libro_id){
+        global $db;
+
+        $data = array(
+            "usuario_id" => $usuario_id,
+            "libro_id" => $libro_id
+        );
+
+        return $db->insert($this->tableFavoritos, $data);
+    }
 }
