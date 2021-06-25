@@ -1,4 +1,5 @@
 const HOST = "../mc-controllers/libroController.php";
+const HOST2 = "../mc-controllers/editorialController.php";
 
 var elemModal; //elemento
 var modalVerDatosLibro; // instancia
@@ -29,6 +30,9 @@ $(document).ready(function () {
 
     modal3 = $("#modalAgregarEditorial");
     modalAgregarEditorial = M.Modal.getInstance(modal3);
+
+    // iniciar los dataTables
+    iniciarDataTables();
 });
 
 $("#form_AgregarLibro").submit(function (e) {
@@ -37,7 +41,7 @@ $("#form_AgregarLibro").submit(function (e) {
     Swal.fire({
         title: "Confirmación",
         text: "¿Esta seguro que desea agregar este libro?",
-        type: "question",
+        icon: "question",
         showCancelButton: true,
         cancelButtonText: "Cancelar",
         confirmButtonText: "Sí, agregar",
@@ -243,7 +247,7 @@ $("#formEditarDatosLibro").submit(function (e) {
     Swal.fire({
         title: "Confirmación",
         text: "¿Esta seguro que desea actualizar este libro?",
-        type: "question",
+        icon: "question",
         showCancelButton: true,
         cancelButtonText: "Cancelar",
         confirmButtonText: "Sí, actualizar",
@@ -301,7 +305,7 @@ function desactivarLibro(id) {
     Swal.fire({
         title: "Confirmación",
         text: "¿Esta seguro que desea desactivar este libro?",
-        type: "question",
+        icon: "question",
         showCancelButton: true,
         cancelButtonText: "Cancelar",
         confirmButtonText: "Sí, desactivar",
@@ -363,7 +367,7 @@ function activarLibro(id) {
     Swal.fire({
         title: "Confirmación",
         text: "¿Esta seguro que desea activar este libro?",
-        type: "question",
+        icon: "question",
         showCancelButton: true,
         cancelButtonText: "Cancelar",
         confirmButtonText: "Sí, activar",
@@ -427,11 +431,68 @@ function agregarEditorial() {
 
 $("#btnAgregarEditorial").click(function () {
     let nombreEditorial = $("#editorial_nombre").val();
-    if (nombreEditorial.length == 0)
+    if (nombreEditorial.length == 0){
         Swal.fire("Error!", "Debes ingresar el nombre de la editorial", "error");
+        return false;
+    }
+
+    Swal.fire({
+        title: "Espere un momento",
+        text: "Agregando editorial...",
+        confirmButtonColor: $(".btn-primary").css("background-color"),
+        confirmButtonText: "Reintentar",
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+            return new Promise((resolve, reject) => {
+
+                let fd = new FormData();
+                fd.append("mode","insert");
+                fd.append("editorial",nombreEditorial);
+
+                $.ajax({
+                    method: "POST",
+                    url: HOST2,
+                    contentType: false,
+                    processData: false,
+                    data: fd,
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.error) {
+                            reject(res.message);
+                        } else {
+                            resolve(res);
+                        }
+                    },
+                    error: function (error) {
+                        console.error(error);
+                        return false;
+                    },
+                });
+            }).catch(function (reason) {
+                Swal.showValidationMessage(reason);
+                Swal.hideLoading();
+            });
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+        didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
+    }).then((result) => {
+        if (result.value) {
+            let resp = result.value;
+            modalAgregarEditorial.close(); // cerrar el modal
+            let editorial = $("#editorial_nombre").val(); // guardar nombre de la editorial
+            $("#editorial_nombre").val(""); // limpiar el campo
+            Swal.fire("Listo!", resp.message, "success");
+
+            // agregar la editorial al select y ponerla seleccionada
+            $("select#i_editorial").append(`<option value="${resp.esitorial_id}" selected> ${editorial} </option>`);
+            $("select#i_editorial").formSelect();
+        }
+        
+    });
+
 });
 
-// filtrar libros en el sistema
+// filtrar libros en el sistema (activos) FUNCION EN DESUSO LUEGO DE INSTALAR DATATABLES
 $("#formBuscarLibro").submit(function (e) {
     e.preventDefault();
     let fd = new FormData(this);
@@ -474,11 +535,12 @@ $("#formBuscarLibro").submit(function (e) {
         didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
     }).then((result) => {
         if (result.value) {
+            $("#tableLibros").DataTable().clear().destroy();
             let json = result.value;
             let resultados = json.length;
 
             // limpiar la tabla
-            $("#tbodyLibrosActivos").children().remove();
+            // $("#tbodyLibrosActivos").children().remove();
 
             // imprimir en la tabla
             json.forEach((libro) => {
@@ -490,40 +552,41 @@ $("#formBuscarLibro").submit(function (e) {
                 if (mes < 10) mes = "0" + mes;
                 let fecha = dia + "/" + mes + "/" + f.getFullYear();
                 $("#tbodyLibrosActivos").append(`
-                <tr>
-                    <td class="libro_titulo"> ${libro.titulo} </td>
-                    <td> ${libro.editorial} </td>
-                    <td> ${libro.edicion} </td>
-                    <td> ${fecha} </td>
-                    <td> ${libro.carrera} </td>
-                    <td> ${libro.categoria} </td>
-                    <td class="td-actions  text-right">
-                        <a href="libro.php?libro_id=${libro.id}" class="btn-flat btn-accion" title="Ver detalles"  data-toggle="tooltip" data-placement="top">
-                        <i class="material-icons cyan-text">visibility</i>
-                        </a>
+                    <tr>
+                        <td class="libro_titulo"> ${libro.titulo} </td>
+                        <td> ${libro.editorial} </td>
+                        <td> ${libro.edicion} </td>
+                        <td> ${fecha} </td>
+                        <td> ${libro.categoria} </td>
+                        <td class="td-actions  text-right">
+                            <a href="libro.php?libro_id=${libro.id}" class="btn-flat btn-accion" title="Ver detalles"  data-toggle="tooltip" data-placement="top">
+                            <i class="material-icons cyan-text">visibility</i>
+                            </a>
 
-                        <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
-                        <i class="material-icons blue-grey-text">edit</i>
-                        </button>
+                            <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
+                            <i class="material-icons blue-grey-text">edit</i>
+                            </button>
 
-                        <button type="button" class="btn-flat btn-accion" title="Desactivar" onclick="desactivarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
-                        <i class="material-icons red-text">delete</i>
-                        </button>
-                    </td>
-                </tr>
-            `);
+                            <button type="button" class="btn-flat btn-accion" title="Desactivar" onclick="desactivarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
+                            <i class="material-icons red-text">delete</i>
+                            </button>
+                        </td>
+                    </tr>
+                `);
 
-            if (resultados > 1) {
-                $("#resultados").text(resultados + " resultados");
-            } else if (resultados == 1) {
-                $("#resultados").text(resultados + " resultado");
-            }
+                // if (resultados > 1) {
+                //     $("#resultados").text(resultados + " resultados");
+                // } else if (resultados == 1) {
+                //     $("#resultados").text(resultados + " resultado");
+                // }
             });
+
+            iniciarDataTables()
         }
         $("#b_titulo_libro").val("");
     });
 });
-
+// filtrar libros en el sistema (desactivados ) FUNCION EN DESUSO LUEGO DE INSTALAR DATATABLES
 $("#formBuscarLibroDesactivado").submit(function (e) {
     e.preventDefault();
     let fd = new FormData(this);
@@ -566,6 +629,7 @@ $("#formBuscarLibroDesactivado").submit(function (e) {
         didOpen: () => Swal.clickConfirm(), // Hace clic en el botón de confirmación automáticamente al abrir el modal
     }).then((result) => {
         if (result.value) {
+            $("#tableLibrosDesactivados").DataTable().clear().destroy();
             let json = result.value;
             let resultados = json.length;
 
@@ -575,34 +639,33 @@ $("#formBuscarLibroDesactivado").submit(function (e) {
             // imprimir en la tabla
             json.forEach((libro) => {
                 $("#tbodyLibrosDesactivados").append(`
-                <tr>
-                    <td class="libro_titulo"> ${libro.titulo} </td>
-                    <td> ${libro.editorial} </td>
-                    <td> ${libro.edicion} </td>
-                    <td> ${libro.fecha} </td>
-                    <td> ${libro.carrera} </td>
-                    <td> ${libro.categoria} </td>
-                    <td class="td-actions  text-right">
-                        <a href="libro.php?libro_id=${libro.id}" class="btn-flat btn-accion" title="Ver detalles"  data-toggle="tooltip" data-placement="top">
-                        <i class="material-icons cyan-text">visibility</i>
-                        </a>
+                    <tr>
+                        <td class="libro_titulo"> ${libro.titulo} </td>
+                        <td> ${libro.editorial} </td>
+                        <td> ${libro.edicion} </td>
+                        <td> ${libro.fecha} </td>
+                        <td> ${libro.categoria} </td>
+                        <td class="td-actions  text-right">
+                            <a href="libro.php?libro_id=${libro.id}" class="btn-flat btn-accion" title="Ver detalles"  data-toggle="tooltip" data-placement="top">
+                            <i class="material-icons cyan-text">visibility</i>
+                            </a>
 
-                        <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
-                        <i class="material-icons blue-grey-text">edit</i>
-                        </button>
+                            <button type="button" class="btn-flat btn-accion" title="Editar" onclick="editarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top">
+                            <i class="material-icons blue-grey-text">edit</i>
+                            </button>
 
-                        <button type="button" class="btn-flat btn-accion" title="Activar" onclick="activarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top"><i class="material-icons green-text">done</i>
-                        </button>
-                    </td>
-                </tr>
-            `);
+                            <button type="button" class="btn-flat btn-accion" title="Activar" onclick="activarLibro( ${libro.id} )" data-toggle="tooltip" data-placement="top"><i class="material-icons green-text">done</i>
+                            </button>
+                        </td>
+                    </tr>
+                `);
             });
 
-            if (resultados > 1) {
-                $("#resultados").text(resultados + " resultados");
-            } else if (resultados == 1) {
-                $("#resultados").text(resultados + " resultado");
-            }
+            // if (resultados > 1) {
+            //     $("#resultados").text(resultados + " resultados");
+            // } else if (resultados == 1) {
+            //     $("#resultados").text(resultados + " resultado");
+            // }
         }
         $("#b_titulo_libro").val("");
     });
@@ -647,4 +710,35 @@ function formatoFecha(fecha) {
     fecha = `${dia}/${mes}/${year}`;
     console.log(fecha);
     return fecha;
+}
+
+function iniciarDataTables(){
+    // iniciar los dataTables
+    $("#tableLibros, #tableLibrosDesactivados").DataTable({
+        language: {
+            "decimal": "",
+            "emptyTable": "No hay resultados",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Límite: _MENU_",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "Sin resultados encontrados",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
+        responsive: true
+    
+    
+    });
+
+    $("#tableLibros_length select, #tableLibrosDesactivados_length select").formSelect();
 }

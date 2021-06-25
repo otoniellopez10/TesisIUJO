@@ -9,6 +9,12 @@ $(document).ready(function () {
 
     modalEditar = $("#modalEditarRol");
     modalEditarUsuario = M.Modal.getInstance(modalEditar);
+
+    // iniciar los dataTables
+    iniciarDataTables("#tableTodos");
+    iniciarDataTables("#tableColaboradores");
+    iniciarDataTables("#tableUsuarios");
+    iniciarDataTables("#tableDesactivados");
 });
 
 function verPersona(id) {
@@ -67,7 +73,7 @@ function desactivarPersona(usuario_id) {
     Swal.fire({
         title: "Confirmación",
         text: "¿Esta seguro que desea desactivar este usuario?",
-        type: "question",
+        icon: "question",
         showCancelButton: true,
         cancelButtonText: "Cancelar",
         confirmButtonText: "Sí, desactivar",
@@ -129,7 +135,7 @@ function activarPersona(usuario_id) {
     Swal.fire({
         title: "Confirmación",
         text: "¿Esta seguro que desea activar este usuario?",
-        type: "question",
+        icon: "question",
         showCancelButton: true,
         cancelButtonText: "Cancelar",
         confirmButtonText: "Sí, activar",
@@ -276,7 +282,7 @@ $("#formEditarRol").submit(function (e) {
     Swal.fire({
         title: "Confirmación",
         text: mensaje,
-        type: "question",
+        icon: "question",
         showCancelButton: true,
         cancelButtonText: "Cancelar",
         confirmButtonText: "Confirmar",
@@ -378,4 +384,35 @@ function modalDatosusuario(json){
     } else $("#btnModalActivar").addClass("hide");
 
     modalVerpersona.open();
+}
+
+function iniciarDataTables(table){
+    // iniciar los dataTables
+    $(`${table}`).DataTable({
+        language: {
+            "decimal": "",
+            "emptyTable": "No hay resultados",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Límite: _MENU_",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "Sin resultados encontrados",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
+        responsive: true
+    
+    
+    });
+
+    $(`${table}_length select`).formSelect();
 }

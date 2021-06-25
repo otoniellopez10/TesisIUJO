@@ -29,6 +29,6 @@
 AGREGAR EL LOGO DEL IUJO AL SISTEMA!!!
 
 ORDEN
-- agregar dataTables a todas las tablas!
 - poder agregar editorial (ademas, agregar el "Sin editorial")
+- agregar dataTables a todas las tablas!
 - Perfil de usuario (con todas sus funciones)

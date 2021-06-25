@@ -36,6 +36,7 @@ $editoriales = $objEditorial->getAll();
     <head>
         <!--Import Google Icon Font-->
         <link href="../assets/librerias/css/material-icons.css" rel="stylesheet" />
+        <link rel="stylesheet" href="../assets/librerias/css/datatables.min.css" />
         <!--Import materialize.css-->
         <link
             type="text/css"
@@ -43,7 +44,6 @@ $editoriales = $objEditorial->getAll();
             href="../assets/librerias/css/materialize.min.css"
             media="screen,projection"
         />
-        <link rel="stylesheet" href="../assets/librerias/css/jquery.dataTables.min.css" />
         <link rel="stylesheet" href="../assets/css/estilos.css" />
         <!-- <link rel="stylesheet" href="../assets/css/" /> -->
 
@@ -129,7 +129,7 @@ $editoriales = $objEditorial->getAll();
                     <div class="modulo_contenido">
 
                         <!-- filtrar libros -->
-                        <div class="row">
+                        <!-- <div class="row">
                             <form action="" id="formBuscarLibro">
                                 <div class="col s12 m9 input-field">
                                     <input type="text" id="b_titulo_libro" name="b_titulo_libro" placeholder="Buscar libro por título" required>
@@ -150,15 +150,14 @@ $editoriales = $objEditorial->getAll();
                                 </div>
                             </form>
                         </div>
-                        <p id="resultados" class="teal-text section"></p>
-                        <table id="tableLibros" class="striped responsive-table">
+                        <p id="resultados" class="teal-text section"></p> -->
+                        <table id="tableLibros" class="striped" style="width: 100%;">
                             <thead class="teal-text">
                             <tr>
                                 <th>Título</th>
                                 <th>Editorial</th>
                                 <th>Edición</th>
                                 <th>Fecha</th>
-                                <th>Carrera</th>
                                 <th>Categoría</th>
                                 <th>Acciones</th>
                             </tr>
@@ -178,7 +177,6 @@ $editoriales = $objEditorial->getAll();
                                                 $fecha_format = date("d/m/Y", strtotime($fecha));
                                                 echo $fecha_format;
                                             ?></td>
-                                        <td><?= $libro->carrera ?></td>
                                         <td><?= $libro->categoria ?></td>
                         
                         
@@ -209,9 +207,9 @@ $editoriales = $objEditorial->getAll();
 
                 <!-- libros desactivados -->
                 <div id="test2" class="col s12">
-                <div class="modulo_contenido">
+                    <div class="modulo_contenido">
                         <!-- filtrar libros -->
-                        <div class="row">
+                        <!-- <div class="row">
                             <form action="" id="formBuscarLibroDesactivado">
                                 <div class="col s12 m9 input-field">
                                     <input type="text" id="b_titulo_libro_desactivado" name="b_titulo_libro" placeholder="Buscar libro por título" required>
@@ -232,15 +230,14 @@ $editoriales = $objEditorial->getAll();
                                 </div>
                             </form>
                         </div>
-                        <p id="resultados" class="teal-text section"></p>
-                        <table id="tableLibrosDesactiados" class="striped responsive-table">
+                        <p id="resultados" class="teal-text section"></p> -->
+                        <table id="tableLibrosDesactivados" class="striped" style="width: 100%;">
                             <thead class="teal-text">
                             <tr>
                                 <th>Título</th>
                                 <th>Editorial</th>
                                 <th>Edición</th>
                                 <th>Fecha</th>
-                                <th>Carrera</th>
                                 <th>Categoría</th>
                                 <th>Acciones</th>
                             </tr>
@@ -262,7 +259,6 @@ $editoriales = $objEditorial->getAll();
                                                 $fecha_format = date("d/m/Y", strtotime($fecha));
                                                 echo $fecha_format;
                                             ?></td>
-                                        <td><?= $libro->carrera ?></td>
                                         <td><?= $libro->categoria ?></td>
                         
                         
@@ -470,10 +466,10 @@ $editoriales = $objEditorial->getAll();
         <!--JavaScript at end of body for optimized loading-->
         <script type="text/javascript" src="../assets/librerias/js/jquery-3.6.0.min.js"></script>
         <script type="text/javascript" src="../assets/librerias/js/materialize.min.js"></script>
+        <script type="text/javascript" src="../assets/librerias/js/datatables.min.js"></script>
 
         <!-- alertas -->
         <script type="text/javascript" src="../assets/librerias/js/sweetalert2.all.min.js"></script>
-        <script type="text/javascript" src="../assets/librerias/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="../assets/js/repositorio_panel_admin.js"></script>
         <script>
             M.AutoInit();

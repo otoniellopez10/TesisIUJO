@@ -19,18 +19,14 @@ $personas = $objPersona->getAll(30);
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- dataTables -->
+        <link rel="stylesheet" href="../assets/librerias/DataTables/datatables.min.css" />
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../assets/librerias/css/materialize.min.css" media="screen,projection" />
         <!--Import Google Icon Font-->
         <link href="../assets/librerias/css/material-icons.css" rel="stylesheet" />
-        <!--Import materialize.css-->
-        <link
-            type="text/css"
-            rel="stylesheet"
-            href="../assets/librerias/css/materialize.min.css"
-            media="screen,projection"
-        />
-        <link rel="stylesheet" href="../assets/librerias/css/jquery.dataTables.min.css" />
+        <!-- estilos personalizados -->
         <link rel="stylesheet" href="../assets/css/estilos.css" />
-        <!-- <link rel="stylesheet" href="../assets/css/" /> -->
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -109,7 +105,7 @@ $personas = $objPersona->getAll(30);
                     </div>
                 </nav>
 
-                <div class="row " style="margin-top: 20px;">
+                <!-- <div class="row " style="margin-top: 20px;">
                     <form action="" id="formBuscarUsuario">
                         <div class="col s12 m6 l4 input-field">
                             <input type="text" id="b_usuario_cedula" name="b_usuario_cedula" placeholder="Buscar usuario por cédula" required>
@@ -120,12 +116,12 @@ $personas = $objPersona->getAll(30);
                             <i class="material-icons">search</i></button>
                         </div>
                     </form>
-                </div>
+                </div> -->
                 
                 <!-- tabla donde se listan todos los usuarios -->
                 <div id="tap1" class="col s12 ">
                     <div class="modulo_contenido">
-                        <table id="tableTodos" class="responsive-table highlight">
+                        <table id="tableTodos" class="highlight" style="width: 100%;">
                             <thead class="teal-text">
                             <tr>
                                 <th>Cédula</th>
@@ -181,7 +177,7 @@ $personas = $objPersona->getAll(30);
                 <!--  table donde se listan los usuarios de tipo "Colaborador" -->
                 <div id="tap2" class="col s12 ">
                     <div class="modulo_contenido">
-                    <table id="tableColaboradores" class="highlight responsive-table">
+                    <table id="tableColaboradores" class="highlight" style="width: 100%;">
                             <thead class="teal-text">
                             <tr>
                                 <th>Cédula</th>
@@ -237,7 +233,7 @@ $personas = $objPersona->getAll(30);
                 <!-- tabla donde se listan los usuarios comunes -->
                 <div id="tap3" class="col s12 ">
                     <div class="modulo_contenido">
-                    <table id="tableUsuarios" class="highlight responsive-table">
+                    <table id="tableUsuarios" class="highlight" style="width: 100%;">
                             <thead class="teal-text">
                             <tr>
                                 <th>Cédula</th>
@@ -293,7 +289,7 @@ $personas = $objPersona->getAll(30);
                 <!-- tabla donde se listan los usuarios desactivados -->
                 <div id="tap4" class="col s12 ">
                     <div class="modulo_contenido">
-                    <table id="tableDesactivados" class="striped responsive-table">
+                    <table id="tableDesactivados" class="highlight" style="width: 100%;">
                             <thead class="teal-text">
                             <tr>
                                 <th>Cédula</th>
@@ -351,12 +347,16 @@ $personas = $objPersona->getAll(30);
         <?php include_once "footer.php" ?>
 
         <!--JavaScript at end of body for optimized loading-->
+        <!-- jquery -->
         <script type="text/javascript" src="../assets/librerias/js/jquery-3.6.0.min.js"></script>
+        <!-- DataTables -->
+        <script type="text/javascript" src="../assets/librerias/DataTables/datatables.min.js"></script>
+        <!-- materialize -->
         <script type="text/javascript" src="../assets/librerias/js/materialize.min.js"></script>
 
-        <!-- alertas -->
+        <!-- SweetAlert2 alertas -->
         <script type="text/javascript" src="../assets/librerias/js/sweetalert2.all.min.js"></script>
-        <script type="text/javascript" src="../assets/librerias/js/jquery.dataTables.min.js"></script>
+
         <script type="text/javascript" src="../assets/js/repositorio_panel_usuarios.js"></script>
         <script>
             M.AutoInit();
