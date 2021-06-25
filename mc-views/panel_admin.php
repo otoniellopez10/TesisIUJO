@@ -313,8 +313,10 @@ $editoriales = $objEditorial->getAll();
                                 <div class="col s10 input-field">
                                     <select id="i_editorial" name="editorial" required>
                                         <option value="" disabled selected></option>
+                                        <option value="0">Sin editorial</option>
                                         <?php
                                             foreach ($editoriales as $e) {
+                                            if($e->id == 0) continue;
                                         ?>
                                             <option value="<?= $e->id; ?>"> <?= $e->nombre; ?> </option>
                                         <?php

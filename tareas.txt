@@ -3,14 +3,14 @@
 *** Pendientes
 
 - Editar Autores 
-- poder agregar editorial
-- agregar dataTables a todas las tablas! 
 
 *** Listas
 - Generar pag de reportes
 - Agregar tabla de Descargas
 - Agregar tabla de vistas
 - Agregar tabla de calificacion y comentarios
+- poder agregar editorial
+- agregar dataTables a todas las tablas! 
 
 ============= USUARIO =============
 
@@ -29,6 +29,6 @@
 AGREGAR EL LOGO DEL IUJO AL SISTEMA!!!
 
 ORDEN
-- poder agregar editorial (ademas, agregar el "Sin editorial")
-- agregar dataTables a todas las tablas!
-- Perfil de usuario (con todas sus funciones)
+- Perfil de usuario (con todas sus funciones) (usuario)
+- editar autores (admin)
+- Buscar por autores (usuario)
