@@ -2,7 +2,9 @@ const HOST = "../mc-controllers/libroController.php";
 const HOST2 = "../mc-controllers/personaController.php";
 
 
+var tableLibros = $("#tableReporteLibros");
 var tbodyLibros = $("#tbodyLibros");
+var tableUsuarios = $("#tableReporteUsuarios");
 var tbodyUsuarios = $("#tbodyUsuarios");
 
 $(document).ready(function(){
@@ -127,6 +129,7 @@ function imprimirResultadosLibro(json, textoTh){
 
     // limpiar tabla
     tbodyLibros.children().remove();
+    tableLibros.DataTable().clear().destroy();
     
     json.forEach( (libro,index) => {
         let cantidad = "";
@@ -165,6 +168,8 @@ function imprimirResultadosLibro(json, textoTh){
         `);
         $("#thResultado").text(textoTh);
     });
+
+    iniciarDataTables("#tableReporteLibros");
 
     $("#libros_resultado").slideDown(600);
     $("#botonesReportes").slideUp(600);
@@ -229,9 +234,10 @@ function reporteUsuarios(){
 
 // funcion para imprimir los datos devueltos de la consulta de reporte de usuarios
 function imprimirResultadosUsuario(json, textoTh){
-    console.log(json);
+    // console.log(json);
     // limpiar tabla
     tbodyUsuarios.children().remove();
+    tableUsuarios.DataTable().clear().destroy();
     
     json.forEach( (usuario,index) => {
         tbodyUsuarios.append(`
@@ -250,6 +256,7 @@ function imprimirResultadosUsuario(json, textoTh){
         $("#thResultadoUsuario").text(textoTh);
     });
 
+    iniciarDataTables("#tableReporteUsuarios");
     $("#usuarios_resultado").slideDown(600);
     $("#botonesReportesUsuarios").slideUp(600);
     $("#formBuscarLibro").slideUp(600);
@@ -271,4 +278,35 @@ function cerrarReportes(){
     });
     $("#botonesReportesUsuarios").slideDown(400);
     $("#formBuscarLibro").slideDown(400);
+}
+
+function iniciarDataTables(table){
+    // iniciar los dataTables
+    $(`${table}`).DataTable({
+        language: {
+            "decimal": "",
+            "emptyTable": "No hay resultados",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Límite: _MENU_",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "Sin resultados encontrados",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
+        responsive: true
+    
+    
+    });
+
+    $(`${table}_length select`).formSelect();
 }

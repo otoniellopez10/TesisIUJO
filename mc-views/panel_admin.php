@@ -21,8 +21,8 @@ $objCarrera = new Carrera();
 $objCategoria = new Categoria();
 $objEditorial = new Editorial();
 
-$libros = $objLibro->getAll(30);
-$librosDesactivados = $objLibro->getAllDesactivados(30);
+$libros = $objLibro->getAll();
+$librosDesactivados = $objLibro->getAllDesactivados();
 $carreras = $objCarrera->getAll();
 $categorias = $objCategoria->getAll();
 $editoriales = $objEditorial->getAll();
@@ -151,7 +151,7 @@ $editoriales = $objEditorial->getAll();
                             </form>
                         </div>
                         <p id="resultados" class="teal-text section"></p> -->
-                        <table id="tableLibros" class="striped" style="width: 100%;">
+                        <table id="tableLibros" class="highlight" style="width: 100%;">
                             <thead class="teal-text">
                             <tr>
                                 <th>Título</th>
@@ -231,7 +231,7 @@ $editoriales = $objEditorial->getAll();
                             </form>
                         </div>
                         <p id="resultados" class="teal-text section"></p> -->
-                        <table id="tableLibrosDesactivados" class="striped" style="width: 100%;">
+                        <table id="tableLibrosDesactivados" class="highlight" style="width: 100%;">
                             <thead class="teal-text">
                             <tr>
                                 <th>Título</th>

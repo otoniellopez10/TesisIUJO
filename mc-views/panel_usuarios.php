@@ -13,7 +13,7 @@ if (!in_array($user_id, $acceso)) {
 
 include_once '../mc-models/Persona.php';
 $objPersona = new Persona();
-$personas = $objPersona->getAll(30);
+$personas = $objPersona->getAll();
 ?>
 
 <!DOCTYPE html>

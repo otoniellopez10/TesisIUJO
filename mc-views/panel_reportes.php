@@ -17,6 +17,8 @@ if (!in_array($user_id, $acceso)) {
     <head>
         <!--Import Google Icon Font-->
         <link href="../assets/librerias/css/material-icons.css" rel="stylesheet" />
+        <!-- dataTables -->
+        <link rel="stylesheet" href="../assets/librerias/css/jquery.dataTables.min.css" />
         <!--Import materialize.css-->
         <link
             type="text/css"
@@ -24,7 +26,6 @@ if (!in_array($user_id, $acceso)) {
             href="../assets/librerias/css/materialize.min.css"
             media="screen,projection"
         />
-        <link rel="stylesheet" href="../assets/librerias/css/jquery.dataTables.min.css" />
         <link rel="stylesheet" href="../assets/css/estilos.css" />
         <!-- <link rel="stylesheet" href="../assets/css/" /> -->
 
@@ -139,7 +140,7 @@ if (!in_array($user_id, $acceso)) {
 
                     <div class="col s12" id="libros_resultado">
                         <button class="btn-flat waves-effect waves-light tooltipped" data-position="right" data-tooltip="Volver" onclick="cerrarReportes()"><i class="material-icons teal-text left">arrow_back</i>Volver</button>
-                        <table id="tableReporteLibros" class="striped responsive-table">
+                        <table id="tableReporteLibros" class="highlight">
                             <thead class="teal-text">
                             <tr>
                                 <th>top</th>
@@ -185,7 +186,7 @@ if (!in_array($user_id, $acceso)) {
 
                     <div class="col s12" id="usuarios_resultado">
                         <button class="btn-flat waves-effect waves-light tooltipped" data-position="right" data-tooltip="Volver" onclick="cerrarReportes()"><i class="material-icons teal-text left">arrow_back</i>Volver</button>
-                        <table id="tableReporteUsuarios" class="striped responsive-table">
+                        <table id="tableReporteUsuarios" class="highlight">
                             <thead class="teal-text">
                             <tr>
                                 <th>top</th>

@@ -23,7 +23,7 @@ class Libro {
         $this->tableFavoritos = "favoritos";
     }
 
-    public function getAll($limit) {
+    public function getAll() {
         global $db;
         $sql = "SELECT 
                     l.id,
@@ -39,7 +39,7 @@ class Libro {
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
-                WHERE l.estatus = 1 LIMIT $limit";
+                WHERE l.estatus = 1";
         return $db->get_results($sql);
     }
 
@@ -62,7 +62,7 @@ class Libro {
         return $db->get_results($sql);
     }
 
-    public function getAllDesactivados($limit) {
+    public function getAllDesactivados() {
         global $db;
         $sql = "SELECT 
                     l.id,
@@ -78,7 +78,7 @@ class Libro {
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
-                WHERE l.estatus = 0 LIMIT $limit";
+                WHERE l.estatus = 0";
         return $db->get_results($sql);
     }
 
