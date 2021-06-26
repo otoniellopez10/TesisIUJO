@@ -1,0 +1,61 @@
+#cont-datos-usuario > .row > .col{margin: 0;}
+#modulo {
+    margin: 0 30px;
+}
+#modulo > h5{
+    margin: 10px 0px;
+    padding: 10px 0;
+    border-bottom: 2px solid teal;
+}
+.col{margin: 10px 0px;}
+header ul li:not(.primero) a {
+    color: #ddd;
+}
+.head{
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(../images/fondos/rombo.jpg);
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+.head h3{
+    font-weight: bold;
+    border-bottom: 3px solid #009688;
+}
+.head p{
+    margin-top: -10px;
+    color: #555;
+}
+.modal-header{
+    background: #26a69a;
+    color: white;
+    padding: 10px 30px 1px 30px;
+    position: relative;
+}
+.modal-header .modal-close{
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-25%);
+}
+
+/* MODIFICACIONES AL SITIO WEB DEL PERFIL DE USUARIO */
+
+#usuario-datos{
+    margin-top: 0;
+    padding: 40px 10px 10px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-top: none;
+}
+
+input[type=text]:not(.browser-default):disabled{
+    color: #333;
+    border-bottom: 1px solid #9e9e9e;
+}
+
+input[type=text]:not(.browser-default):disabled+label{
+    color: #9e9e9e;
+}

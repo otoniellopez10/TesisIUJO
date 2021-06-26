@@ -195,7 +195,7 @@ $editoriales = $objEditorial->getAll();
                     <button class="btn-flat waves-effect waves-light tooltipped" data-position="right" data-tooltip="Volver" onclick="cerrarResultados()" id="btnCerrarResultados"><i class="material-icons teal-text left">arrow_back</i>Volver</button>
 
                     <div class="col s12 modulo_contenido" id="contResultados">
-                        <table id="tableResultados" class="striped" style="width: 100%;">
+                        <table id="tableResultados" class="highlight" style="width: 100%;">
                             <thead class="teal-text">
                                 <th>#</th>
                                 <th>Título</th>

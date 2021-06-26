@@ -175,6 +175,17 @@ class persona {
     }
 
 
+    function getUsuarioVistasById($usuario_id){
+        global $db;
+
+        $sql = "SELECT
+                    COUNT(v.usuario_id) AS cantidad
+                    FROM $this->tableVista v
+                    JOIN $this->table AS p on p.id = v.usuario_id
+                WHERE p.estatus = 1 AND p.usuario_id = $usuario_id";
+        return $db->get_row($sql); 
+    }
+
     function getUsuarioDescargas(){
         global $db;
 
@@ -192,6 +203,17 @@ class persona {
                     JOIN $this->tableRol AS r on r.id = u.rol_id
                 WHERE p.estatus = 1 AND r.id IN (2,3) GROUP BY v.usuario_id ORDER BY cantidad DESC";
         return $db->get_results($sql); 
+    }
+
+    function getUsuarioDescargasById($usuario_id){
+        global $db;
+
+        $sql = "SELECT
+                    COUNT(v.usuario_id) AS cantidad
+                    FROM $this->tableDescarga v
+                    JOIN $this->table AS p on p.id = v.usuario_id
+                WHERE p.estatus = 1 AND p.usuario_id = $usuario_id";
+        return $db->get_row($sql); 
     }
 
 
