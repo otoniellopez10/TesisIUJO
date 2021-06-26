@@ -37,6 +37,7 @@ $persona = $objPersona->getOneByUsuarioId($usuario_id);
 // libros vistos
 $libros_vistos = $objPersona->getUsuarioVistasById($usuario_id)->cantidad;
 $libros_descargados = $objPersona->getUsuarioDescargasById($usuario_id)->cantidad;
+$libros_calificados = $objPersona->getUsuarioCalificaciosById($usuario_id)->cantidad;
 
 ?>
 
@@ -79,63 +80,119 @@ $libros_descargados = $objPersona->getUsuarioDescargasById($usuario_id)->cantida
                 <p><?= $persona->rol ?></p>
             </div>
 
-            <!-- datos personales -->
-            <div class="container section" id="cont-datos-usuario">
-                <div class="row">
-                    <div class="col s12" style="padding: 0;">
-                        <nav class="nav-extended teal" id="nav">
-                            <div class="nav-content">
-                                <ul class="tabs tabs-transparent">
-                                    <li class="tab"><a class="active" href="#test1">Datos personales</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
+            <div class="modulo">
+                <div class="titulo">
+                    <h5>
+                        <i class="material-icons left teal-text small">account_circle</i>Perfil de usuario
+                    </h5>
+                </div>
 
-                    <div class="col s12" id="usuario-datos">
-                        <form action="">
-                            <div class="row">
-                                <div class="col s12 m6 input-field">
-                                    <input type="text" name="u_nombre" id="u_nombre" placeholder="nombre" disabled value="<?= $persona->nombre ?>"> 
-                                    <label for="u_nombre">Nombre: </label>
+                <!-- datos personales -->
+                <div class="section" id="cont-datos-usuario">
+                    <div class="row">
+                        <div class="col s12" style="padding: 0;">
+                            <nav class="nav-extended teal" id="nav">
+                                <div class="nav-content">
+                                    <ul class="tabs tabs-transparent">
+                                        <li class="tab"><a class="active" href="#test1">Datos personales</a></li>
+                                    </ul>
                                 </div>
-                                <div class="col s12 m6 input-field">
-                                    <input type="text" name="u_apellido" id="u_apellido" placeholder="null" disabled value="<?= $persona->apellido ?>"> 
-                                    <label for="u_apellido">Apellido: </label>
+                            </nav>
+                        </div>
+                        
+                        <div class="col s12" id="usuario-datos">
+                            <form action="">
+                                <div class="row">
+                                    <div class="col s12 m6 input-field">
+                                        <input type="text" name="u_nombre" id="u_nombre" placeholder="nombre" disabled value="<?= $persona->nombre ?>"> 
+                                        <label for="u_nombre">Nombre: </label>
+                                    </div>
+                                    <div class="col s12 m6 input-field">
+                                        <input type="text" name="u_apellido" id="u_apellido" placeholder="null" disabled value="<?= $persona->apellido ?>"> 
+                                        <label for="u_apellido">Apellido: </label>
+                                    </div>
+                                    <div class="col s12 m6 input-field">
+                                        <input type="text" name="u_cedula" id="u_cedula" placeholder="null" disabled value="<?= $persona->cedula ?>"> 
+                                        <label for="u_cedula">Cédula: </label>
+                                    </div>
+                                    <div class="col s12 m6 input-field">
+                                        <input type="text" name="u_email" id="u_email" placeholder="null" disabled value="<?= $persona->email ?>"> 
+                                        <label for="u_email">Email: </label>
+                                    </div>
+                                    <div class="col s12 m6 input-field">
+                                        <input type="text" name="u_telefono" id="u_telefono" placeholder="null" disabled value="<?= $persona->telefono ?>"> 
+                                        <label for="u_telefono">Teléfono: </label>
+                                    </div>
+                                    <div class="col s12 m6 input-field">
+                                        <input type="text" name="u_rol" id="u_rol" placeholder="null" disabled value="<?= $persona->rol ?>"> 
+                                        <label for="u_rol">Rol: </label>
+                                    </div>
                                 </div>
-                                <div class="col s12 m6 input-field">
-                                    <input type="text" name="u_cedula" id="u_cedula" placeholder="null" disabled value="<?= $persona->cedula ?>"> 
-                                    <label for="u_cedula">Cédula: </label>
-                                </div>
-                                <div class="col s12 m6 input-field">
-                                    <input type="text" name="u_email" id="u_email" placeholder="null" disabled value="<?= $persona->email ?>"> 
-                                    <label for="u_email">Email: </label>
-                                </div>
-                                <div class="col s12 m6 input-field">
-                                    <input type="text" name="u_telefono" id="u_telefono" placeholder="null" disabled value="<?= $persona->telefono ?>"> 
-                                    <label for="u_telefono">Teléfono: </label>
-                                </div>
-                                <div class="col s12 m6 input-field">
-                                    <input type="text" name="u_rol" id="u_rol" placeholder="null" disabled value="<?= $persona->rol ?>"> 
-                                    <label for="u_rol">Rol: </label>
-                                </div>
-                            </div>
+                            </form>
+                        </div>
 
-                            <?php 
-                                if($usuario_id == $_SESSION["user"]->id){
-                            ?>
-                            <?php
-                                }
-                            ?>
-                        </form>
                     </div>
                 </div>
             </div>
-
+            <br>
 
             <!-- actividad del usuario en el sistema -->
-            
+            <div class="modulo">
+                <div class="titulo">
+                    <h5>
+                        <i class="material-icons left teal-text small">book</i>Actividad en el sistema
+                    </h5>
+                </div>
+
+                <div class="row center actividades">
+                    <div class="col s12 m4">
+                        <div>
+                            <p><?= $libros_vistos; ?></p>
+                            <i class="material-icons">visibility</i>
+                        </div>
+                        <h5><b>Libros visualizados</b></h5>
+                    </div>
+                    <div class="col s12 m4">
+                        <div>
+                            <p><?= $libros_descargados; ?></p>
+                            <i class="material-icons">download</i>
+                        </div>
+                        <h5><b>Libros descargados</b></h5>
+                    </div>
+                    <div class="col s12 m4">
+                        <div>
+                            <p><?= $libros_calificados; ?></p>
+                            <i class="material-icons">star</i>
+                        </div>
+                        <h5><b>Libros calificados</b></h5>
+                    </div>
+                </div>
+            </div>
         </main>
+
+        <?php 
+            if($usuario_id == $_SESSION["user"]->id){
+        ?>
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large teal">
+                    <i class="large material-icons">settings</i>
+                </a>
+                <ul>
+                    <li>
+                        <a class="btn-floating tooltipped teal lighten-2" data-position="left" data-tooltip="Cambiar contraseña" onclick="cambiarContraseña(<?= $persona->usuario_id ?>)">
+                            <i class="material-icons">password</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn-floating tooltipped teal lighten-2" data-position="left" data-tooltip="Editar datos personales" onclick="editarDatos(<?= $persona->usuario_id ?>) ">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        <?php
+            }
+        ?>
         
         <?php  include_once "modals/usuario/modalCalificarLibro.php" ?>
         <?php // include_once "modals/admin/modalEditarDatosLibro.php" ?>

@@ -216,6 +216,17 @@ class persona {
         return $db->get_row($sql); 
     }
 
+    function getUsuarioCalificaciosById($usuario_id){
+        global $db;
+
+        $sql = "SELECT
+                    COUNT(v.usuario_id) AS cantidad
+                    FROM $this->tableCalificacion v
+                    JOIN $this->table AS p on p.id = v.usuario_id
+                WHERE p.estatus = 1 AND p.usuario_id = $usuario_id";
+        return $db->get_row($sql); 
+    }
+
 
     function getReporteUsuarios($limit){
         global $db;

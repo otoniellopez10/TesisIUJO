@@ -169,9 +169,11 @@ $visualizaciones = $objLibro->getVistasByLibroId($libro->id)->cantidad;
             </div>
 
             <div id="modulo">
-                <h5>
-                    <i class="material-icons left teal-text">description</i>Detalles del libro
-                </h5>
+                <div class="titulo">
+                    <h5>
+                        <i class="material-icons left teal-text">description</i>Detalles del libro
+                    </h5>
+                </div>
 
                 <!-- Datos libro -->
                 <div class="row">
