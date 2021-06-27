@@ -61,13 +61,6 @@ if (!in_array($user_id, $acceso)) {
                 </li>
                 <div class="divider blue-grey darken-3"></div>
 
-                <!-- configuracion -->
-                <!-- <li>
-                    <a href="#!" class="waves-effect a_menu"
-                        ><i class="material-icons white-text">settings</i
-                        >Configuración</a
-                    >
-                </li> -->
                 <li>
                     <a href="logout.php" class="waves-effect" id="btn_desconectar"
                         ><i class="material-icons white-text">exit_to_app</i>

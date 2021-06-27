@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_name'])) {
 $acceso = array(1); //1 para administrador, 2 para colaborador y 3 para persona comun
 $user_id = $_SESSION["user"]->rol_id;
 if (!in_array($user_id, $acceso)) {
-    header('Location: mc-views/error.php');
+    header('Location: error.php');
     die();
 }
 ?>

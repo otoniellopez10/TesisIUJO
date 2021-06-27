@@ -42,19 +42,7 @@ if (!in_array($user_id, $acceso)) {
                         ><i class="material-icons white-text">home</i>Página principal</a
                     >
                 </li>
-                <li>
-                    <a href="#!" class="waves-effect a_menu"
-                        ><i class="material-icons white-text">accessibility</i
-                        >Mi espacio</a
-                    >
-                </li>
-                <li>
-                    <a href="#!" class="waves-effect a_menu"
-                        ><i class="material-icons white-text">account_circle</i
-                        >Mi perfil</a
-                    >
-                </li>
-                <div class="divider blue-grey darken-3"></div>
+                <div class="divider teal darken-2"></div>
                 <li>
                     <a
                         href="panel_admin.php"
@@ -63,119 +51,23 @@ if (!in_array($user_id, $acceso)) {
                         administrativo</a
                     >
                 </li>
-
-                <!-- dropdowb de usuarios -->
-                <li class="no-padding">
-                    <ul class="collapsible collapsible-accordion">
-                        <li>
-                            <a class="collapsible-header"
-                                >Usuarios<i class="material-icons white-text"
-                                    >arrow_drop_down</i
-                                ></a
-                            >
-                            <div
-                                class="collapsible-body"
-                                style="background: rgba(255, 255, 255, 0.06)"
-                            >
-                                <ul>
-                                    <li>
-                                        <a
-                                            href="panel_usuarios.php"
-                                            class="waves-effect a_menu"
-                                            ><i
-                                                class="material-icons white-text"
-                                                >person_pin</i
-                                            >
-                                            Colaboradores</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="panel_usuarios.php"
-                                            class="waves-effect a_menu"
-                                            ><i
-                                                class="material-icons white-text"
-                                                >person</i
-                                            >
-                                            Usuarios</a
-                                        >
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
+                <li>
+                    <a href="repositorio.php" class="waves-effect active">
+                        <i class="material-icons white-text">book</i>Repositorio
+                    </a>
                 </li>
-
-                <!-- dropdown de reportes -->
-                <li class="no-padding">
-                    <ul class="collapsible collapsible-accordion">
-                        <li>
-                            <a class="collapsible-header"
-                                >Reportes<i class="material-icons white-text"
-                                    >arrow_drop_down</i
-                                ></a
-                            >
-                            <div
-                                class="collapsible-body"
-                                style="background: rgba(255, 255, 255, 0.06)"
-                            >
-                                <ul>
-                                    <li>
-                                        <a
-                                            href="panel_reportes.php"
-                                            class="waves-effect waves-light a_menu"
-                                            ><i
-                                                class="material-icons white-text"
-                                                >looks_one</i
-                                            >
-                                            Titulos mas vistos</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="panel_reportes.php"
-                                            class="waves-effect waves-light a_menu"
-                                            ><i
-                                                class="material-icons white-text"
-                                                >looks_two</i
-                                            >
-                                            Titulos mas descargados</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="panel_reportes.php"
-                                            class="waves-effect waves-light a_menu"
-                                            ><i
-                                                class="material-icons white-text"
-                                                >looks_3</i
-                                            >
-                                            Resumen de libros</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="panel_reportes.php"
-                                            class="waves-effect waves-light a_menu"
-                                            ><i
-                                                class="material-icons white-text"
-                                                >looks_4</i
-                                            >
-                                            Titulos menos descargas</a
-                                        >
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <!-- configuracion -->
-                <!-- <li>
-                    <a href="#!" class="waves-effect a_menu"
-                        ><i class="material-icons white-text">settings</i
-                        >Configuración</a
+                <li>
+                    <a href="mi_espacio.php" class="waves-effect a_menu"
+                        ><i class="material-icons white-text">accessibility</i
+                        >Mi espacio</a
                     >
-                </li> -->
+                </li>
+                <li>
+                    <a href="perfil.php" class="waves-effect a_menu"
+                        ><i class="material-icons white-text">account_circle</i
+                        >Mi perfil</a
+                    >
+                </li>
                 <li>
                     <a href="logout.php" class="waves-effect" id="btn_desconectar"
                         ><i class="material-icons white-text">exit_to_app</i>
