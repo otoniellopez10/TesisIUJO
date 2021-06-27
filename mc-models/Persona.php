@@ -180,7 +180,6 @@ class persona {
     }
 
 
-
     // REPORTES
 
     function getUsuarioVistas(){

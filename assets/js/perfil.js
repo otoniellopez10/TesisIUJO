@@ -1,10 +1,16 @@
 const HOST = "../mc-controllers/personaController.php";
 
 var respaldo = [];
+var bgUsuarioId;
 
+// modals
+var modalCambiarClave;
 $(document).ready(function(){
    
-    
+    // instancias de modals
+    var modal = $("#modalCambiarClave");
+    modal.modal({});
+    modalCambiarClave = M.Modal.getInstance(modal);
 
     // ocultar boton de submit para editar datos
     $("#cont_btn_submit").slideUp(0);
@@ -26,7 +32,8 @@ function editarDatos(usuario_id){
 // editarDatos(30);
 
 function cambiarClave(usuario_id){
-
+    bgUsuarioId = usuario_id;
+    modalCambiarClave.open();
 }
 
 
@@ -120,6 +127,85 @@ $("#formDatosPersonales").submit(function(e){
     });
 });
 
+
+$("#formCambiarClave").submit(function(e){
+    e.preventDefault();
+
+    let claveActual = $("#i_actual").val();
+    let claveNueva = $("#i_nueva").val();
+    let claveNuevaRepeat = $("#i_nuevaRepeat").val();
+
+    if(claveNueva != claveNuevaRepeat){
+        Swal.fire("Error!", "Las nuevas contraseñas no coinciden.", "error");
+        return false;
+    } 
+        
+
+    Swal.fire({
+        title:"Confirmación",
+        text: "¿Esta seguro que desea cambiar su contraseña?",
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Sí, cambiar"
+    }).then((result) => {
+        if(result.value == true ){
+            Swal.fire({
+                title: 'Espere un momento',
+                text: 'Actualizando su contraseña...',
+                confirmButtonColor: $(".btn-primary").css('background-color'),
+                confirmButtonText: 'Reintentar',
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    return new Promise((resolve, reject) => {
+
+                        let fd = new FormData(this);
+                        fd.append("mode","updatePassword");
+                        fd.append("claveActual", claveActual);
+                        fd.append("claveNueva", claveNueva);
+                        fd.append("claveNuevaRepeat", claveNuevaRepeat);
+
+                        $.ajax({
+                            method: 'POST',
+                            url: HOST,
+                            dataType: "json",
+                            contentType: false,
+                            processData: false,
+                            data: fd,
+                            success: function (resp) {
+                                if (resp.error) {
+                                    reject(resp.message);
+                                } else {
+                                    resolve(resp);
+                                }
+                            },
+                            error: function (xhr) {
+                                console.error(xhr);
+                                reject('Ocurrió un problema desconocido al tratar de actualizar sus datos');
+                            }
+                        });
+                    }).catch(function (reason) {
+                        Swal.showValidationMessage(reason);
+                        Swal.hideLoading();
+                    });
+                },
+                allowOutsideClick: () => !Swal.isLoading(),
+                didOpen: () => Swal.clickConfirm() // Hace clic en el botón de confirmación automáticamente al abrir el modal
+            }).then((result) => {
+                //console.log(result)
+                if (result.value) {
+                    let resp = result.value;
+                    Swal.fire("Listo!", resp.message, 'success');
+                    modalCambiarClave.close();
+                }
+        
+            });
+            
+        }else if( result.dismiss === Swal.DismissReason.cancel ){
+            return false;
+        }
+    });
+});
 
 
 // /////////////////////////////

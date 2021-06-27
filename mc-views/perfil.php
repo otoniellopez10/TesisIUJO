@@ -207,7 +207,7 @@ $libros_calificados = $objPersona->getUsuarioCalificaciosById($usuario_id)->cant
         ?>
         
         <?php  include_once "modals/usuario/modalCalificarLibro.php" ?>
-        <?php // include_once "modals/admin/modalEditarDatosLibro.php" ?>
+        <?php  include_once "modals/usuario/modalCambiarClave.php" ?>
 
         <?php include_once "footer.php" ?>
 

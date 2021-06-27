@@ -3,11 +3,11 @@
 session_start();
 
 include_once '../mc-models/Persona.php';
-// include_once '../mc-models/Usuario.php';
+include_once '../mc-models/Usuario.php';
 
 $mode = $_REQUEST['mode'];
 $objPersona = new Persona();
-// $objUsuario = new Usuario();
+$objUsuario = new Usuario();
 
 $response = [];
 
@@ -182,6 +182,38 @@ if($mode == "insert"){
     }
 
     echo json_encode($response);
+
+}else if($mode == "updatePassword"){
+
+    if (!isset($_POST['claveActual']) ||
+        !isset($_POST['claveNueva']) ||
+        !isset($_POST['claveNuevaRepeat']) ) {
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    } else {
+        $password_actual = $_POST['claveActual'];
+        $password_nueva = $_POST['claveNueva'];
+        $password_nueva2 = $_POST['claveNuevaRepeat'];
+    
+        $usuario_id = $_SESSION['user']->id;
+    
+        $result = $objUsuario->getOne($usuario_id);
+    
+        if( password_verify($password_actual, $result->password) ){
+            unset($result->password);
+
+            if($objUsuario->updatePassword($usuario_id, password_hash($password_nueva, PASSWORD_DEFAULT) ) ){
+                $response = ['error' => false, "message" => "La contraseña se ha cambiado con éxito"];
+            }else{
+                $response = ['error' => true, "message" => "Ocurrió un error al cambiar la contraseña"];
+            }
+        } else {
+            $response = ['error' => true, "message" => "Contraseña actual incorrecta"];
+        }
+    }
+
+	echo json_encode($response); 
+
+
 
 
 // INICIO DE LOS REPORTES!!!
