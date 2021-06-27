@@ -1,4 +1,5 @@
 #cont-datos-usuario > .row > .col{margin: 0;}
+#cont-datos-usuario > .row{transition: all ease .5s;}
 .modulo {
     margin: 0 30px;
 }
@@ -55,30 +56,46 @@ header ul li:not(.primero) a {
 #usuario-datos{
     margin-top: 0;
     padding: 40px 40px 10px 40px;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.025);
     border-top: none;
 }
 
-input[type=text]:not(.browser-default):disabled{
+input[type=text]:not(.browser-default):disabled, input[type=email]:not(.browser-default):disabled{
     color: #333;
     border-bottom: 1px solid #9e9e9e;
 }
 
-input[type=text]:not(.browser-default):disabled+label{
+input[type=text]:not(.browser-default):disabled+label, input[type=email]:not(.browser-default):disabled+label{
     color: #9e9e9e;
 }
 
-.actividades .col div{
+.cont_actividades{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4rem;
-    font-weight: bold;
-    color: teal;
-    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.12);
+    flex-wrap: wrap;
+    padding: 40px 0;
+}
+.actividades .col{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.actividades h5{
+    color: #33384e;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    margin: 0;
 }
 
 .actividades .col i{
-    margin-left: 10px;
-    font-size: 3.8rem;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.12);
+    margin-right: 10px;
+    margin-top: -10px;
+    font-size: 4.5rem;
+}
+
+.actividades p{
+    font-size: 1.5rem;
 }

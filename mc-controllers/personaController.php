@@ -140,6 +140,48 @@ if($mode == "insert"){
 
     echo json_encode($response);
 
+}else if($mode == "update"){
+
+    if ( !isset($_POST['u_nombre']) || !isset($_POST['u_apellido']) || !isset($_POST['u_cedula']) || !isset($_POST['u_email']) ){
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    }else{
+        $usuario_id = $_SESSION["user"]->id;
+        $nombre = $_POST['u_nombre'];
+        $apelllido = $_POST['u_apellido'];
+        $cedula = $_POST['u_cedula'];
+        $email = $_POST['u_email'];
+        $telefono = $_POST['u_telefono'];
+        if($telefono == "") $telefono = null;
+
+        // validar correo
+        $correo = false;
+        $prueba = $_SESSION["user_name"];
+        if($_SESSION["user_name"] != $email)
+            $correo = $objPersona->getOneByEmail($email);
+
+        if($correo != false){
+            $response = ['error' => true, 'message' => 'El correo ingresado ya se encuentra en uso'];
+        }else{
+            $consulta = $objPersona->update($usuario_id, $nombre, $apelllido, $cedula, $email, $telefono);
+            $consulta2 = $objPersona->updateEmail($usuario_id, $email);
+
+            if ($consulta == false || $consulta2 == false) {
+                $response = ['error' => true, 'message' => 'Ocurrió un error al tratar de actualizar sus datos'];
+            } else {
+                $response = ['error' => false, 'message' => 'Sus datos han sido actualizados con éxito!'];
+                
+                $_SESSION["user_name"] = $email;
+                $_SESSION["user"]->persona["nombre"] = $nombre;
+                $_SESSION["user"]->persona["apellido"] = $apellido;
+                $_SESSION["user"]->persona["cedula"] = $cedula;
+                $_SESSION["user"]->persona["telefono"] = $telefono;
+                
+            }
+        }
+
+    }
+
+    echo json_encode($response);
 
 
 // INICIO DE LOS REPORTES!!!

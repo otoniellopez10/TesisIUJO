@@ -89,7 +89,7 @@ $libros_calificados = $objPersona->getUsuarioCalificaciosById($usuario_id)->cant
 
                 <!-- datos personales -->
                 <div class="section" id="cont-datos-usuario">
-                    <div class="row">
+                    <div class="row grey lighten-5">
                         <div class="col s12" style="padding: 0;">
                             <nav class="nav-extended teal" id="nav">
                                 <div class="nav-content">
@@ -101,31 +101,37 @@ $libros_calificados = $objPersona->getUsuarioCalificaciosById($usuario_id)->cant
                         </div>
                         
                         <div class="col s12" id="usuario-datos">
-                            <form action="">
+                            <form action="" id="formDatosPersonales">
                                 <div class="row">
                                     <div class="col s12 m6 input-field">
-                                        <input type="text" name="u_nombre" id="u_nombre" placeholder="nombre" disabled value="<?= $persona->nombre ?>"> 
+                                        <input type="text" name="u_nombre" id="u_nombre" placeholder="Ingrese su nombre" disabled required value="<?= $persona->nombre ?>"> 
                                         <label for="u_nombre">Nombre: </label>
                                     </div>
                                     <div class="col s12 m6 input-field">
-                                        <input type="text" name="u_apellido" id="u_apellido" placeholder="null" disabled value="<?= $persona->apellido ?>"> 
+                                        <input type="text" name="u_apellido" id="u_apellido" placeholder="Ingrese su apellido" disabled required value="<?= $persona->apellido ?>"> 
                                         <label for="u_apellido">Apellido: </label>
                                     </div>
                                     <div class="col s12 m6 input-field">
-                                        <input type="text" name="u_cedula" id="u_cedula" placeholder="null" disabled value="<?= $persona->cedula ?>"> 
+                                        <input type="text" name="u_cedula" id="u_cedula" placeholder="Ingrese su cedula" disabled required value="<?= $persona->cedula ?>"> 
                                         <label for="u_cedula">Cédula: </label>
                                     </div>
                                     <div class="col s12 m6 input-field">
-                                        <input type="text" name="u_email" id="u_email" placeholder="null" disabled value="<?= $persona->email ?>"> 
+                                        <input type="email" name="u_email" id="u_email" placeholder="Ingrese su correo electrónico" disabled required value="<?= $persona->email ?>"> 
                                         <label for="u_email">Email: </label>
                                     </div>
                                     <div class="col s12 m6 input-field">
-                                        <input type="text" name="u_telefono" id="u_telefono" placeholder="null" disabled value="<?= $persona->telefono ?>"> 
+                                        <input type="text" name="u_telefono" id="u_telefono" placeholder="Ingrese su teléfono" disabled value="<?= $persona->telefono ?>"> 
                                         <label for="u_telefono">Teléfono: </label>
                                     </div>
                                     <div class="col s12 m6 input-field">
-                                        <input type="text" name="u_rol" id="u_rol" placeholder="null" disabled value="<?= $persona->rol ?>"> 
+                                        <input type="text" name="u_rol" id="u_rol" placeholder="Rol" disabled required value="<?= $persona->rol ?>"> 
                                         <label for="u_rol">Rol: </label>
+                                    </div>
+                                </div>
+                                <div class="row" id="cont_btn_submit">
+                                    <div class="col s12 right-align">
+                                        <button type="button" class="btn-flat waves-effect waves-light" onclick="cancelarEdicion()">Cancelar</button>
+                                        <button class="btn waves-effect waves-light">Guardar cambios</button>
                                     </div>
                                 </div>
                             </form>
@@ -144,27 +150,33 @@ $libros_calificados = $objPersona->getUsuarioCalificaciosById($usuario_id)->cant
                     </h5>
                 </div>
 
-                <div class="row center actividades">
-                    <div class="col s12 m4">
-                        <div>
-                            <p><?= $libros_vistos; ?></p>
-                            <i class="material-icons">visibility</i>
-                        </div>
-                        <h5><b>Libros visualizados</b></h5>
+                <div class="row cont_actividades grey lighten-5">
+                    <div class="col m6 hide-on-small-only center-align ">
+                        <img src="../assets/images/SVG/searchTeal.svg" alt="" class="responsive-img" width="75%">
                     </div>
-                    <div class="col s12 m4">
-                        <div>
-                            <p><?= $libros_descargados; ?></p>
-                            <i class="material-icons">download</i>
+
+                    <div class="col s12 m6 actividades ">
+                        <div class="col s12">
+                            <i class="material-icons teal-text">visibility</i>
+                            <div>
+                                <h5><b>Libros visualizados</b></h5>
+                                <p><?= $libros_vistos; ?></p>
+                            </div>
                         </div>
-                        <h5><b>Libros descargados</b></h5>
-                    </div>
-                    <div class="col s12 m4">
-                        <div>
-                            <p><?= $libros_calificados; ?></p>
-                            <i class="material-icons">star</i>
+                        <div class="col s12">
+                            <i class="material-icons teal-text">download</i>
+                            <div>
+                                <h5><b>Libros descargados</b></h5>
+                                <p><?= $libros_descargados; ?></p>
+                            </div>
                         </div>
-                        <h5><b>Libros calificados</b></h5>
+                        <div class="col s12">
+                            <i class="material-icons teal-text">star</i>
+                            <div>
+                                <h5><b>Libros calificados</b></h5>
+                                <p><?= $libros_calificados; ?></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,7 +191,7 @@ $libros_calificados = $objPersona->getUsuarioCalificaciosById($usuario_id)->cant
                 </a>
                 <ul>
                     <li>
-                        <a class="btn-floating tooltipped teal lighten-2" data-position="left" data-tooltip="Cambiar contraseña" onclick="cambiarContraseña(<?= $persona->usuario_id ?>)">
+                        <a class="btn-floating tooltipped teal lighten-2" data-position="left" data-tooltip="Cambiar contraseña" onclick="cambiarClave(<?= $persona->usuario_id ?>)">
                             <i class="material-icons">password</i>
                         </a>
                     </li>
@@ -206,7 +218,7 @@ $libros_calificados = $objPersona->getUsuarioCalificaciosById($usuario_id)->cant
         <!-- alertas -->
         <script type="text/javascript" src="../assets/librerias/js/sweetalert2.all.min.js"></script>
         <script type="text/javascript" src="../assets/librerias/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="../assets/js/libro.js"></script>
+        <script type="text/javascript" src="../assets/js/perfil.js"></script>
         <script>
             M.AutoInit();
         </script>
