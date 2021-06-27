@@ -478,4 +478,26 @@ class Libro {
 
         return $db->delete($this->tableFavoritos, $where);
     }
+
+    function leerPDF($usuario_id, $libro_id){
+        global $db;
+        
+        $data = array(
+            'usuario_id' => $usuario_id,
+            'libro_id' => $libro_id
+        );
+
+        return $db->insert($this->tableVista, $data);
+    }
+
+    function descargarPDF($usuario_id, $libro_id){
+        global $db;
+        
+        $data = array(
+            'usuario_id' => $usuario_id,
+            'libro_id' => $libro_id
+        );
+
+        return $db->insert($this->tableDescarga, $data);
+    }
 }

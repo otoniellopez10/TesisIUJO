@@ -252,10 +252,10 @@ $visualizaciones = $objLibro->getVistasByLibroId($libro->id)->cantidad;
                         $download = str_replace(" ", "-", $libro->titulo) . ".pdf";
                     ?>
                     <div class="col s12 m4" style="padding:2px;">
-                        <a href="../assets/pdfs/<?= $libro->pdf ?>" target="_blank" class="btn waves-effect waves-light" style="width: 100%;"><i class="material-icons left">visibility</i>Leer PDF</a>
+                        <a href="../assets/pdfs/<?= $libro->pdf ?>" target="_blank" class="btn waves-effect waves-light" style="width: 100%;" onclick="leerPDF(<?= $libro->id ?>)"><i class="material-icons left">visibility</i>Leer PDF</a>
                     </div>
                     <div class="col s12 m4" style="padding:2px;">
-                        <a href="../assets/pdfs/<?= $libro->pdf ?>" class="btn waves-effect waves-light teal lighten-2" style="width: 100%;" download="<?= $download ?>"><i class="material-icons left">download</i> Descargar libro</a>
+                        <a href="../assets/pdfs/<?= $libro->pdf ?>" class="btn waves-effect waves-light teal lighten-2" style="width: 100%;" download="<?= $download ?>" onclick="descargarPDF(<?= $libro->id ?>)"><i class="material-icons left">download</i> Descargar libro</a>
                     </div>
                 </div>
                 <br>

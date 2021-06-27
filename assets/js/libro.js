@@ -105,6 +105,29 @@ function deleteComentario(libro_id){
   });
 }
 
+function leerPDF(libro_id){
+    let fd = new FormData();
+    fd.append("mode","leerPDF");
+    fd.append("libro_id",libro_id);
+
+    fetch(HOST,{
+        method:"POST",
+        body: fd
+    });
+}
+
+function descargarPDF(libro_id){
+    let fd = new FormData();
+    fd.append("mode","descargarPDF");
+    fd.append("libro_id",libro_id);
+
+    fetch(HOST,{
+        method:"POST",
+        body: fd
+    }).then((data) => data.json())
+        .then((data) => console.log(data));
+}
+
 // formulario al calificar libro
 $("#formCalificarLibro").submit(function(e){
     e.preventDefault();

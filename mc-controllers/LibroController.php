@@ -350,6 +350,38 @@ if( $mode == "insert"){
     echo json_encode($response);
 
 
+}else if($mode == "leerPDF"){
+    
+    if( !isset( $_POST['libro_id'] ) )
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    else{
+        $libro_id = $_POST['libro_id'];
+        $usuario_id = $_SESSION['user']->id;
+
+        $request = $ObjLibro->leerPDF($usuario_id, $libro_id);
+        if(!$request){
+            $response = ['error' => true, 'message' => "Ocurrió un error al registrar su visualización."];
+        }
+    }
+
+    echo json_encode($response);
+
+}else if($mode == "descargarPDF"){
+    
+    if( !isset( $_POST['libro_id'] ) )
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    else{
+        $libro_id = $_POST['libro_id'];
+        $usuario_id = $_SESSION['user']->id;
+
+        $request = $ObjLibro->descargarPDF($usuario_id, $libro_id);
+        if(!$request){
+            $response = ['error' => true, 'message' => "Ocurrió un error al registrar su visualización."];
+        }
+    }
+
+    echo json_encode($response);
+
 // INICIO DE LOS REPORTES DE LIBROS
 }else if( $mode == "getMasVistos"){
     if( !isset( $_POST['limite'] ) )
