@@ -116,9 +116,23 @@ function editarLibro(id) {
         .then((resp) => resp.json())
         .then((json) => {
             let autores = "";
+            $("#editar_chipsAutores").children(".chip").remove(); // eliminar los chips
             // imprimir datos en el modal
             $("#editar_titulo").val(json.libro.titulo);
             $("#editar_resumen").val(json.libro.resumen);
+
+            // colocar autores
+            autores = json.autores;
+            let data = [];
+            autores.forEach((element) => {
+                let temp = { tag: element.nombre };
+                data.push(temp);
+            });
+            $("#editar_chipsAutores").chips({
+                data: data,
+                placeholder: "Ingrese un autor",
+                secondaryPlaceholder: "Otro autor",
+            });
 
             // SELECT EDITORIAL
             $("#editar_editorial option").each(function () {
@@ -187,10 +201,9 @@ function editarLibro(id) {
 // enviarel formulario de editar libro
 $("#formEditarDatosLibro").submit(function (e) {
     e.preventDefault();
-
-    let fd = new FormData(this);
-    fd.append("mode", "update");
-    fd.append("id", idLibro);
+    if (validarCamposEdicion() == false) {
+        return false;
+    }
 
     Swal.fire({
         title: "Confirmación",
@@ -209,6 +222,19 @@ $("#formEditarDatosLibro").submit(function (e) {
                 showLoaderOnConfirm: true,
                 preConfirm: () => {
                     return new Promise((resolve, reject) => {
+                        var elem = $("#editar_chipsAutores");
+                        var chip = M.Chips.getInstance(elem);
+
+                        let chipsData = chip.chipsData;
+                        let chips = chipsData.map(function (e) {
+                            return e.tag;
+                        });
+
+                        let fd = new FormData(this);
+                        fd.append("mode", "update");
+                        fd.append("id", idLibro);
+                        fd.append("autores", chips);
+
                         $.ajax({
                             method: "POST",
                             url: HOST,
@@ -513,4 +539,27 @@ function iniciarDataTables() {
     $(
         "#tableLibros_length select, #tableLibrosDesactivados_length select"
     ).formSelect();
+}
+
+function validarCamposEdicion() {
+    let elem = $("#editar_chipsAutores");
+    let chip = M.Chips.getInstance(elem);
+    let chipsData = chip.chipsData;
+    if (
+        $("#editar_titulo").val() == "" ||
+        $("#editar_editorial").val() == "" ||
+        $("#editar_edicion").val() == "" ||
+        $("#editar_fecha").val() == "" ||
+        $("#editar_carrera").val() == "" ||
+        $("#editar_categoria").val() == "" ||
+        $("#editar_resumen").val() == "" ||
+        chipsData.length == 0
+    ) {
+        Swal.fire(
+            "Error!",
+            "Es necesario que llenes todos los campos.",
+            "error"
+        );
+        return false;
+    }
 }
