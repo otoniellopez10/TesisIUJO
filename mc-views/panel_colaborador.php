@@ -4,7 +4,7 @@ if (!isset($_SESSION['user_name'])) {
     header('Location: login.php');
     die();
 }
-$acceso = array(1); //1 para administrador, 2 para colaborador y 3 para persona comun
+$acceso = array(2); //1 para administrador, 2 para colaborador y 3 para persona comun
 $user_id = $_SESSION["user"]->rol_id;
 if (!in_array($user_id, $acceso)) {
     header('Location: error.php');
@@ -21,13 +21,10 @@ $objCarrera = new Carrera();
 $objCategoria = new Categoria();
 $objEditorial = new Editorial();
 
-$libros = $objLibro->getAll();
-$librosDesactivados = $objLibro->getAllDesactivados();
+$libros = $objLibro->getlibrosColaborador($user_id);
 $carreras = $objCarrera->getAll();
 $categorias = $objCategoria->getAll();
 $editoriales = $objEditorial->getAll();
-
-
 
 ?>
 
@@ -117,8 +114,8 @@ $editoriales = $objEditorial->getAll();
                 <nav class="nav-extended teal" id="nav">
                     <div class="nav-content">
                         <ul class="tabs tabs-transparent">
-                            <li class="tab"><a class="active" href="#test1">Lista de libros</a></li>
-                            <li class="tab"><a class="active" href="#test2">Libros desactivados</a></li>
+                            <li class="tab"><a class="active" href="#test1">Mis libros</a></li>
+                            <li class="tab"><a class="" href="#test2">Mis libros desactivados</a></li>
                             <li class="tab"><a class="" href="#test3">Agregar</a></li>
                         </ul>
                     </div>
@@ -127,30 +124,6 @@ $editoriales = $objEditorial->getAll();
                 <!-- tabla donde se listan todos los libros -->
                 <div id="test1" class="col s12 ">
                     <div class="modulo_contenido">
-
-                        <!-- filtrar libros -->
-                        <!-- <div class="row">
-                            <form action="" id="formBuscarLibro">
-                                <div class="col s12 m9 input-field">
-                                    <input type="text" id="b_titulo_libro" name="b_titulo_libro" placeholder="Buscar libro por título" required>
-                                    <label for="b_titulo_libro">Filtrar por título: </label>
-                                </div>
-                                <div class="col s12 m2 input-field">
-                                    <select name="b_limite_libro" id="">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                    <label for="b_limite_libro">Límite: </label>
-                                </div>
-                                <div class="col s12 m1 input-field">
-                                    <button type="submit" class="btn waves-effect waves-light tooltipped" id="btn_buscar_libro" data-position="top" data-tooltip="Buscar">
-                                    <i class="material-icons">search</i></button>
-                                </div>
-                            </form>
-                        </div>
-                        <p id="resultados" class="teal-text section"></p> -->
                         <table id="tableLibros" class="highlight" style="width: 100%;">
                             <thead class="teal-text">
                             <tr>
@@ -166,6 +139,7 @@ $editoriales = $objEditorial->getAll();
                             <tbody id="tbodyLibrosActivos">
                                 <?php
                                     foreach ($libros as $libro) {
+                                        if($libro->estatus == 1){
                                 ?>
                         
                                     <tr>
@@ -198,6 +172,7 @@ $editoriales = $objEditorial->getAll();
                                     </tr>
                         
                                 <?php
+                                    }
                                 }
                                 ?>
                             </tbody>
@@ -205,32 +180,9 @@ $editoriales = $objEditorial->getAll();
                     </div>
                 </div>
 
-                <!-- libros desactivados -->
-                <div id="test2" class="col s12">
+                <!-- tabla donde se listan todos los libros -->
+                <div id="test2" class="col s12 ">
                     <div class="modulo_contenido">
-                        <!-- filtrar libros -->
-                        <!-- <div class="row">
-                            <form action="" id="formBuscarLibroDesactivado">
-                                <div class="col s12 m9 input-field">
-                                    <input type="text" id="b_titulo_libro_desactivado" name="b_titulo_libro" placeholder="Buscar libro por título" required>
-                                    <label for="b_titulo_libro_desactivado">Filtrar por título: </label>
-                                </div>
-                                <div class="col s12 m2 input-field">
-                                    <select name="b_limite_libro" id="b_limite_libro_desactivado">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                    <label for="b_limite_libro_desactivado">Límite: </label>
-                                </div>
-                                <div class="col s12 m1 input-field">
-                                    <button type="submit" class="btn waves-effect waves-light tooltipped" id="btn_buscar_libro_desactivado" data-position="top" data-tooltip="Buscar">
-                                    <i class="material-icons">search</i></button>
-                                </div>
-                            </form>
-                        </div>
-                        <p id="resultados" class="teal-text section"></p> -->
                         <table id="tableLibrosDesactivados" class="highlight" style="width: 100%;">
                             <thead class="teal-text">
                             <tr>
@@ -245,13 +197,13 @@ $editoriales = $objEditorial->getAll();
                         
                             <tbody id="tbodyLibrosDesactivados">
                                 <?php
-                                    foreach ($librosDesactivados as $libro) {
-                                        
+                                    foreach ($libros as $libro) {
+                                        if($libro->estatus == 0){
 
                                 ?>
                         
                                     <tr>
-                                        <td><?= $libro->titulo ?></td>
+                                        <td class="libro_titulo"><?= $libro->titulo ?></td>
                                         <td><?= $libro->editorial ?></td>
                                         <td><?= $libro->edicion ?></td>
                                         <td><?php 
@@ -280,13 +232,14 @@ $editoriales = $objEditorial->getAll();
                                     </tr>
                         
                                 <?php
-                                        
+                                    }
                                 }
                                 ?>
                             </tbody>
                         </table>
-                    </div>      
+                    </div>
                 </div>
+
 
                 <!-- form para agregar un libro -->
                 <div id="test3" class="col s12 ">
@@ -472,7 +425,7 @@ $editoriales = $objEditorial->getAll();
 
         <!-- alertas -->
         <script type="text/javascript" src="../assets/librerias/js/sweetalert2.all.min.js"></script>
-        <script type="text/javascript" src="../assets/js/repositorio_panel_admin.js"></script>
+        <script type="text/javascript" src="../assets/js/repositorio_panel_colaborador.js"></script>
         <script>
             M.AutoInit();
         </script>

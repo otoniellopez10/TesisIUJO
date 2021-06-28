@@ -6,6 +6,7 @@ include "../mc-models/Editorial.php";
 include "../mc-models/Carrera.php";
 include "../mc-models/Categoria.php";
 include "../mc-models/Autor.php";
+include "../mc-models/Persona.php";
 
 $mode = $_REQUEST["mode"];
 
@@ -14,6 +15,7 @@ $ObjEditorial = new Editorial();
 $ObjCarrera = new Carrera();
 $ObjCategoria = new Categoria();
 $ObjAutor = new Autor();
+$ObjPersona = new Persona();
 
 
 if( $mode == "insert"){
@@ -47,6 +49,50 @@ if( $mode == "insert"){
         $id_autor = $ObjAutor->save($autores, $libro_id); //agregar los autores
     
         if($id_autor && $libro_id){
+            $response = ['error' => false, 'message' => 'El libro fue registrado con éxito'];
+        }else{
+            $response = ['error' => true, 'message' => 'Ocurrió un error al guardar el libro'];
+        }
+
+    }
+
+    echo json_encode($response);
+
+}else if($mode == "insertColaborador"){
+    if (
+        !isset($_POST['titulo']) ||
+        
+        !isset($_POST['autores']) ||
+        !isset($_POST['editorial']) ||
+        !isset($_POST['edicion']) ||
+        !isset($_POST['fecha']) ||
+        !isset($_POST['carrera']) ||
+        !isset($_POST['categoria']) ||
+        !isset($_POST['resumen']) ||
+        !isset($_FILES['pdf'])
+    ) {
+        $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
+    }else{
+        $titulo = $_POST['titulo'];
+        $autores = $_POST['autores']; //crea un array de los autores
+        $editorial = format($_POST['editorial']);
+        $edicion = format($_POST['edicion']);
+        $fecha = $_POST['fecha'];
+        $carrera = format($_POST['carrera']);
+        $categoria = format($_POST['categoria']);
+        $resumen = $_POST['resumen'];
+        $pdf = $_FILES['pdf'];
+
+        $usuario_id = $_SESSION["user"]->id;
+
+        
+        $libro_id = $ObjLibro->save($titulo, $editorial, $edicion, $fecha, $carrera, $categoria, $resumen, $pdf); //insertar el libro y sus datos
+        
+        $id_autor = $ObjAutor->save($autores, $libro_id); //agregar los autores
+
+        $id_colaborador_libro = $ObjPersona->saveColaboradorLibro($usuario_id, $libro_id);
+    
+        if($id_autor && $libro_id && $id_colaborador_libro){
             $response = ['error' => false, 'message' => 'El libro fue registrado con éxito'];
         }else{
             $response = ['error' => true, 'message' => 'Ocurrió un error al guardar el libro'];

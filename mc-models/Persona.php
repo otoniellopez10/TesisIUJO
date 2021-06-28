@@ -17,6 +17,7 @@ class persona {
         $this->tableVista = "vista_libro";
         $this->tableDescarga = "descarga_libro";
         $this->tableCalificacion = "calificacion_libro";
+        $this->tableColaborador = "colaborador_libro";
     }
 
     public function getOne($id) {
@@ -177,6 +178,18 @@ class persona {
         $where = array('id' => $usuario_id);
 
         return $db->update($this->tableUsuario, $data, $where);
+    }
+
+    function saveColaboradorLibro($usuario_id, $libro_id){
+        global $db;
+
+        $data = array(
+            'usuario_id' => $usuario_id,
+            'libro_id' => $libro_id
+        );
+
+        return $db->insert($this->tableColaborador, $data);
+        
     }
 
 

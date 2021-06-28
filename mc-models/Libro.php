@@ -21,6 +21,7 @@ class Libro {
         $this->tablePersona = "persona";
 
         $this->tableFavoritos = "favoritos";
+        $this->tableColaborador = "colaborador_libro";
     }
 
     public function getAll() {
@@ -59,6 +60,28 @@ class Libro {
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria";
+        return $db->get_results($sql);
+    }
+
+    function getlibrosColaborador($usuario_id){
+        global $db;
+        $sql = "SELECT 
+                    l.id,
+                    l.titulo,
+                    l.edicion,
+                    l.fecha,
+                    l.resumen,
+                    l.pdf,
+                    l.estatus,
+                    e.nombre AS editorial,
+                    c.nombre AS carrera,
+                    t.nombre AS categoria
+                FROM $this->tableColaborador colaborador
+                JOIN $this->table l on l.id = colaborador.libro_id
+                JOIN $this->tableEditorial e on e.id = l.editorial
+                JOIN $this->tableCarrera c on c.id = l.carrera
+                JOIN $this->tableCategoria t on t.id = l.categoria
+                WHERE colaborador.usuario_id = $usuario_id";
         return $db->get_results($sql);
     }
 

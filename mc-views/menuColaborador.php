@@ -45,7 +45,7 @@ if (!in_array($user_id, $acceso)) {
                 <div class="divider teal darken-2"></div>
                 <li>
                     <a
-                        href="panel_admin.php"
+                        href="panel_colaborador.php"
                         class="waves-effect a_menu"
                         ><i class="material-icons white-text">dashboard</i>Panel
                         administrativo</a
