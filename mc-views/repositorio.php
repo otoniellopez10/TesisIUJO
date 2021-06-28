@@ -318,7 +318,7 @@ function render($array){
 
             <div class="botones-accion ">
                 <button class="btn-small waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Agregar a favoritos" style="margin-right: 5px;" onclick="agregarFavoritos(<?= $libro->id ?>)"><i class="material-icons ">star</i></button>
-                <a href="<?= "libro.php?libro_id=" . $libro->id ?>" class="btn-small waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Ver detalles" target="_blank"><i class="material-icons">visibility</i></a>
+                <a href="<?= "libro.php?libro_id=" . $libro->id ?>" class="btn-small waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Ver detalles"><i class="material-icons">visibility</i></a>
             </div>
         </div>
     </div>
