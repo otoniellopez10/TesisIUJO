@@ -224,9 +224,7 @@ if( $mode == "insert"){
         if($editorial != "") $where = $where . " AND l.editorial = $editorial";
         if($categoria != "") $where = $where . " AND l.categoria = $categoria";
         if($carrera != "") $where = $where . " AND l.carrera = $carrera";
-        if($autor != ""){
-
-        }
+        if($autor != "") $where = $where . " AND a.nombre LIKE '%$autor%'";
 
         $request = $ObjLibro->searchConFiltro($where, $order, $limit = 50);
         if($request){

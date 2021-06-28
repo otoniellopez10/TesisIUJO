@@ -16,19 +16,17 @@
 
 *** Pendientes
 - Buscar libro por autor
-- Perfil de usuario (con todas sus funciones)
 
 *** Listas
 - Calificar libro
 - Buscar libro por titulo, categoria, carrera o editorial
 - Agregar a favoritos
 - Mi espacio
-
+- Perfil de usuario (con todas sus funciones)
 
 
 AGREGAR EL LOGO DEL IUJO AL SISTEMA!!!
 
 ORDEN
-- Perfil de usuario (con todas sus funciones) (usuario)
 - editar autores (admin)
 - Buscar por autores (usuario)

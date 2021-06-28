@@ -17,6 +17,9 @@ class Libro {
         $this->tableDescarga = "descarga_libro";
         $this->tableVista = "vista_libro";
 
+        $this->tableLibroAutor = "libro_autor";
+        $this->tableAutor = "autor";
+
         $this->tableUsuario = "usuario";
         $this->tablePersona = "persona";
 
@@ -249,11 +252,13 @@ class Libro {
                     e.nombre AS editorial,
                     c.nombre AS carrera,
                     t.nombre AS categoria
-                FROM $this->table l
+                FROM $this->tableLibroAutor AS la
+                JOIN $this->table l on l.id = la.libro_id
+                JOIN $this->tableAutor a on a.id = la.autor_id
                 JOIN $this->tableEditorial e on e.id = l.editorial
                 JOIN $this->tableCarrera c on c.id = l.carrera
                 JOIN $this->tableCategoria t on t.id = l.categoria
-                WHERE $where $order LIMIT $limit";
+                WHERE $where GROUP BY l.id $order LIMIT $limit";
         return $db->get_results($sql);
     }
 
