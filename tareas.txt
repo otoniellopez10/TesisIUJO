@@ -15,7 +15,6 @@
 ============= USUARIO =============
 
 *** Pendientes
-- Buscar libro por autor
 
 *** Listas
 - Calificar libro
@@ -23,10 +22,10 @@
 - Agregar a favoritos
 - Mi espacio
 - Perfil de usuario (con todas sus funciones)
+- Buscar libro por autor
 
 
 AGREGAR EL LOGO DEL IUJO AL SISTEMA!!!
 
 ORDEN
 - editar autores (admin)
-- Buscar por autores (usuario)

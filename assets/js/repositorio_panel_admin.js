@@ -6,6 +6,8 @@ var modalVerDatosLibro; // instancia
 var modalEditarDatosLibro; // instancia
 var idLibro;
 
+var instanceChips; //instancia
+
 $(document).ready(function () {
     // iniciar los chips para agregar autores en "agregar libro"
     $(".chips-placeholder").chips({
@@ -33,6 +35,10 @@ $(document).ready(function () {
 
     // iniciar los dataTables
     iniciarDataTables();
+
+    // instancia del Chips al editar un libro
+    var elemChipsAutores = $("#editar_chipsAutores");
+    instanceChips = M.Chips.getInstance(elemChipsAutores);
 });
 
 $("#form_AgregarLibro").submit(function (e) {
@@ -168,9 +174,23 @@ function editarLibro(id) {
         .then((resp) => resp.json())
         .then((json) => {
             let autores = "";
+            $("#editar_chipsAutores").children(".chip").remove(); // eliminar los chips
             // imprimir datos en el modal
             $("#editar_titulo").val(json.libro.titulo);
             $("#editar_resumen").val(json.libro.resumen);
+
+            // colocar autores
+            autores = json.autores;
+            let data = [];
+            autores.forEach((element) => {
+                let temp = { tag: element.nombre };
+                data.push(temp);
+            });
+            $("#editar_chipsAutores").chips({
+                data: data,
+                placeholder: "Ingrese un autor",
+                secondaryPlaceholder: "Otro autor",
+            });
 
             // SELECT EDITORIAL
             $("#editar_editorial option").each(function () {
@@ -239,10 +259,9 @@ function editarLibro(id) {
 // enviarel formulario de editar libro
 $("#formEditarDatosLibro").submit(function (e) {
     e.preventDefault();
-
-    let fd = new FormData(this);
-    fd.append("mode", "update");
-    fd.append("id", idLibro);
+    if (validarCamposEdicion() == false) {
+        return false;
+    }
 
     Swal.fire({
         title: "Confirmación",
@@ -261,6 +280,19 @@ $("#formEditarDatosLibro").submit(function (e) {
                 showLoaderOnConfirm: true,
                 preConfirm: () => {
                     return new Promise((resolve, reject) => {
+                        var elem = $("#editar_chipsAutores");
+                        var chip = M.Chips.getInstance(elem);
+
+                        let chipsData = chip.chipsData;
+                        let chips = chipsData.map(function (e) {
+                            return e.tag;
+                        });
+
+                        let fd = new FormData(this);
+                        fd.append("mode", "update");
+                        fd.append("id", idLibro);
+                        fd.append("autores", chips);
+
                         $.ajax({
                             method: "POST",
                             url: HOST,
@@ -431,8 +463,12 @@ function agregarEditorial() {
 
 $("#btnAgregarEditorial").click(function () {
     let nombreEditorial = $("#editorial_nombre").val();
-    if (nombreEditorial.length == 0){
-        Swal.fire("Error!", "Debes ingresar el nombre de la editorial", "error");
+    if (nombreEditorial.length == 0) {
+        Swal.fire(
+            "Error!",
+            "Debes ingresar el nombre de la editorial",
+            "error"
+        );
         return false;
     }
 
@@ -444,10 +480,9 @@ $("#btnAgregarEditorial").click(function () {
         showLoaderOnConfirm: true,
         preConfirm: () => {
             return new Promise((resolve, reject) => {
-
                 let fd = new FormData();
-                fd.append("mode","insert");
-                fd.append("editorial",nombreEditorial);
+                fd.append("mode", "insert");
+                fd.append("editorial", nombreEditorial);
 
                 $.ajax({
                     method: "POST",
@@ -484,12 +519,12 @@ $("#btnAgregarEditorial").click(function () {
             Swal.fire("Listo!", resp.message, "success");
 
             // agregar la editorial al select y ponerla seleccionada
-            $("select#i_editorial").append(`<option value="${resp.esitorial_id}" selected> ${editorial} </option>`);
+            $("select#i_editorial").append(
+                `<option value="${resp.esitorial_id}" selected> ${editorial} </option>`
+            );
             $("select#i_editorial").formSelect();
         }
-        
     });
-
 });
 
 // filtrar libros en el sistema (activos) FUNCION EN DESUSO LUEGO DE INSTALAR DATATABLES
@@ -581,7 +616,7 @@ $("#formBuscarLibro").submit(function (e) {
                 // }
             });
 
-            iniciarDataTables()
+            iniciarDataTables();
         }
         $("#b_titulo_libro").val("");
     });
@@ -712,33 +747,56 @@ function formatoFecha(fecha) {
     return fecha;
 }
 
-function iniciarDataTables(){
+function iniciarDataTables() {
     // iniciar los dataTables
     $("#tableLibros, #tableLibrosDesactivados").DataTable({
         language: {
-            "decimal": "",
-            "emptyTable": "No hay resultados",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-            "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
-            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Límite: _MENU_",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando...",
-            "search": "Buscar:",
-            "zeroRecords": "Sin resultados encontrados",
-            "paginate": {
-                "first": "Primero",
-                "last": "Ultimo",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
+            decimal: "",
+            emptyTable: "No hay resultados",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            infoEmpty: "Mostrando 0 a 0 de 0 Entradas",
+            infoFiltered: "(Filtrado de _MAX_ total entradas)",
+            infoPostFix: "",
+            thousands: ",",
+            lengthMenu: "Límite: _MENU_",
+            loadingRecords: "Cargando...",
+            processing: "Procesando...",
+            search: "Buscar:",
+            zeroRecords: "Sin resultados encontrados",
+            paginate: {
+                first: "Primero",
+                last: "Ultimo",
+                next: "Siguiente",
+                previous: "Anterior",
+            },
         },
-        responsive: true
-    
-    
+        responsive: true,
     });
 
-    $("#tableLibros_length select, #tableLibrosDesactivados_length select").formSelect();
+    $(
+        "#tableLibros_length select, #tableLibrosDesactivados_length select"
+    ).formSelect();
+}
+
+function validarCamposEdicion() {
+    let elem = $("#editar_chipsAutores");
+    let chip = M.Chips.getInstance(elem);
+    let chipsData = chip.chipsData;
+    if (
+        $("#editar_titulo").val() == "" ||
+        $("#editar_editorial").val() == "" ||
+        $("#editar_edicion").val() == "" ||
+        $("#editar_fecha").val() == "" ||
+        $("#editar_carrera").val() == "" ||
+        $("#editar_categoria").val() == "" ||
+        $("#editar_resumen").val() == "" ||
+        chipsData.length == 0
+    ) {
+        Swal.fire(
+            "Error!",
+            "Es necesario que llenes todos los campos.",
+            "error"
+        );
+        return false;
+    }
 }

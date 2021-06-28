@@ -107,6 +107,7 @@ if( $mode == "insert"){
 
     if (
         !isset($_POST['id']) ||
+        !isset($_POST['autores']) ||
         !isset($_POST['modal_e_titulo']) ||
         !isset($_POST['modal_e_editorial']) ||
         !isset($_POST['modal_e_edicion']) ||
@@ -125,11 +126,18 @@ if( $mode == "insert"){
         $carrera = format($_POST['modal_e_carrera']);
         $categoria = format($_POST['modal_e_categoria']);
         $resumen = $_POST['modal_e_resumen'];
+        $autores = $_POST['autores'];
         
-        $libro_id = $ObjLibro->update($id, $titulo, $editorial, $edicion, $fecha, $carrera, $categoria, $resumen); //insertar el libro y sus datos
+        // actualizar datos del libro
+        $libro_update = $ObjLibro->update($id, $titulo, $editorial, $edicion, $fecha, $carrera, $categoria, $resumen); //insertar el libro y sus datos
         
+        // eliminar los autores viejos del libro
+        $autores_delete = $ObjAutor->deleteAutoresLibro($id); //eliminar los autores anteriores del libro
+        
+        // agregar nuevos autores
+        $autores_save = $ObjAutor->save($autores, $id); //agregar los autores
     
-        if($libro_id){
+        if($libro_update && $autores_delete && $autores_save){
             $response = ['error' => false, 'message' => 'El libro fue actualizado con éxito'];
         }else{
             $response = ['error' => true, 'message' => 'Ocurrió un error al actualizar el libro'];

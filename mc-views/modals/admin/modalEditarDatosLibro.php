@@ -7,9 +7,16 @@
 
         <form action="" id="formEditarDatosLibro">
             <div class="row">
-                <div class="col s12 input-field">
+                <div class="col s12 input-field" style="margin-bottom:0;">
                     <input type="text" id="editar_titulo" name="modal_e_titulo" required placeholder="null"/>
                     <label for="editar_titulo">título:</label>
+                </div>
+
+                <!-- autor -->
+                <div class="col s12 input-field" style="margin-top:0;">
+                    <label for="">Autores: </label> 
+                    <br>
+                    <div class="chips" id="editar_chipsAutores"></div>
                 </div>
 
                 <div class="col s12 m6 input-field">

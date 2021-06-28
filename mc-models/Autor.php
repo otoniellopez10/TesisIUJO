@@ -77,4 +77,14 @@ class Autor {
 
     }
 
+    public function deleteAutoresLibro($libro_id){
+        global $db;
+
+        $where = array(
+            "libro_id" => $libro_id
+        );
+
+        return $db->delete($this->tableRelacion, $where);
+    }
+
 }
