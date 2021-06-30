@@ -274,7 +274,7 @@ $("#formEditarDatosLibro").submit(function (e) {
         if (result.value == true) {
             Swal.fire({
                 title: "Espere un momento",
-                text: "Desactivando libro...",
+                text: "Actualizando libro...",
                 confirmButtonColor: $(".btn-primary").css("background-color"),
                 confirmButtonText: "Reintentar",
                 showLoaderOnConfirm: true,

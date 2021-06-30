@@ -135,12 +135,12 @@ if (isset($_SESSION['user_name'])) {
                     <div class="row">
                         <!-- cedula -->
                         <div class="col s12 input-field">
-                            <input type="text" id="i_cedula" name="cedula" />
+                            <input type="text" id="i_cedula" name="cedula" onpaste="return false;"/>
                             <label for="i_cedula">Cédula:</label>
                         </div>
                         <!-- nombre -->
                         <div class="col s12 m6 input-field">
-                            <input type="text" id="i_nombre" name="nombre" />
+                            <input type="text" id="i_nombre" name="nombre" onpaste="return false;"/>
                             <label for="i_nombre">Nombre:</label>
                         </div>
                         <!-- apellido -->
@@ -149,6 +149,7 @@ if (isset($_SESSION['user_name'])) {
                                 type="text"
                                 id="i_apellido"
                                 name="apellido"
+                                onpaste="return false;"
                             />
                             <label for="i_apellido">Apellido:</label>
                         </div>
@@ -159,6 +160,7 @@ if (isset($_SESSION['user_name'])) {
                                 id="i_correo"
                                 name="email"
                                 name="email"
+                                onpaste="return false;"
                             />
                             <label for="i_correo">correo:</label>
                         </div>
@@ -169,12 +171,13 @@ if (isset($_SESSION['user_name'])) {
                                 type="password"
                                 id="i_clavenueva"
                                 name="password"
+                                onpaste="return false;"
                             />
                             <label for="i_clavenueva">Contraseña:</label>
                         </div>
                         <!-- clave2 -->
                         <div class="col s12 m6 input-field">
-                            <input type="password" id="i_clavenueva2" />
+                            <input type="password" id="i_clavenueva2" onpaste="return false;" />
                             <label for="i_clavenueva2"
                                 >Repite la contraseña:</label
                             >
@@ -186,6 +189,7 @@ if (isset($_SESSION['user_name'])) {
                                 type="text"
                                 id="i_telefono"
                                 name="telefono"
+                                onpaste="return false;"
                             />
                             <label for="i_telefono">Teléfono:</label>
                         </div>

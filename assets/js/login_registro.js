@@ -79,7 +79,7 @@ $(document).ready(function () {
                 i_clavenueva.val() == "" ||
                 i_clavenueva2.val() == "" ||
                 i_telefono.val() == "" ||
-                i_persona_tipo.val() == ""
+                i_persona_tipo.val() == null
             )
                 throw "Faltan campos por completar";
             if (
@@ -96,6 +96,7 @@ $(document).ready(function () {
                 text: e,
                 icon: "error",
             });
+            return false;
         }
         // fin validar campos
 
@@ -216,3 +217,46 @@ $(document).ready(function () {
         });
     });
 });
+
+$("#i_nombre, #i_apellido").keypress(function (e) {
+    var a = /[a-zA-ZñÑáéíóúÁÉÍÓÚ]/;
+    validar(e, a);
+    if (this.value.length == 50) {
+        return false;
+    }
+});
+
+$("#i_cedula").keypress(function (e) {
+    var a = /[0-9]/;
+    validar(e, a);
+    if (this.value.length == 8) {
+        return false;
+    }
+});
+
+$("#i_telefono").keypress(function (e) {
+    var a = /[0-9]/;
+    validar(e, a);
+    if (this.value.length == 11) {
+        return false;
+    }
+});
+
+function validar(e, a) {
+    var key = e.keyCode || e.which;
+    var expresion = a;
+    var especiales = "8-37-38-46";
+    var tecla = String.fromCharCode(key);
+    var teclado_especial = false;
+
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            teclado_especial == true;
+        }
+    }
+
+    if (!expresion.test(tecla) && !teclado_especial) {
+        e.preventDefault();
+        return false;
+    }
+}

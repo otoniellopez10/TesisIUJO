@@ -6,11 +6,13 @@
 - hacer funcionar el buscador de login (inicio)         LISTO!
 - Solicitar permisos (inicio)                           LISTO!
 - recuperar contraseña (login)
-- Validar campos de registro (solo numeros o letras)
+- Validar campos de registro (solo numeros o letras)    LISTO!
+- colocar logo del IUJO quien sabe donde
+- acomodar imagen del menu en el sistema
 
 =============== ADMINISTRADOR ===============
 
-
+- Realizar pantalla de gestion para editoriales!
 
 
 

@@ -53,7 +53,8 @@ class Autor {
         $array_autores = explode(",",$autores);
 
         if(count($array_autores) == 1){
-            $data = array('nombre' => $array_autores[0]);
+            $nombre = ucwords(strtolower($array_autores[0]));
+            $data = array('nombre' => $nombre);
             $return_id = $db->insert($this->table, $data); //agregar el autor a la BD (devuelve ID)
             if(!$return_id) return false;
             
@@ -65,7 +66,8 @@ class Autor {
 
         }else if(count($array_autores) > 1){
             foreach($array_autores as $au){
-                $data = array('nombre' => $au);
+                $nombre = ucwords(strtolower($au));
+                $data = array('nombre' => $nombre);
                 $return_id = $db->insert($this->table, $data); //agregar el autor a la BD (devuelve ID)
                 if(!$return_id) return false;
                 
