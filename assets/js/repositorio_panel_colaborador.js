@@ -506,7 +506,6 @@ function formatoFecha(fecha) {
     let mes = "0" + (fecha.getMonth() + 1);
     let year = fecha.getFullYear();
     fecha = `${dia}/${mes}/${year}`;
-    console.log(fecha);
     return fecha;
 }
 

@@ -2,9 +2,11 @@
 
 =============== GENERALES ===============
 
-- Login y registro abrir el que corresponda (inicio) LISTO!
-- hacer funcionar el buscador de login (inicio)
-- Solicitar permisos (inicio)
+- Login y registro abrir el que corresponda (inicio)    LISTO!
+- hacer funcionar el buscador de login (inicio)         LISTO!
+- Solicitar permisos (inicio)                           LISTO!
+- recuperar contraseña (login)
+- Validar campos de registro (solo numeros o letras)
 
 =============== ADMINISTRADOR ===============
 
@@ -20,3 +22,8 @@
 
 
 =============== USUARIO ===============
+
+
+
+
+

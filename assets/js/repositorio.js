@@ -17,21 +17,23 @@ $(document).ready(function () {
     })
         .then((resp) => resp.json())
         .then((json) => {
-            // console.log(json);
-            $("#i_autor").autocomplete({ data: json, limit: 10 });
+            $("#b_autor").autocomplete({ data: json, limit: 10 });
         });
 
     // esconder contenedor de resultados
     contResultados.slideUp(0);
     btnCerrarResultados.slideUp(0);
-    
 });
 
 $("#form_buscar_libro").submit(function (e) {
     e.preventDefault();
 
-    if(verificarCamposBusqueda()){
-        Swal.fire("Espera!", "Primero debes introducir algun dato para la busqueda", "warning");
+    if (verificarCamposBusqueda()) {
+        Swal.fire(
+            "Espera!",
+            "Primero debes introducir algun dato para la busqueda",
+            "warning"
+        );
         return false;
     }
 
@@ -43,9 +45,8 @@ $("#form_buscar_libro").submit(function (e) {
         showLoaderOnConfirm: true,
         preConfirm: () => {
             return new Promise((resolve, reject) => {
-
                 let fd = new FormData(this);
-                fd.append("mode","searchConFiltro");
+                fd.append("mode", "searchConFiltro");
 
                 $.ajax({
                     method: "POST",
@@ -67,7 +68,7 @@ $("#form_buscar_libro").submit(function (e) {
                     },
                 });
             }).catch(function (reason) {
-                Swal.close()
+                Swal.close();
                 Swal.fire("Disculpa", reason, "warning");
                 limpiarCampos();
                 // Swal.showValidationMessage(reason);
@@ -85,7 +86,7 @@ $("#form_buscar_libro").submit(function (e) {
     });
 });
 
-function agregarFavoritos(libro_id){
+function agregarFavoritos(libro_id) {
     Swal.fire({
         title: "Espere un momento",
         text: "Cargando solicitud...",
@@ -94,10 +95,9 @@ function agregarFavoritos(libro_id){
         showLoaderOnConfirm: true,
         preConfirm: () => {
             return new Promise((resolve, reject) => {
-
                 let fd = new FormData();
-                fd.append("mode","agregarFavoritos");
-                fd.append("libro_id",libro_id);
+                fd.append("mode", "agregarFavoritos");
+                fd.append("libro_id", libro_id);
 
                 $.ajax({
                     method: "POST",
@@ -138,26 +138,24 @@ function limpiarCampos() {
 }
 
 // verificar que no esten vacios todos los campos de busqueda
-function verificarCamposBusqueda(){
-    if(
+function verificarCamposBusqueda() {
+    if (
         $("#b_titulo").val() == "" &&
         $("#b_autor").val() == "" &&
         $("#b_editorial").val() == "" &&
         $("#b_categoria").val() == "" &&
-        $("#b_carrera").val() == "" 
-    ){
+        $("#b_carrera").val() == ""
+    ) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
-
-function imprimirResultadosBusqueda(data){
+function imprimirResultadosBusqueda(data) {
     tableResultados.DataTable().clear().destroy();
     let contador = 1;
-    data.forEach(json => {
-
+    data.forEach((json) => {
         tbodyResultados.append(`
             <tr>
                 <td> ${contador} </td>
@@ -183,28 +181,26 @@ function imprimirResultadosBusqueda(data){
     // convertir en dataTable
     tableResultados.DataTable({
         language: {
-            "decimal": "",
-            "emptyTable": "No hay resultados",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-            "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
-            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Límite: _MENU_",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando...",
-            "search": "Buscar:",
-            "zeroRecords": "Sin resultados encontrados",
-            "paginate": {
-                "first": "Primero",
-                "last": "Ultimo",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
+            decimal: "",
+            emptyTable: "No hay resultados",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            infoEmpty: "Mostrando 0 a 0 de 0 Entradas",
+            infoFiltered: "(Filtrado de _MAX_ total entradas)",
+            infoPostFix: "",
+            thousands: ",",
+            lengthMenu: "Límite: _MENU_",
+            loadingRecords: "Cargando...",
+            processing: "Procesando...",
+            search: "Buscar:",
+            zeroRecords: "Sin resultados encontrados",
+            paginate: {
+                first: "Primero",
+                last: "Ultimo",
+                next: "Siguiente",
+                previous: "Anterior",
+            },
         },
-        responsive: true
-    
-    
+        responsive: true,
     });
 
     $("#tableResultados_length select").formSelect();
@@ -212,12 +208,21 @@ function imprimirResultadosBusqueda(data){
     contBuscador.slideUp(200);
     btnCerrarResultados.slideDown(400);
     contResultados.slideDown(400);
-
 }
 
-
-function cerrarResultados(){
+function cerrarResultados() {
     btnCerrarResultados.slideUp(300);
     contBuscador.slideDown(300);
     contResultados.slideUp(300);
+}
+
+// buscar libro si asi se requiere (por get que viene del index)
+let params = new URLSearchParams(location.search);
+var searchLibro = params.get("i_buscador");
+if (searchLibro != null) {
+    $("#nav a[href='#test5']").addClass("active");
+    $("#b_titulo").val(searchLibro);
+    $("#btnBuscar").click();
+} else {
+    $("#nav a[href='#test1']").addClass("active");
 }

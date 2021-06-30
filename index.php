@@ -187,22 +187,24 @@ session_start();
                 Puedes consultar un libro escribiendo su nombre en el buscador.
             </p>
 
-            <div class="row valign-wrapper">
-                <div class="col s12 m11 input-field">
-                    <input type="text" name="i_buscador" id="i_buscador" />
-                    <label for="i_buscador">Escribe el nombre del libro</label>
-                </div>
+            <form action="mc-views/repositorio.php">
+                <div class="row valign-wrapper">
+                    <div class="col s12 m11 input-field">
+                        <input type="text" name="i_buscador" id="i_buscador" />
+                        <label for="i_buscador">Escribe el nombre del libro</label>
+                    </div>
 
-                <div class="col s12 m1 center">
-                    <button
-                        class="btn waves waves-effect waves-light tooltiped"
-                        data-tooltip="hola"
-                        id="btn_buscador"
-                    >
-                        <i class="material-icons">search</i>
-                    </button>
+                    <div class="col s12 m1 center">
+                        <button
+                            class="btn waves waves-effect waves-light tooltiped"
+                            data-tooltip="hola"
+                            id="btn_buscador"
+                        >
+                            <i class="material-icons">search</i>
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </section>
 
         <!-- SECCION DE CARACTERISTICAS -->
@@ -329,8 +331,8 @@ session_start();
                 <div class="col s12 m6 center-align">
                     <div class="container">
                         <h4 class="teal-text"><b>¿Cómo ser colaborador?</b></h4>
-                        <p>Para convertirte en colaborador del sistema debes enviar una solicitud, justificando tu peticion, así como también, indicando que tipo de contenido deseas cargar al sistema.</p>
-                        <button class="btn-fantasma">Solicitar permisos</button>
+                        <p>Para convertirte en colaborador del sistema necesita que le sean concedidos permisos específicos, debe justificar su peticion, así como también, indicar que tipo de contenido deseas cargar al sistema.</p>
+                        <button class="btn-fantasma" id="btnSolicitar">Solicitar permisos</button>
                     </div>
                 </div>
                 <div class="col s12 l6 center-align hide-on-med-and-down">
@@ -453,6 +455,7 @@ session_start();
         <!--JavaScript at end of body for optimized loading-->
         <script type="text/javascript" src="assets/librerias/js/jquery-3.6.0.min.js"></script>
         <script type="text/javascript" src="assets/librerias/js/materialize.min.js"></script>
+        <script type="text/javascript" src="assets/librerias/js/sweetalert2.all.min.js"></script>
         <script type="text/javascript" src="assets/js/index.js"></script>
     </body>
 </html>

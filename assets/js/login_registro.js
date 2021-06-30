@@ -37,17 +37,6 @@ $(document).ready(function () {
     // ajustes iniciales
     form_registro.hide(0);
 
-    // conseguir el modo, si es null es ingresar, si s 2 es registro.
-    let params = new URLSearchParams(location.search);
-    var mode = params.get("mode");
-    if (mode == 2) {
-        form_login.hide(500);
-        form_registro.show(500);
-        $("#linea_btn").css("left", "50%");
-        btn_cont_registro.addClass("active");
-        btn_cont_login.removeClass("active");
-    }
-
     // cambiar los Form cuando se le de a los botones
     btn_cont_registro.click(function (e) {
         e.preventDefault();
@@ -66,6 +55,13 @@ $(document).ready(function () {
         btn_cont_registro.removeClass("active");
         $("#linea_btn").css("left", "0%");
     });
+
+    // conseguir el modo, si es null es ingresar, si s 2 es registro.
+    let params = new URLSearchParams(location.search);
+    var mode = params.get("mode");
+    if (mode == 2) {
+        $("#btn_cont_registro").click();
+    }
 
     /////////////////////////////////////////////
     // ENVIO DE FORMULARIO DE REGISTRO
@@ -195,7 +191,6 @@ $(document).ready(function () {
                         data: fd,
                         dataType: "json",
                         success: function (res) {
-                            console.log(res);
                             if (res.usuario == false || res.usuario == null) {
                                 reject(res.mensaje);
                             } else {

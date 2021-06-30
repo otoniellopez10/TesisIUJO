@@ -81,11 +81,11 @@ $editoriales = $objEditorial->getAll();
                 <nav class="nav-extended teal" id="nav" style="margin-bottom: 20px;">
                     <div class="nav-content">
                         <ul class="tabs tabs-transparent">
-                            <li class="tab"><a class="active" href="#test1">Recomendados</a></li>
+                            <li class="tab"><a class="" href="#test1">Recomendados</a></li>
                             <li class="tab"><a class="" href="#test2">Mejor calificados</a></li>
                             <li class="tab"><a class="" href="#test3">Más descargados</a></li>
                             <li class="tab"><a class="" href="#test4">Más vistos</a></li>
-                            <li class="tab"><a class="" href="#test5">Buscar</a></li>
+                            <li class="tab"><a class="" href="#test5" id="tap_buscar">Buscar</a></li>
                         </ul>
                     </div>
                 </nav>

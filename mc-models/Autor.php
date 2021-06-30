@@ -11,6 +11,7 @@ class Autor {
         //asignar nombre de la tabla aqui para no cambiar en cada metodo
         $this->table = "autor";
         $this->tableRelacion = "libro_autor";
+        $this->tableLibro = "libro";
     }
 
     public function getAll() {
@@ -25,9 +26,12 @@ class Autor {
     public function getAll2() {
         global $db;
         $sql = "SELECT
-                id,nombre
-                FROM $this->table 
-                WHERE estatus = 1";
+                a.id, a.nombre
+                FROM $this->tableRelacion r
+                JOIN $this->table a on a.id = r.autor_id
+                JOIN $this->tableLibro l on l.id = r.libro_id
+
+                WHERE a.estatus = 1 AND l.estatus = 1";
 
         return $db->query($sql);
     }
