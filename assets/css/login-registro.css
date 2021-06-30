@@ -58,6 +58,7 @@ body {
     right: 20px;
     perspective: 10px;
     border: 2px solid #1e8177;
+    /* background: #e2e2e2; */
     border-radius: 100px;
     overflow: hidden;
 }

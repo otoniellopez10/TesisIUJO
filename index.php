@@ -94,7 +94,7 @@ session_start();
                     </li>
 
                     <li>
-                        <a href="mc-views/login.php"
+                        <a href="mc-views/login.php?mode=2"
                             ><i class="material-icons">person_add</i> Registrarse</a
                         >
                     </li>
@@ -140,7 +140,7 @@ session_start();
                         </li>
 
                         <li>
-                            <a href="mc-views/login.php">
+                            <a href="mc-views/login.php?mode=2">
                                 <i class="material-icons left">person_add</i>Regístrate
                             </a>
                         </li>
@@ -359,7 +359,7 @@ session_start();
                     </div>
                     <div class="col s6 m6 l2">
                         <a
-                            href="mc-views/login.php"
+                            href="mc-views/login.php?mode=2"
                             class="btn-flat waves waves-effect waves-light white-text"
                             id="btn_register"
                             ><i class="material-icons left">person_add</i

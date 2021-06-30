@@ -1,31 +1,22 @@
-========== ADMINISTRADOR ==========
+/////////// MEJORAS Y CORRECCION DE ERRORES /////////
 
-*** Pendientes
+=============== GENERALES ===============
 
-- Editar Autores 
+- Login y registro abrir el que corresponda (inicio) LISTO!
+- hacer funcionar el buscador de login (inicio)
+- Solicitar permisos (inicio)
 
-*** Listas
-- Generar pag de reportes
-- Agregar tabla de Descargas
-- Agregar tabla de vistas
-- Agregar tabla de calificacion y comentarios
-- poder agregar editorial
-- agregar dataTables a todas las tablas! 
-
-============= USUARIO =============
-
-*** Pendientes
-
-*** Listas
-- Calificar libro
-- Buscar libro por titulo, categoria, carrera o editorial
-- Agregar a favoritos
-- Mi espacio
-- Perfil de usuario (con todas sus funciones)
-- Buscar libro por autor
+=============== ADMINISTRADOR ===============
 
 
-AGREGAR EL LOGO DEL IUJO AL SISTEMA!!!
 
-ORDEN
-- editar autores (admin)
+
+
+=============== COLABORADOR ===============
+
+
+
+
+
+
+=============== USUARIO ===============

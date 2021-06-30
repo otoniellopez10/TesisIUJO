@@ -30,7 +30,7 @@ if (isset($_SESSION['user_name'])) {
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-        <title>IUJO Repositorio | REGISTRO</title>
+        <title>IUJO Repositorio | LOGIN - REGISTRO</title>
     </head>
 
     <body>
@@ -230,7 +230,7 @@ if (isset($_SESSION['user_name'])) {
             </div>
 
             <!-- botones de registro y login -->
-            <div id="cont_botones">
+            <div id="cont_botones" class="">
                 <button id="btn_cont_login" class="active">Ingresa</button>
 
                 <button id="btn_cont_registro" class="">Regístrate</button>

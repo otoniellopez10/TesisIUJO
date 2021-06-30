@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-06-2021 a las 23:11:59
+-- Tiempo de generación: 29-06-2021 a las 16:14:44
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.3
 
@@ -46,7 +46,30 @@ INSERT INTO `autor` (`id`, `nombre`, `estatus`) VALUES
 (49, 'Robert Fisher', 1),
 (50, 'Autor 1', 1),
 (51, 'Autor 2', 1),
-(52, 'Autor 3', 1);
+(52, 'Autor 3', 1),
+(53, 'Colaborador 1', 1),
+(54, 'Colaborador uno', 1),
+(55, 'colaborador 1', 1),
+(56, 'colaborador unoo', 1),
+(57, 'Jorge Saens Editado', 1),
+(58, 'Jorge', 1),
+(59, 'Robert Fisher', 1),
+(60, 'Robert Fisher 2', 1),
+(61, 'Jorge Saens', 1),
+(62, 'Jorge Saens', 1),
+(63, 'otro para jorge', 1),
+(64, 'Jorge Saens', 1),
+(65, 'Robert Fisher', 1),
+(66, 'Jorge Saens', 1),
+(67, 'Jorge Saens 2', 1),
+(68, 'Jorge Saens', 1),
+(69, 'Otoniel López', 1),
+(70, 'Candida Guerra', 1),
+(71, 'colaborador 1', 1),
+(72, 'colaborador unoo', 1),
+(73, 'Colaborador 1', 1),
+(74, 'Colaborador uno', 1),
+(75, 'Autor de prueba', 1);
 
 -- --------------------------------------------------------
 
@@ -95,12 +118,31 @@ CREATE TABLE `calificacion_libro` (
 --
 
 INSERT INTO `calificacion_libro` (`id`, `usuario_id`, `libro_id`, `calificacion`, `comentario`, `fecha`) VALUES
-(1, 3, 35, 5, 'Un libro entretenido y con buena enseñanza.', '0000-00-00 00:00:00'),
-(2, 3, 35, 3, 'Excelente contenido', '2021-06-21 01:56:24'),
-(3, 3, 35, 3, 'Muy buen libro.', '2021-06-21 01:57:12'),
-(4, 2, 34, 4, 'buen libro', '2021-06-21 01:58:07'),
-(5, 2, 34, 2, 'le falta contenido', '2021-06-21 01:58:07'),
-(6, 2, 34, 1, 'Muy mala redaccion', '2021-06-21 01:58:51');
+(16, 3, 35, 5, 'perfecto este libro', '2021-06-24 23:30:35'),
+(18, 2, 35, 5, '5 estrellas', '2021-06-28 00:05:35'),
+(20, 2, 33, 5, '5 estrellas!', '2021-06-28 17:38:52'),
+(21, 3, 33, 3, 'muy bueno!', '2021-06-28 21:27:27');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `colaborador_libro`
+--
+
+CREATE TABLE `colaborador_libro` (
+  `id` int(10) NOT NULL,
+  `usuario_id` int(10) NOT NULL,
+  `libro_id` int(10) NOT NULL,
+  `fecha_carga` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `colaborador_libro`
+--
+
+INSERT INTO `colaborador_libro` (`id`, `usuario_id`, `libro_id`, `fecha_carga`) VALUES
+(1, 2, 37, '2021-06-27 23:55:41'),
+(2, 2, 38, '2021-06-27 23:56:30');
 
 -- --------------------------------------------------------
 
@@ -126,7 +168,30 @@ INSERT INTO `descarga_libro` (`id`, `usuario_id`, `libro_id`, `fecha`) VALUES
 (4, 3, 36, '2021-06-20 18:00:52'),
 (5, 3, 36, '2021-06-20 18:00:52'),
 (6, 2, 34, '2021-06-21 04:27:34'),
-(7, 2, 36, '2021-06-21 04:27:34');
+(7, 2, 36, '2021-06-21 04:27:34'),
+(8, 3, 33, '2021-06-27 22:10:29'),
+(9, 3, 33, '2021-06-27 22:10:38'),
+(10, 2, 35, '2021-06-28 21:51:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `favoritos`
+--
+
+CREATE TABLE `favoritos` (
+  `usuario_id` int(10) NOT NULL,
+  `libro_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `favoritos`
+--
+
+INSERT INTO `favoritos` (`usuario_id`, `libro_id`) VALUES
+(3, 35),
+(3, 33),
+(2, 35);
 
 -- --------------------------------------------------------
 
@@ -152,11 +217,13 @@ CREATE TABLE `libro` (
 --
 
 INSERT INTO `libro` (`id`, `titulo`, `editorial`, `edicion`, `fecha`, `carrera`, `categoria`, `resumen`, `pdf`, `estatus`) VALUES
-(32, 'El caballero de la armadura oxidada', 1, 'Primera edición', '2000-04-21', 10, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto recusandae porro, quia earum nam accusamus numquam dicta qui consequuntur aliquid debitis consequatur deserunt illum possimus provident, nostrum excepturi soluta. Quas?', 'xzsBnIMcD6X1UKCufT8VplantillaDiploma.pdf', 0),
-(33, 'Calculo I', 1, 'Primera edición', '2000-04-22', 10, 6, 'Libro de calculo 1 por Jorge  Saens', 'SvcNIgLTKPHjewq3pXJWlic. grado 2 - 200204930883.pdf', 1),
+(32, 'El caballero de la armadura oxidada', 12, 'Primera edición', '2000-04-21', 10, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto recusandae porro, quia earum nam accusamus numquam dicta qui consequuntur aliquid debitis consequatur deserunt illum possimus provident, nostrum excepturi soluta. Quas?', 'xzsBnIMcD6X1UKCufT8VplantillaDiploma.pdf', 0),
+(33, 'Calculo I', 1, 'Primera edición', '2000-04-21', 10, 6, 'Libro de calculo 1 por Jorge  Saens', 'SvcNIgLTKPHjewq3pXJWlic. grado 2 - 200204930883.pdf', 1),
 (34, 'Ingles I', 2, 'Segunda edición', '2000-04-21', 10, 2, 'Libro de ingles por Pedro y Pablo con contenido para principiante', 'TVA9kHj3I2waP64qsgoSlic. grado 2 - 200204930883.pdf', 1),
 (35, 'El Caballero de la armadura oxidada', 12, 'Primera edición', '1987-05-01', 10, 9, 'El Caballero de la Armadura Oxidada cuenta la historia de una caballero, que preocupado en sobremanera por las apariencias y el ser alabado por sus hazañas, las cuales realiza más por los aplausos que por una convicción', 'HKcBSg46FerkTZvbQxDfMOMENTO I.pdf', 1),
-(36, 'Titulo de libro de ejemplo', 8, 'Primera edición', '2000-04-21', 10, 7, 'Libro de prueba con el fin de agregar mas contenido al sistema y probar su funcionamiento', '1aGNC6YgnBzIUdX7fMZPSCRUMstudy-SBOK-Guide-3rd-edition-Spanish.pdf', 1);
+(36, 'Titulo de libro de ejemplo', 8, 'Primera edición', '2000-04-21', 10, 7, 'Libro de prueba con el fin de agregar mas contenido al sistema y probar su funcionamiento', '1aGNC6YgnBzIUdX7fMZPSCRUMstudy-SBOK-Guide-3rd-edition-Spanish.pdf', 0),
+(37, 'Libro de prueba 2 editado', 2, 'Primera edición', '2000-04-30', 3, 1, 'Resumen del libro agregado por un colaborador editado 2', 'nsex7hBYcQXmwNIEqk81normas para elaborar informe pasantías.pdf', 1),
+(38, 'Libro de prueba 1', 3, 'Segunda edición', '2000-04-22', 10, 2, 'resumen del segundo libro agregado por un colaborador', 'TO4jCPbzshy8riZSXEcNPlanilla Evaluación Tutor Empresarial firmada.pdf', 1);
 
 -- --------------------------------------------------------
 
@@ -174,15 +241,18 @@ CREATE TABLE `libro_autor` (
 --
 
 INSERT INTO `libro_autor` (`libro_id`, `autor_id`) VALUES
-(32, 44),
-(32, 45),
-(33, 46),
+(32, 69),
+(32, 70),
+(33, 68),
 (34, 47),
 (34, 48),
-(35, 49),
+(35, 65),
 (36, 50),
 (36, 51),
-(36, 52);
+(36, 52),
+(37, 73),
+(37, 74),
+(38, 75);
 
 -- --------------------------------------------------------
 
@@ -248,7 +318,7 @@ INSERT INTO `libro_categoria` (`id`, `nombre`, `estatus`) VALUES
 --
 
 CREATE TABLE `libro_editorial` (
-  `id` int(5) NOT NULL,
+  `id` int(10) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `estatus` int(10) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -258,6 +328,7 @@ CREATE TABLE `libro_editorial` (
 --
 
 INSERT INTO `libro_editorial` (`id`, `nombre`, `estatus`) VALUES
+(0, 'Sin editorial', 1),
 (1, 'Santillana', 1),
 (2, 'Planeta', 1),
 (3, 'Alpha Decay', 1),
@@ -268,7 +339,13 @@ INSERT INTO `libro_editorial` (`id`, `nombre`, `estatus`) VALUES
 (8, 'Libros del Asteroide', 1),
 (9, 'Malpaso', 1),
 (10, 'Sexto Piso', 1),
-(12, 'Ediciones Obelisco', 1);
+(12, 'Ediciones Obelisco', 1),
+(13, 'Editorial de prueba', 1),
+(14, 'Editorial de prueba 2', 1),
+(15, 'Editorial de prueba 3', 1),
+(16, 'Editorial de prueba 4', 1),
+(17, 'Editorial de prueba 5', 1),
+(19, 'editorial agregada por colaborador', 1);
 
 -- --------------------------------------------------------
 
@@ -294,7 +371,7 @@ CREATE TABLE `persona` (
 INSERT INTO `persona` (`id`, `cedula`, `nombre`, `apellido`, `telefono`, `persona_tipo`, `usuario_id`, `estatus`) VALUES
 (1, 27397595, 'Otoniel', 'Lopez', '04245274818', 1, 1, 1),
 (2, 11111111, 'Juan', 'perez', '04245274818', 2, 2, 1),
-(3, 33333333, 'Luis', 'Rivero', '04245274818', 6, 3, 1);
+(3, 27397595, 'Otoniel', 'López', '04245274818', 6, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -342,7 +419,7 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id`, `email`, `password`, `rol_id`, `estatus`) VALUES
 (1, 'admin@tesis.com', '$2y$10$St71MD.ufAC1JkSAZ19oxOwxFgJlrLgJm1JxTgEtVC86wITu78S3.', 1, 1),
 (2, 'colaborador@tesis.com', '$2y$10$FaBsKTq60rvy4l.WYPqDk.C87ZfnRe/oREGy6pNurANzuJxPBhQGK', 2, 1),
-(3, 'persona@tesis.com', '$2y$10$6v7e2oerxCO5Acb4EoX51.NdnhXWWmY9efLhgPmxihTPVhinXouKi', 3, 1);
+(3, 'persona@tesis.com', '$2y$10$LzUZsLhSQwUiwHi0G5neW.EEvybb3t8P00vv0bSGbS4ogxcEkWEoO', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -351,9 +428,9 @@ INSERT INTO `usuario` (`id`, `email`, `password`, `rol_id`, `estatus`) VALUES
 --
 
 CREATE TABLE `usuario_rol` (
-  `id` int(5) NOT NULL,
+  `id` int(10) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `estatus` int(11) DEFAULT 1
+  `estatus` int(10) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -383,12 +460,20 @@ CREATE TABLE `vista_libro` (
 --
 
 INSERT INTO `vista_libro` (`id`, `usuario_id`, `libro_id`, `fecha`) VALUES
-(1, 3, 33, '0000-00-00 00:00:00'),
 (2, 3, 34, '0000-00-00 00:00:00'),
 (3, 3, 35, '2021-06-20 17:25:01'),
-(4, 3, 35, '2021-06-20 17:25:01'),
 (5, 2, 33, '2021-06-21 04:19:32'),
-(6, 2, 34, '2021-06-21 04:21:05');
+(6, 2, 34, '2021-06-21 04:21:05'),
+(7, 3, 33, '2021-06-26 23:18:04'),
+(8, 3, 33, '2021-06-26 23:18:25'),
+(9, 3, 33, '2021-06-27 22:09:39'),
+(10, 3, 33, '2021-06-27 22:10:01'),
+(11, 3, 33, '2021-06-27 22:10:25'),
+(12, 3, 34, '2021-06-27 22:13:58'),
+(13, 2, 37, '2021-06-28 00:04:35'),
+(14, 2, 37, '2021-06-28 00:04:55'),
+(15, 2, 35, '2021-06-28 03:07:49'),
+(16, 2, 35, '2021-06-28 21:50:51');
 
 --
 -- Índices para tablas volcadas
@@ -424,10 +509,25 @@ ALTER TABLE `calificacion_libro`
   ADD KEY `libro_id` (`libro_id`);
 
 --
+-- Indices de la tabla `colaborador_libro`
+--
+ALTER TABLE `colaborador_libro`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `libro_id` (`libro_id`);
+
+--
 -- Indices de la tabla `descarga_libro`
 --
 ALTER TABLE `descarga_libro`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `libro_id` (`libro_id`);
+
+--
+-- Indices de la tabla `favoritos`
+--
+ALTER TABLE `favoritos`
   ADD KEY `usuario_id` (`usuario_id`),
   ADD KEY `libro_id` (`libro_id`);
 
@@ -511,7 +611,7 @@ ALTER TABLE `vista_libro`
 -- AUTO_INCREMENT de la tabla `autor`
 --
 ALTER TABLE `autor`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT de la tabla `bitacora_libro`
@@ -529,19 +629,25 @@ ALTER TABLE `bitacora_persona`
 -- AUTO_INCREMENT de la tabla `calificacion_libro`
 --
 ALTER TABLE `calificacion_libro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT de la tabla `colaborador_libro`
+--
+ALTER TABLE `colaborador_libro`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `descarga_libro`
 --
 ALTER TABLE `descarga_libro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `libro_carrera`
@@ -559,7 +665,7 @@ ALTER TABLE `libro_categoria`
 -- AUTO_INCREMENT de la tabla `libro_editorial`
 --
 ALTER TABLE `libro_editorial`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
@@ -583,13 +689,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `usuario_rol`
 --
 ALTER TABLE `usuario_rol`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `vista_libro`
 --
 ALTER TABLE `vista_libro`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restricciones para tablas volcadas
@@ -616,11 +722,25 @@ ALTER TABLE `calificacion_libro`
   ADD CONSTRAINT `calificacion_libro_ibfk_2` FOREIGN KEY (`libro_id`) REFERENCES `libro` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `colaborador_libro`
+--
+ALTER TABLE `colaborador_libro`
+  ADD CONSTRAINT `colaborador_libro_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `colaborador_libro_ibfk_2` FOREIGN KEY (`libro_id`) REFERENCES `libro` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `descarga_libro`
 --
 ALTER TABLE `descarga_libro`
   ADD CONSTRAINT `descarga_libro_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `descarga_libro_ibfk_2` FOREIGN KEY (`libro_id`) REFERENCES `libro` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `favoritos`
+--
+ALTER TABLE `favoritos`
+  ADD CONSTRAINT `favoritos_ibfk_1` FOREIGN KEY (`libro_id`) REFERENCES `libro` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `favoritos_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `libro`
