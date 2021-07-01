@@ -25,6 +25,7 @@ $libros = $objLibro->getAll();
 $librosDesactivados = $objLibro->getAllDesactivados();
 $carreras = $objCarrera->getAll();
 $categorias = $objCategoria->getAll();
+
 $editoriales = $objEditorial->getAll();
 
 

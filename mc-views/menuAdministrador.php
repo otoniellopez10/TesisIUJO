@@ -50,6 +50,14 @@ if (!in_array($user_id, $acceso)) {
                         ><i class="material-icons white-text">dashboard</i>Panel administrativo</a
                     >
                 </li>
+                
+                <li>
+                    <a
+                        href="panel_editoriales.php"
+                        class="waves-effect a_menu"
+                        ><i class="material-icons white-text">book</i>Editoriales</a
+                    >
+                </li>
 
                 <li>
                     <a
