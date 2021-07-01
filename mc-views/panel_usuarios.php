@@ -90,6 +90,7 @@ $personas = $objPersona->getAll();
             <div id="modulo">
                 <h5>
                     <i class="material-icons left teal-text">person_pin</i>Usuarios registrados
+                    <img src="../assets/images/logos/logo-iujo4.png" class="right" alt="" width="110px">
                 </h5>
                 
                 <!-- contenido panel administradr -->

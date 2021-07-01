@@ -66,6 +66,7 @@ $librosFavoritos = $objLibro->getFavoritos($_SESSION["user"]->id);
             <div id="modulo">
                 <h5>
                     <i class="material-icons left teal-text small">accessibility</i>Mi espacio
+                    <img src="../assets/images/logos/logo-iujo4.png" class="right" alt="" width="110px">
                 </h5>
                 
                 <!-- contenido panel administradr -->

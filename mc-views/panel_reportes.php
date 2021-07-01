@@ -76,6 +76,7 @@ if (!in_array($user_id, $acceso)) {
             <div id="modulo">
                 <h5>
                     <i class="material-icons left teal-text">settings</i>Reportes
+                    <img src="../assets/images/logos/logo-iujo4.png" class="right" alt="" width="110px">
                 </h5>
                 
                 <!-- contenido panel administradr -->

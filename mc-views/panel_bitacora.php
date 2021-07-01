@@ -112,6 +112,7 @@ $bit_libro = $objBitacora->getBitacoraLibro();
             <div id="modulo">
                 <h5>
                     <i class="material-icons left teal-text">description</i>Bitácora del sistema
+                    <img src="../assets/images/logos/logo-iujo4.png" class="right" alt="" width="110px">
                 </h5>
                 
                 <!-- contenido panel administradr -->

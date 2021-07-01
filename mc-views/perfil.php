@@ -79,6 +79,7 @@ $libros_calificados = $objPersona->getUsuarioCalificaciosById($usuario_id)->cant
 
         <main>
             <!-- portada -->
+            <img src="../assets/images/logos/logo-iujo4.png" class="right" alt="" width="150px" style="position:absolute; top: 20px; right:20px;">
             <div class="head"> 
                 <h3><?= $persona->nombre." ".$persona->apellido ?></h3>
                 <p><?= $persona->rol ?></p>
