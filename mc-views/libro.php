@@ -203,7 +203,7 @@ $visualizaciones = $objLibro->getVistasByLibroId($libro->id)->cantidad;
                         </div>
 
                         <div class="valign-wrapper">
-                            <p><b class="teal-text">Edicion:</b></p>
+                            <p><b class="teal-text">Edición:</b></p>
                             <p> &nbsp; <?= $libro->edicion ?></p>
                         </div>
 

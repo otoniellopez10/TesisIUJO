@@ -190,7 +190,7 @@ session_start();
             <form action="mc-views/repositorio.php">
                 <div class="row valign-wrapper">
                     <div class="col s12 m11 input-field">
-                        <input type="text" name="i_buscador" id="i_buscador" />
+                        <input type="text" name="i_buscador" id="i_buscador" required/>
                         <label for="i_buscador">Escribe el nombre del libro</label>
                     </div>
 
@@ -218,8 +218,8 @@ session_start();
                     <p class="center">Los libros que necesitas</p>
                     <p class="contenido">
                         En el sistema podrás encontrar todos los libros que
-                        necesites referente a los temas que necesiats estudiar
-                        en tu carrera o cualquier otra informacion que
+                        necesites referente a los temas que requieras estudiar
+                        en tu carrera o cualquier otra información que
                         necesites.
                     </p>
                 </div>
@@ -231,7 +231,7 @@ session_start();
                     <p class="contenido">
                         Tenemos todos los libros que necesitas para estudiar.
                         Pero también, el sistema cuenta con novelas, cuentos,
-                        fantasia, terror, entre otras categorias interesantes.
+                        fantasía, terror, entre otras categorías interesantes.
                     </p>
                 </div>
                 <div class="col s12 m6 l3 carta">
@@ -251,7 +251,7 @@ session_start();
                     </p>
                     <p class="center">Descargar tu contenido</p>
                     <p class="contenido">
-                        Si te ha gustado un libro de fantasia, una novela, o
+                        Si te ha gustado un libro de fantasía, una novela, o
                         incluso un libro de alguna materia y quieres llevarlo
                         siempre contigo, tienes la opción de descargarlos.
                     </p>
@@ -289,7 +289,7 @@ session_start();
                             <b>Califícación de contenido.</b>
                             Cuando quieres compartir tu opinión sobre algún
                             libro de la biblioteca, puedes calificarlo sobre 5
-                            estrellas y además escribir tu opinion o crítica
+                            estrellas y además escribir tu opinión o crítica
                             sobre el mismo.
                         </p>
                     </div>
@@ -298,10 +298,10 @@ session_start();
                         <p>
                             <b
                                 >No pierdas tus libros preferidos,
-                                ¡guardalos!.</b
+                                ¡guárdalos!.</b
                             >
-                            Al crearte tu perfíl, se te concede un espacio
-                            llamado "favoritos", donde se almacenarán los libros
+                            Al crearte tu perfil, se te concede un espacio
+                            llamado "Mi espacio", donde se almacenarán los libros
                             que agregues como favoritos.
                         </p>
                     </div>
@@ -311,7 +311,7 @@ session_start();
                         <p>
                             <b>Aporta un libro de interes común al sistema.</b>
                             Si deseas colaborar con el sistema cargando libros
-                            en el, comunicate con nosotros y te daremos los
+                            en el, comunícate con nosotros y te daremos los
                             permisos para realizar esta acción.
                         </p>
                     </div>
@@ -331,7 +331,7 @@ session_start();
                 <div class="col s12 m6 center-align">
                     <div class="container">
                         <h4 class="teal-text"><b>¿Cómo ser colaborador?</b></h4>
-                        <p>Para convertirte en colaborador del sistema necesita que le sean concedidos permisos específicos, debe justificar su peticion, así como también, indicar que tipo de contenido deseas cargar al sistema.</p>
+                        <p>Para convertirse en colaborador del sistema necesita que le sean concedidos permisos específicos, debe justificar su petición, así como también, indicar que tipo de contenido desea cargar al sistema.</p>
                         <button class="btn-fantasma" id="btnSolicitar">Solicitar permisos</button>
                     </div>
                 </div>
@@ -427,7 +427,7 @@ session_start();
                             </li>
                             <li>
                                 <a class="grey-text text-lighten-3" href="#!"
-                                    >Pagina del iujo</a
+                                    >Página del iujo</a
                                 >
                             </li>
                             <li>

@@ -25,6 +25,10 @@
 
 =============== USUARIO ===============
 
+- Scrol al darle editar datos               LISTO!
+- primera letra mayuscula al registrarse
+- primera letra mayuscula al editar datos
+
 
 
 

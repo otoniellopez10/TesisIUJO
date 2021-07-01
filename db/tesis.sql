@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-06-2021 a las 16:14:44
+-- Tiempo de generación: 30-06-2021 a las 21:51:17
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.3
 
@@ -69,7 +69,24 @@ INSERT INTO `autor` (`id`, `nombre`, `estatus`) VALUES
 (72, 'colaborador unoo', 1),
 (73, 'Colaborador 1', 1),
 (74, 'Colaborador uno', 1),
-(75, 'Autor de prueba', 1);
+(75, 'Autor de prueba', 1),
+(76, 'Jorge Saens', 1),
+(77, 'Jorge Saens', 1),
+(78, 'jorge saens', 1),
+(79, 'jorge saens', 1),
+(80, 'jorge saens', 1),
+(81, 'jorge saens', 1),
+(82, 'Jorge Saens', 1),
+(83, 'Otoniel López', 1),
+(84, 'Candida Guerra', 1),
+(85, 'HORACIO LOPEZ', 1),
+(86, 'Otoniel López', 1),
+(87, 'Candida Guerra', 1),
+(88, 'Otoniel López', 1),
+(89, 'Candida Guerra', 1),
+(90, 'Horacio Lopez', 1),
+(91, 'Otoniel López', 1),
+(92, 'Candida Guerra', 1);
 
 -- --------------------------------------------------------
 
@@ -218,7 +235,7 @@ CREATE TABLE `libro` (
 
 INSERT INTO `libro` (`id`, `titulo`, `editorial`, `edicion`, `fecha`, `carrera`, `categoria`, `resumen`, `pdf`, `estatus`) VALUES
 (32, 'El caballero de la armadura oxidada', 12, 'Primera edición', '2000-04-21', 10, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto recusandae porro, quia earum nam accusamus numquam dicta qui consequuntur aliquid debitis consequatur deserunt illum possimus provident, nostrum excepturi soluta. Quas?', 'xzsBnIMcD6X1UKCufT8VplantillaDiploma.pdf', 0),
-(33, 'Calculo I', 1, 'Primera edición', '2000-04-21', 10, 6, 'Libro de calculo 1 por Jorge  Saens', 'SvcNIgLTKPHjewq3pXJWlic. grado 2 - 200204930883.pdf', 1),
+(33, 'Calculo I', 1, 'Primera edición', '2000-04-21', 10, 6, 'Libro inspirado en la matematica de Jorge Saens', 'SvcNIgLTKPHjewq3pXJWlic. grado 2 - 200204930883.pdf', 1),
 (34, 'Ingles I', 2, 'Segunda edición', '2000-04-21', 10, 2, 'Libro de ingles por Pedro y Pablo con contenido para principiante', 'TVA9kHj3I2waP64qsgoSlic. grado 2 - 200204930883.pdf', 1),
 (35, 'El Caballero de la armadura oxidada', 12, 'Primera edición', '1987-05-01', 10, 9, 'El Caballero de la Armadura Oxidada cuenta la historia de una caballero, que preocupado en sobremanera por las apariencias y el ser alabado por sus hazañas, las cuales realiza más por los aplausos que por una convicción', 'HKcBSg46FerkTZvbQxDfMOMENTO I.pdf', 1),
 (36, 'Titulo de libro de ejemplo', 8, 'Primera edición', '2000-04-21', 10, 7, 'Libro de prueba con el fin de agregar mas contenido al sistema y probar su funcionamiento', '1aGNC6YgnBzIUdX7fMZPSCRUMstudy-SBOK-Guide-3rd-edition-Spanish.pdf', 0),
@@ -241,9 +258,9 @@ CREATE TABLE `libro_autor` (
 --
 
 INSERT INTO `libro_autor` (`libro_id`, `autor_id`) VALUES
-(32, 69),
-(32, 70),
-(33, 68),
+(32, 91),
+(32, 92),
+(33, 82),
 (34, 47),
 (34, 48),
 (35, 65),
@@ -371,7 +388,8 @@ CREATE TABLE `persona` (
 INSERT INTO `persona` (`id`, `cedula`, `nombre`, `apellido`, `telefono`, `persona_tipo`, `usuario_id`, `estatus`) VALUES
 (1, 27397595, 'Otoniel', 'Lopez', '04245274818', 1, 1, 1),
 (2, 11111111, 'Juan', 'perez', '04245274818', 2, 2, 1),
-(3, 27397595, 'Otoniel', 'López', '04245274818', 6, 3, 1);
+(3, 27397595, 'Otoniel', 'López', '04245274818', 6, 3, 1),
+(4, 20469887, 'Ana', 'López', '04245274818', 7, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -418,8 +436,9 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id`, `email`, `password`, `rol_id`, `estatus`) VALUES
 (1, 'admin@tesis.com', '$2y$10$St71MD.ufAC1JkSAZ19oxOwxFgJlrLgJm1JxTgEtVC86wITu78S3.', 1, 1),
-(2, 'colaborador@tesis.com', '$2y$10$FaBsKTq60rvy4l.WYPqDk.C87ZfnRe/oREGy6pNurANzuJxPBhQGK', 2, 1),
-(3, 'persona@tesis.com', '$2y$10$LzUZsLhSQwUiwHi0G5neW.EEvybb3t8P00vv0bSGbS4ogxcEkWEoO', 3, 1);
+(2, 'colaborador@tesis.com', '$2y$10$2TSP.XTbPRzlbx6VKAAq0eOrHriL6NzTa2Zh7Q4Hz7M5dB03JQs3S', 2, 1),
+(3, 'persona@tesis.com', '$2y$10$LzUZsLhSQwUiwHi0G5neW.EEvybb3t8P00vv0bSGbS4ogxcEkWEoO', 3, 1),
+(4, 'analopez@tesis.com', '$2y$10$JzupBl5TnZ8pXEeOR3UKKujxlwlu.3yVIZ8KG81wrw6NM75PgaZF6', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -611,7 +630,7 @@ ALTER TABLE `vista_libro`
 -- AUTO_INCREMENT de la tabla `autor`
 --
 ALTER TABLE `autor`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT de la tabla `bitacora_libro`
@@ -671,7 +690,7 @@ ALTER TABLE `libro_editorial`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `persona_tipo`
@@ -683,7 +702,7 @@ ALTER TABLE `persona_tipo`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_rol`

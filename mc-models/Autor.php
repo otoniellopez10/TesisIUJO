@@ -53,7 +53,7 @@ class Autor {
         $array_autores = explode(",",$autores);
 
         if(count($array_autores) == 1){
-            $nombre = ucwords(strtolower($array_autores[0]));
+            $nombre = ucwords(mb_strtolower($array_autores[0], "UTF-8"));
             $data = array('nombre' => $nombre);
             $return_id = $db->insert($this->table, $data); //agregar el autor a la BD (devuelve ID)
             if(!$return_id) return false;

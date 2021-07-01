@@ -23,8 +23,8 @@ if($mode == "insert"){
         $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
     }else{
         $cedula = $_POST['cedula'];
-        $nombre = $_POST['nombre'];
-        $apellido = $_POST['apellido'];
+        $nombre = ucfirst(mb_strtolower($_POST['nombre'], "UTF-8"));
+        $apellido = ucfirst(mb_strtolower($_POST['apellido'], "UTF-8"));
         $telefono = $_POST['telefono'] ?? Db::getInstance()::_NULL;
         $persona_tipo = $_POST['persona_tipo'];
         $usuario_id = $_POST['usuario_id'];
@@ -146,8 +146,8 @@ if($mode == "insert"){
         $response = ['error' => true, 'message' => 'Faltan datos por ser suministrados'];
     }else{
         $usuario_id = $_SESSION["user"]->id;
-        $nombre = $_POST['u_nombre'];
-        $apelllido = $_POST['u_apellido'];
+        $nombre = ucfirst(MB_strtolower($_POST['u_nombre'], "UTF-8"));
+        $apelllido = ucfirst(MB_strtolower($_POST['u_apellido'], "UTF-8"));
         $cedula = $_POST['u_cedula'];
         $email = $_POST['u_email'];
         $telefono = $_POST['u_telefono'];

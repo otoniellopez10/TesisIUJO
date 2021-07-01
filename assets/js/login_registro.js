@@ -156,7 +156,7 @@ $(document).ready(function () {
                         icon: "success",
                         button: "Ir al repositorio",
                     }).then(function () {
-                        window.location = "../mc/views/repositorio.php";
+                        window.location = "../mc-views/repositorio.php";
                     });
                 }
             },
