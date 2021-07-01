@@ -462,7 +462,7 @@ $("#btnAgregarEditorial").click(function () {
 
             // agregar la editorial al select y ponerla seleccionada
             $("select#i_editorial").append(
-                `<option value="${resp.esitorial_id}" selected> ${editorial} </option>`
+                `<option value="${resp.editorial_id}" selected> ${editorial} </option>`
             );
             $("select#i_editorial").formSelect();
         }
