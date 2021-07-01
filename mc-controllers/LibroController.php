@@ -179,7 +179,7 @@ if( $mode == "insert"){
         if($request){
             $libro = $ObjLibro->getOneById($id);
             $usuario_id = $_SESSION["user"]->id;
-            $operacion = "Se ha deshabilitó el libro titulado: " . $libro->titulo;
+            $operacion = "Se ha deshabilitado el libro titulado: " . $libro->titulo;
             $request = $ObjBitacora->save($usuario_id, $id, $operacion);
             $response = ['error' => false, 'message' => 'El libro se desactivó con éxito'];
         }
@@ -196,7 +196,7 @@ if( $mode == "insert"){
         if($request){
             $libro = $ObjLibro->getOneById($id);
             $usuario_id = $_SESSION["user"]->id;
-            $operacion = "Se ha activado el libro titulado: " . $libro->titulo;
+            $operacion = "Se ha reactivado el libro titulado: " . $libro->titulo;
             $request = $ObjBitacora->save($usuario_id, $id, $operacion);
 
             $response = ['error' => false, 'message' => 'El libro se activó con éxito'];
