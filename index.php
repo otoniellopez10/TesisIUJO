@@ -46,12 +46,11 @@ session_start();
                     <div class="nav-wrapper">
                         <a href="#!" class="brand-logo center">
                             <img
-                                src="assets/images/iconos/book-default.png"
+                                src="assets/images/logos/logo-iujo3.png"
                                 alt=""
-                                width="40px"
+                                width="40%"
                                 style="transform: translateY(20%)"
                             />
-                            IUJO
                         </a>
                         <a
                             href="#"
@@ -67,9 +66,9 @@ session_start();
             <ul class="sidenav" id="menu-mobile">
                 <div class="center blue-grey darken-3" style="height: 60px">
                     <img
-                        src="assets/images/iconos/book-default.png"
+                        src="assets/images/logos/logo-original.png"
                         alt=""
-                        width="40px"
+                        width="50px"
                         style="transform: translateY(20%)"
                     />
                 </div>
@@ -116,17 +115,16 @@ session_start();
         <!-- seccion de inicion con menu y bienvendida -->
         <section id="s_inicio">
             <nav
-                class="transparent z-depth-0 hide-on-med-and-down animate__animated animate__fadeInLeft animate__delay-1s"
+                class="transparent z-depth-0 hide-on-med-and-down nimate__animated animate__fadeInLeft animate__delay-1s"
                 id="inicio_menu"
             >
                 <a href="#!" class="brand-logo">
                     <img
-                        src="assets/images/iconos/book-default.png"
+                        src="assets/images/logos/logo-iujo3.png"
                         alt=""
-                        width="40px"
+                        width="25%"
                         style="transform: translateY(20%)"
                     />
-                    IUJO
                 </a>
 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -328,7 +326,7 @@ session_start();
 
         <section id="s_colaborador" class="section">
             <div class="row black_card valign-wrapper">
-                <div class="col s12 m6 center-align">
+                <div class="col s12 l6 center-align">
                     <div class="container">
                         <h4 class="teal-text"><b>¿Cómo ser colaborador?</b></h4>
                         <p>Para convertirse en colaborador del sistema necesita que le sean concedidos permisos específicos, debe justificar su petición, así como también, indicar que tipo de contenido desea cargar al sistema.</p>
