@@ -7,6 +7,7 @@ include "../mc-models/Carrera.php";
 include "../mc-models/Categoria.php";
 include "../mc-models/Autor.php";
 include "../mc-models/Persona.php";
+include "../mc-models/Bitacora.php";
 
 $mode = $_REQUEST["mode"];
 
@@ -16,6 +17,7 @@ $ObjCarrera = new Carrera();
 $ObjCategoria = new Categoria();
 $ObjAutor = new Autor();
 $ObjPersona = new Persona();
+$ObjBitacora = new Bitacora();
 
 
 if( $mode == "insert"){
@@ -49,6 +51,9 @@ if( $mode == "insert"){
         $id_autor = $ObjAutor->save($autores, $libro_id); //agregar los autores
     
         if($id_autor && $libro_id){
+            $usuario_id = $_SESSION["user"]->id;
+            $operacion = "Se ha registrado el libro titulado: " . $titulo;
+            $request = $ObjBitacora->save($usuario_id, $libro_id, $operacion);
             $response = ['error' => false, 'message' => 'El libro fue registrado con éxito'];
         }else{
             $response = ['error' => true, 'message' => 'Ocurrió un error al guardar el libro'];
@@ -93,6 +98,10 @@ if( $mode == "insert"){
         $id_colaborador_libro = $ObjPersona->saveColaboradorLibro($usuario_id, $libro_id);
     
         if($id_autor && $libro_id && $id_colaborador_libro){
+            $usuario_id = $_SESSION["user"]->id;
+            $operacion = "Se ha registrado el libro titulado: " . $titulo;
+            $request = $ObjBitacora->save($usuario_id, $libro_id, $operacion);
+
             $response = ['error' => false, 'message' => 'El libro fue registrado con éxito'];
         }else{
             $response = ['error' => true, 'message' => 'Ocurrió un error al guardar el libro'];
@@ -138,6 +147,9 @@ if( $mode == "insert"){
         $autores_save = $ObjAutor->save($autores, $id); //agregar los autores
     
         if($libro_update && $autores_delete && $autores_save){
+            $usuario_id = $_SESSION["user"]->id;
+            $operacion = "Se ha editado el libro titulado: " . $titulo;
+            $request = $ObjBitacora->save($usuario_id, $id, $operacion);
             $response = ['error' => false, 'message' => 'El libro fue actualizado con éxito'];
         }else{
             $response = ['error' => true, 'message' => 'Ocurrió un error al actualizar el libro'];
@@ -165,6 +177,10 @@ if( $mode == "insert"){
         $id = $_POST['id'];
         $request = $ObjLibro->desactivarLibro($id);
         if($request){
+            $libro = $ObjLibro->getOneById($id);
+            $usuario_id = $_SESSION["user"]->id;
+            $operacion = "Se ha deshabilitó el libro titulado: " . $libro->titulo;
+            $request = $ObjBitacora->save($usuario_id, $id, $operacion);
             $response = ['error' => false, 'message' => 'El libro se desactivó con éxito'];
         }
     }
@@ -178,6 +194,11 @@ if( $mode == "insert"){
         $id = $_POST['id'];
         $request = $ObjLibro->activarLibro($id);
         if($request){
+            $libro = $ObjLibro->getOneById($id);
+            $usuario_id = $_SESSION["user"]->id;
+            $operacion = "Se ha activado el libro titulado: " . $libro->titulo;
+            $request = $ObjBitacora->save($usuario_id, $id, $operacion);
+
             $response = ['error' => false, 'message' => 'El libro se activó con éxito'];
         }
     }

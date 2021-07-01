@@ -17,12 +17,16 @@ if (!in_array($user_id, $acceso)) {
 $usuario_id;
 if( isset($_GET['usuario']) ){
     $usuario_id = $_GET['usuario'];
+}else if(!isset($_GET['usuario']) && $_SESSION["user"]->id == 1){
+    header('Location: panel_admin.php');
+    die();
+    // $usuario_id = $_SESSION["user"]->id;
 }else{
     $usuario_id = $_SESSION["user"]->id;
 }
 
 if($_SESSION["user"]->id != $usuario_id && $_SESSION["user"]->rol_id != 1){
-    header('Location: mc-views/error.html');
+    header('Location: error.html');
     die();
 }
 

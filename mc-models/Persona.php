@@ -47,7 +47,7 @@ class persona {
                     JOIN $this->tableTipo AS t on t.id = p.persona_tipo
                     JOIN $this->tableUsuario AS u on u.id = p.usuario_id
                     JOIN $this->tableRol AS r on r.id = u.rol_id
-                WHERE p.usuario_id = $usuario_id AND r.id IN (2,3)"; //que solo muestre colaboradors (2) y usuarios (3), mas no el admin (1)
+                WHERE p.usuario_id = $usuario_id AND r.id IN (1,2,3)"; //que solo muestre colaboradors (2) y usuarios (3), mas no el admin (1)
         return $db->get_row($sql);
     }
 

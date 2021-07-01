@@ -75,6 +75,14 @@ if (!in_array($user_id, $acceso)) {
                     >
                 </li>
 
+                <li>
+                    <a
+                        href="panel_bitacora.php"
+                        class="waves-effect a_menu"
+                        ><i class="material-icons white-text">description</i>Bitacora</a
+                    >
+                </li>
+
 
                 <!-- configuracion -->
                 <!-- <li>
