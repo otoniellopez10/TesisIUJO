@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-06-2021 a las 21:51:17
+-- Tiempo de generación: 01-07-2021 a las 19:06:29
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.3
 
@@ -358,11 +358,8 @@ INSERT INTO `libro_editorial` (`id`, `nombre`, `estatus`) VALUES
 (10, 'Sexto Piso', 1),
 (12, 'Ediciones Obelisco', 1),
 (13, 'Editorial de prueba', 1),
-(14, 'Editorial de prueba 2', 1),
-(15, 'Editorial de prueba 3', 1),
-(16, 'Editorial de prueba 4', 1),
-(17, 'Editorial de prueba 5', 1),
-(19, 'editorial agregada por colaborador', 1);
+(19, 'editorial agregada por colaborador', 1),
+(20, 'editorial de prueba', 1);
 
 -- --------------------------------------------------------
 
@@ -684,7 +681,7 @@ ALTER TABLE `libro_categoria`
 -- AUTO_INCREMENT de la tabla `libro_editorial`
 --
 ALTER TABLE `libro_editorial`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
