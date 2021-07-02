@@ -23,7 +23,7 @@ if (!in_array($user_id, $acceso)) {
                         <a href="#user"
                             ><img
                                 class="circle"
-                                src="../assets/images/avatars/AdminMaleAvatar.png"
+                                src="../assets/images/avatars/muneco-02.png"
                         /></a>
                         <a href="#name"
                             ><span class="white-text name"
@@ -37,7 +37,7 @@ if (!in_array($user_id, $acceso)) {
                         >
                     </div>
                 </li>
-                <div class="divider teal darken-4"></div>
+                <div class="divider grey darken-3"></div>
                 <li>
                     <a href="../index.php" class="waves-effect"
                         ><i class="material-icons white-text">home</i>Página principal</a
