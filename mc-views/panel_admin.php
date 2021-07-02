@@ -111,13 +111,13 @@ $editoriales = $objEditorial->getAll();
         <main>
             <div id="modulo">
                 <h5>
-                    <i class="material-icons left teal-text">dashboard</i>Panel administrativo
+                    <i class="material-icons left red-text text-darken-3">dashboard</i>Banco de Venezuela
                     <img src="../assets/images/logos/logo-iujo4.png" class="right" alt="" width="110px">
                 </h5>
                 
                 <!-- contenido panel administradr -->
                 
-                <nav class="nav-extended teal" id="nav">
+                <nav class="nav-extended red darken-4" id="nav">
                     <div class="nav-content">
                         <ul class="tabs tabs-transparent">
                             <li class="tab"><a class="active" href="#test1">Lista de libros</a></li>
@@ -155,7 +155,7 @@ $editoriales = $objEditorial->getAll();
                         </div>
                         <p id="resultados" class="teal-text section"></p> -->
                         <table id="tableLibros" class="highlight" style="width: 100%;">
-                            <thead class="teal-text">
+                            <thead class="" style="color: #7d0000;">
                             <tr>
                                 <th>Título</th>
                                 <th>Editorial</th>

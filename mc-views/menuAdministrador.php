@@ -14,16 +14,16 @@ if (!in_array($user_id, $acceso)) {
             <ul id="slide-out" class="sidenav sidenav-fixed" >
                 <li class="primero">
                     <div class="user-view">
-                        <div class="background">
+                        <!-- <div class="background">
                             <img
                                 src="../assets/images/fondos/fondo-principal.jpg"
                                 class="responsive-img"
                             />
-                        </div>
+                        </div> -->
                         <a href="#user"
                             ><img
                                 class="circle"
-                                src="../assets/images/avatars/AdminMaleAvatar.png"
+                                src="../assets/images/avatars/muneco-rojo.png"
                         /></a>
                         <a href="#name"
                             ><span class="white-text name"
@@ -37,12 +37,12 @@ if (!in_array($user_id, $acceso)) {
                         >
                     </div>
                 </li>
+                <div class="divider blue-grey darken-3"></div>
                 <li>
                     <a href="../index.php" class="waves-effect"
                         ><i class="material-icons white-text">home</i>Página principal</a
                     >
                 </li>
-                <div class="divider blue-grey darken-3"></div>
                 <li>
                     <a
                         href="panel_admin.php"
