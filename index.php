@@ -116,7 +116,7 @@ session_start();
         <!-- seccion de inicion con menu y bienvendida -->
         <section id="s_inicio">
             <nav
-                class="transparent z-depth-0 hide-on-med-and-down nimate__animated animate__fadeInLeft animate__delay-1s"
+                class="transparent z-depth-0 hide-on-med-and-down animate__animated animate__fadeInLeft animate__delay-1s"
                 id="inicio_menu"
             >
                 <a href="#!" class="brand-logo">
