@@ -14,12 +14,12 @@ if (!in_array($user_id, $acceso)) {
             <ul id="slide-out" class="sidenav sidenav-fixed" >
                 <li class="primero">
                     <div class="user-view">
-                        <!-- <div class="background">
+                        <div class="background">
                             <img
                                 src="../assets/images/fondos/fondo-principal.jpg"
                                 class="responsive-img"
                             />
-                        </div> -->
+                        </div>
                         <a href="#user"
                             ><img
                                 class="circle"

@@ -34,9 +34,9 @@ footer {
 }
 
 #slide-out {
-    /* background: linear-gradient(#134e5e, #009688); */
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.45)),
-        url(../images/fondos/clint-mckoy-App9lCSl2uA-unsplash.jpg);
+    background: linear-gradient(#134e5e, #009688);
+    /* background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.45)),
+        url(../images/fondos/clint-mckoy-App9lCSl2uA-unsplash.jpg); */
     background-size: cover;
 }
 
