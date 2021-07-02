@@ -111,8 +111,8 @@ $editoriales = $objEditorial->getAll();
         <main>
             <div id="modulo">
                 <h5>
-                    <i class="material-icons left red-text text-darken-3">dashboard</i>Banco de Venezuela
-                    <img src="../assets/images/logos/logo-iujo4.png" class="right" alt="" width="110px">
+                    <i class="material-icons left red-text text-darken-3">dashboard</i>Panel administrativo
+                    <img src="../assets/images/logos/logo-iujo4.png" class="right" alt="" width="120px">
                 </h5>
                 
                 <!-- contenido panel administradr -->
@@ -155,7 +155,7 @@ $editoriales = $objEditorial->getAll();
                         </div>
                         <p id="resultados" class="teal-text section"></p> -->
                         <table id="tableLibros" class="highlight" style="width: 100%;">
-                            <thead class="" style="color: #7d0000;">
+                            <thead class="rojo-text">
                             <tr>
                                 <th>Título</th>
                                 <th>Editorial</th>
@@ -235,7 +235,7 @@ $editoriales = $objEditorial->getAll();
                         </div>
                         <p id="resultados" class="teal-text section"></p> -->
                         <table id="tableLibrosDesactivados" class="highlight" style="width: 100%;">
-                            <thead class="teal-text">
+                            <thead class="rojo-text">
                             <tr>
                                 <th>Título</th>
                                 <th>Editorial</th>
@@ -331,7 +331,7 @@ $editoriales = $objEditorial->getAll();
 
                                 <!-- agregar editorial -->
                                 <div class="col s2 input-field center-align">
-                                    <button type="button" class="btn-small waves-effect waves-light tooltipped" data-position="top" data-tooltip="Agregar una editorial" onclick="agregarEditorial()"><i class="material-icons">add</i></button>
+                                    <button type="button" class="btn-small waves-effect waves-light tooltipped rojo" data-position="top" data-tooltip="Agregar una editorial" onclick="agregarEditorial()"><i class="material-icons">add</i></button>
                                 </div>
 
                                 <!-- agregar categoria -->
@@ -409,7 +409,7 @@ $editoriales = $objEditorial->getAll();
                                 <div class="col s12">
                                     <label for="i_pdf">Selecciona el archivo PDF</label>
                                     <div class="file-field input-field">
-                                        <div class="btn">
+                                        <div class="btn rojo">
                                             <span>Browse</span>
                                             <input type="file" id="i_pdf" name="pdf" required accept=".pdf">
                                         </div>
@@ -425,7 +425,7 @@ $editoriales = $objEditorial->getAll();
                                     Limpiar campos
                                 </button>
                                 
-                                <button type="submit" class="btn waves-effect waves-light disabled" id="btnAgregarLibro">
+                                <button type="submit" class="btn waves-effect waves-light rojo disabled" id="btnAgregarLibro">
                                     Confirmar
                                 </button>
                             </div>

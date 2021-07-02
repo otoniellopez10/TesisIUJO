@@ -111,3 +111,13 @@ footer {
 table.dataTable.no-footer {
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
+
+/* ajusts a rojo */
+
+.rojo-text {
+    color: #7d0000 !important;
+}
+
+.rojo {
+    background: #b71c1c !important;
+}
