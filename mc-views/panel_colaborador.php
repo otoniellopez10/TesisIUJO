@@ -10,7 +10,7 @@ if (!in_array($user_id, $acceso)) {
     header('Location: error.php');
     die();
 }
-
+$usuario_id = $_SESSION["user"]->id;
 include_once '../mc-models/Libro.php';
 include_once '../mc-models/Carrera.php';
 include_once '../mc-models/Categoria.php';
@@ -21,7 +21,7 @@ $objCarrera = new Carrera();
 $objCategoria = new Categoria();
 $objEditorial = new Editorial();
 
-$libros = $objLibro->getlibrosColaborador($user_id);
+$libros = $objLibro->getlibrosColaborador($usuario_id);
 $carreras = $objCarrera->getAll();
 $categorias = $objCategoria->getAll();
 $editoriales = $objEditorial->getAll();

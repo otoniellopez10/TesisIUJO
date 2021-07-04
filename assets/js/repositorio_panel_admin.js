@@ -482,7 +482,7 @@ $("#btnAgregarEditorial").click(function () {
             return new Promise((resolve, reject) => {
                 let fd = new FormData();
                 fd.append("mode", "insert");
-                fd.append("editorial", nombreEditorial);
+                fd.append("editorial_nombre", nombreEditorial);
 
                 $.ajax({
                     method: "POST",
