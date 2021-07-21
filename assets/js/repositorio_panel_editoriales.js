@@ -9,7 +9,7 @@ $(document).ready(function () {
     modalAgregarEditorial = M.Modal.getInstance(modal);
 
     modal2 = $("#modalEditarEditorial");
-    modalAgregarEditorial = M.Modal.getInstance(modal2);
+    modalEditarEditorial = M.Modal.getInstance(modal2);
 
     // iniciar los dataTables
     iniciarDataTables();
@@ -26,7 +26,7 @@ function agregarEditorial() {
 function editarEditorial(editorial_id, editorial_nombre) {
     gbEditorialId = editorial_id;
     $("#editar_editorial_nombre").val(editorial_nombre);
-    modalAgregarEditorial.open();
+    modalEditarEditorial.open();
 }
 
 function eliminarEditorial(editorial_id) {
